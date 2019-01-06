@@ -1,0 +1,26 @@
+{
+  "name": "react-location-map",
+  "version": "0.0.1",
+  "description": "React component that combines Google Places Autocomplete with Google Map",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/limistah/react-location-map.git"
+  },
+  "keywords": [
+    "google-maps",
+    "react",
+    "google-places",
+    "location",
+    "map"
+  ],
+  "author": "Aleem Isiaka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/limistah/react-location-map/issues"
+  },
+  "homepage": "https://github.com/limistah/react-location-map#readme"
+}
