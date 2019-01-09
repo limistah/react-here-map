@@ -1,36 +1,9 @@
-import init from "./init";
-import dotProp from "dot-prop";
-
-let platform;
-
-const lib = function({ appId, appCode, useEvents, events, mapType, mapTypes }) {
-  if (!dotProp.has(mapTypes, mapType)) {
-    throw new Error(
-      "mapType Should be one from https://developer.here.com/documentation/maps/topics/map-types.html in dot notation"
-    );
-  }
-  const __cords__ = { lat: 0, lng: 0 };
-  navigator.geolocation.getCurrentPosition(p => {
-    __cords__.lat = p.coords.latitude;
-    __cords__.lng = p.coords.longitude;
-    new H.Map(
-      document.getElementById("mapContainer"),
-      dotProp.get(defaultLayers, mapType),
-      {
-        zoom: 10,
-        center: __cords__
-      }
-    );
-  });
-
-  platform = new H.service.Platform({
-    app_id: appId,
-    app_code: appCode
-  });
-  var defaultLayers = platform.createDefaultLayers();
-  // Instantiate (and display) a map object:
-  // var map =
-};
+import init from "./loadMap";
+import initPlatform from "./libs/initPlatform";
+import initMap from "./libs/initMap";
+import initInteraction from "./libs/initInteraction";
+import initDefaultUI from "./libs/initDefaultUI";
+import initInteractionStyles from "./libs/initInteractionStyles";
 
 /**
  * The whole library is bootstrapped after the initialization is done using the options
@@ -42,6 +15,42 @@ const lib = function({ appId, appCode, useEvents, events, mapType, mapTypes }) {
  * @property {string} options.mapType The type of the map to load e.g // "normal.map"
  * @param {object} options Items necessary to run the library
  */
-const library = options => init(options, lib);
 
-export default library;
+export default async options => {
+  const _options = await init(options);
+  // Get values from the options
+  const {
+    appId,
+    appCode,
+    useEvents,
+    mapEvents,
+    interactive,
+    includeUI,
+    mapType,
+    MAP_TYPE,
+    mapTypes,
+    mapOptions,
+    container
+  } = _options;
+
+  const _mapType = mapType || MAP_TYPE;
+  // Create the platform
+  const platform = initPlatform(appId, appCode);
+  // Create a Map
+  const map = initMap(platform, container, mapOptions, mapTypes, _mapType);
+  const interaction = initInteraction(map, interactive, useEvents, mapEvents);
+
+  const ui = initDefaultUI(platform, map, includeUI);
+  // Adds the grabbing to the document
+  initInteractionStyles();
+  return {
+    options: _options,
+    platform,
+    map,
+    interaction,
+    ui,
+    createMap: initMap,
+    createPlatform: initPlatform,
+    createInteraction: initInteraction
+  };
+};

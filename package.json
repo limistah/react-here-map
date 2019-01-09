@@ -25,15 +25,21 @@
   },
   "homepage": "https://github.com/limistah/react-location-map#readme",
   "dependencies": {
+    "@limistah/here-map-js": "^1.6.0",
     "dot-prop": "^4.2.0",
     "lodash": "^4.17.11",
+    "lodash.merge": "^4.6.1",
     "merge": "^1.2.1",
+    "merge-deep": "^3.0.2",
+    "merge-deep2": "^3.0.6",
     "react": "^16.7.0-alpha.0",
     "react-dom": "^16.7.0-alpha.0",
     "scriptjs": "^2.5.9"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/plugin-transform-async-to-generator": "^7.2.0",
+    "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
