@@ -36,17 +36,30 @@ class HMap extends React.Component {
 
     this.setState({ builder });
   }
+  createLoadingComponent() {
+    return <div>Loading</div>;
+  }
+  displayChildren() {
+    const { children } = this.props;
+    const builder = this.state.builder;
+    return React.Children.map(children, child =>
+      React.cloneElement(child, { map: builder.map || {} })
+    );
+  }
   render() {
+    const { style, loadingEl } = this.props;
+    const loading = loadingEl || this.createLoadingComponent();
+
     return (
       <div
         id={defaults.containerId}
         className={defaults.defaultClassName}
-        style={{
-          height: "400px",
-          width: "800px"
-        }}
+        style={style}
         ref={this.container}
-      />
+      >
+        {typeof H === "undefined" && loading}
+        {typeof H === "object" && this.displayChildren()}
+      </div>
     );
   }
 }
