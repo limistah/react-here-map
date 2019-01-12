@@ -4,6 +4,7 @@ import HMap from "./components/HMap";
 import HMapPolyLine from "./components/objects/PolyLine";
 import HMapPolygon from "./components/objects/Polygon";
 import HMapCircle from "./components/objects/Circle";
+import HMapRectangle from "./components/objects/Rectangle";
 import HMapMarker from "./components/objects/Marker";
 
 var points = [
@@ -47,6 +48,14 @@ const circleOptions = {
   }
 };
 
+const rectangleOptions = {
+  style: {
+    fillColor: "#FFFFCC",
+    strokeColor: "#E8FA75",
+    lineWidth: 8
+  }
+};
+
 const polygonPoints = [52, 13, 100, 48, 2, 100, 48, 16, 100, 52, 13, 100];
 ReactDOM.render(
   <HMap
@@ -56,16 +65,22 @@ ReactDOM.render(
     }}
     appId="2Ts3vDUTLPW8kNUtyFRY"
     appCode="MDivMVFtNkpim-dWuetlWw"
+    interactive={true}
+    includeUI={true}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
     {/* <HMapPolyLine points={points} /> */}
     {/* <HMapPolygon points={polygonPoints} options={polygonOptions} /> */}
-    <HMapCircle
+    {/* <HMapCircle
       coords={{ lat: 52.5321472, lng: 13.3935785 }}
       radius={10000}
       options={circleOptions}
+    /> */}
+    {/* <HMapMarker coords={{ lat: 52.5321472, lng: 13.3935785 }} icon={icon} /> */}
+    <HMapRectangle
+      points={[53.1, 13.1, 43.1, 40.1]}
+      options={rectangleOptions}
     />
-    <HMapMarker coords={{ lat: 52.5321472, lng: 13.3935785 }} icon={icon} />
   </HMap>,
   document.getElementById("app")
 );
