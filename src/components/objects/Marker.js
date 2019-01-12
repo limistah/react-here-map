@@ -1,8 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import merge from "lodash.merge";
 
 function Marker(props) {
-  const { icon, map, coords, type } = props;
+  const { icon, map, coords, type, setAsCenter } = merge(
+    { setAsCenter: true },
+    props
+  );
   if (!H || !H.map || !map) {
     throw new Error("HMap has to be initialized before adding Map Objects");
   }
@@ -31,7 +35,9 @@ function Marker(props) {
 
   // Add the marker to the map and center the map at the location of the marker:
   map.addObject(marker);
-  map.setCenter(coords);
+  if (setAsCenter) {
+    map.setCenter(coords);
+  }
 
   // There is no need to render something useful here, HereMap does that magically
   return <div style={{ display: "none" }} />;
