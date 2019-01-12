@@ -37,8 +37,9 @@ ReactDOM.render(
     }}
     appId="2Ts3vDUTLPW8kNUtyFRY"
     appCode="MDivMVFtNkpim-dWuetlWw"
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
-    <HMapPolyLine points={points} />
+    {/* <HMapPolyLine points={points} /> */}
     <HMapMarker coords={{ lat: 52.5321472, lng: 13.3935785 }} icon={icon} />
   </HMap>,
   document.getElementById("app")

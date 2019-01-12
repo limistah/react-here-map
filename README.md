@@ -59,6 +59,7 @@ Displays a Map
   }}
   appId={APP_ID}
   appCode={APP_CODE}
+  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
 />
 ```
 
@@ -84,6 +85,7 @@ const points = [
   }}
   appId={APP_ID}
   appCode={APP_CODE}
+  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
 >
   <HMapPolyLine points={points} />
 </HMap>;
@@ -109,6 +111,7 @@ const icon =
   }}
   appId={APP_ID}
   appCode={APP_CODE}
+  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
 >
   <HMapMarker coords={coords} icon={icon} />
 </HMap>;
