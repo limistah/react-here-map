@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import HMap from "./components/HMap";
-import HMapPolyLine from "./components/HMapPolyLine";
+import HMapPolyLine from "./components/objects/PolyLine";
 
 var points = [
   { lat: 52.5309825, lng: 13.3845921 },
