@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function Marker(props) {
-  const { icon, map, coords } = props;
+  const { icon, map, coords, type } = props;
   if (!H || !H.map || !map) {
     throw new Error("HMap has to be initialized before adding Map Objects");
   }
@@ -17,8 +17,16 @@ function Marker(props) {
     throw new Error("icon is not set, Marker will not be rendered");
   }
 
+  let mapIcon = {};
+  if (type && type === "DomIcon") {
+    // Displays a DOM Icon
+    mapIcon = new H.map.DomIcon(icon);
+  } else {
+    // Displays a static icon
+    mapIcon = new H.map.Icon(icon);
+  }
+
   // Create an icon, an object holding the latitude and longitude, and a marker:
-  const mapIcon = new H.map.Icon(icon);
   const marker = new H.map.Marker(coords, { icon: mapIcon });
 
   // Add the marker to the map and center the map at the location of the marker:
