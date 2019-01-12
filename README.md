@@ -14,19 +14,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import HMap, { HMapPolyLine } from "@limistah/react-here-map";
 
-var points = [
+const points = [
   { lat: 52.5309825, lng: 13.3845921 },
   { lat: 52.5311923, lng: 13.3853495 },
   { lat: 52.5313532, lng: 13.3861756 },
   { lat: 52.5315142, lng: 13.3872163 },
   { lat: 52.5316215, lng: 13.3885574 },
   { lat: 52.5320399, lng: 13.3925807 },
-  { lat: 52.5321472, lng: 13.3935785 },
-  { lat: 52.5323832, lng: 13.395499 },
-  { lat: 52.5324261, lng: 13.3959818 },
-  { lat: 52.5325012, lng: 13.397795 },
-  { lat: 52.5325656, lng: 13.3986318 },
-  { lat: 52.5326192, lng: 13.3989215 }
+  { lat: 52.5321472, lng: 13.3935785 }
 ];
 
 ReactDOM.render(
@@ -48,3 +43,73 @@ ReactDOM.render(
 
 1. HMap - Default export from this module, should be used as a parent for other components
 2. HMapPolyLine - Draws a polyline on the map
+3. HMapMarker - Puts a marker on the map
+
+## Usage
+
+### HMap
+
+Displays a Map
+
+```js
+<HMap
+  style={{
+    height: "400px",
+    width: "800px"
+  }}
+  appId={APP_ID}
+  appCode={APP_CODE}
+/>
+```
+
+### HMapPolyLine
+
+Draws a polyline on the map
+
+```js
+const points = [
+  { lat: 52.5309825, lng: 13.3845921 },
+  { lat: 52.5311923, lng: 13.3853495 },
+  { lat: 52.5313532, lng: 13.3861756 },
+  { lat: 52.5315142, lng: 13.3872163 },
+  { lat: 52.5316215, lng: 13.3885574 },
+  { lat: 52.5320399, lng: 13.3925807 },
+  { lat: 52.5321472, lng: 13.3935785 }
+];
+
+<HMap
+  style={{
+    height: "400px",
+    width: "800px"
+  }}
+  appId={APP_ID}
+  appCode={APP_CODE}
+>
+  <HMapPolyLine points={points} />
+</HMap>;
+```
+
+### HMapMarker
+
+Puts a marker on the map
+
+```js
+const coords = [{ lat: 52.5309825, lng: 13.3845921 }];
+const icon =
+  '<svg width="24" height="24" ' +
+  'xmlns="http://www.w3.org/2000/svg">' +
+  '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
+  'height="22" /><text x="12" y="18" font-size="12pt" ' +
+  'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
+  'fill="white">H</text></svg>';
+<HMap
+  style={{
+    height: "400px",
+    width: "800px"
+  }}
+  appId={APP_ID}
+  appCode={APP_CODE}
+>
+  <HMapMarker coords={coords} icon={icon} />
+</HMap>;
+```

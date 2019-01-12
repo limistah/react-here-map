@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import HMap from "./components/HMap";
 import HMapPolyLine from "./components/objects/PolyLine";
+import HMapMarker from "./components/objects/Marker";
 
 var points = [
   { lat: 52.5309825, lng: 13.3845921 },
@@ -17,38 +18,16 @@ var points = [
   { lat: 52.5325656, lng: 13.3986318 },
   { lat: 52.5326192, lng: 13.3989215 },
   { lat: 52.5325119, lng: 13.3989751 },
-  { lat: 52.5323081, lng: 13.3991039 },
-  { lat: 52.5318789, lng: 13.3994472 },
-  { lat: 52.5301194, lng: 13.4009278 },
-  { lat: 52.5297546, lng: 13.4012604 },
-  { lat: 52.5296152, lng: 13.4014106 },
-  { lat: 52.5289822, lng: 13.4018934 },
-  { lat: 52.5276947, lng: 13.4029663 },
-  { lat: 52.5271797, lng: 13.4033203 },
-  { lat: 52.5269973, lng: 13.4033954 },
-  { lat: 52.5265145, lng: 13.4035349 },
-  { lat: 52.5260746, lng: 13.4036851 },
-  { lat: 52.5260103, lng: 13.4038353 },
-  { lat: 52.5256562, lng: 13.40464 },
-  { lat: 52.5253022, lng: 13.4053588 },
-  { lat: 52.5250447, lng: 13.4059381 },
-  { lat: 52.5249588, lng: 13.4062278 },
-  { lat: 52.5249267, lng: 13.4064317 },
-  { lat: 52.5249052, lng: 13.406775 },
-  { lat: 52.5248623, lng: 13.4069574 },
-  { lat: 52.5241864, lng: 13.4089208 },
-  { lat: 52.5241327, lng: 13.4091246 },
-  { lat: 52.5240898, lng: 13.409307 },
-  { lat: 52.524004, lng: 13.4096611 },
-  { lat: 52.5239503, lng: 13.4101653 },
-  { lat: 52.5239289, lng: 13.4110343 },
-  { lat: 52.5238967, lng: 13.4117103 },
-  { lat: 52.5238752, lng: 13.4120321 },
-  { lat: 52.5236285, lng: 13.4126866 },
-  { lat: 52.5231242, lng: 13.4139311 },
-  { lat: 52.5227809, lng: 13.4146714 },
-  { lat: 52.5224799, lng: 13.4152412 }
+  { lat: 52.5323081, lng: 13.3991039 }
 ];
+
+const icon =
+  '<svg width="24" height="24" ' +
+  'xmlns="http://www.w3.org/2000/svg">' +
+  '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
+  'height="22" /><text x="12" y="18" font-size="12pt" ' +
+  'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
+  'fill="white">H</text></svg>';
 
 ReactDOM.render(
   <HMap
@@ -60,6 +39,7 @@ ReactDOM.render(
     appCode="MDivMVFtNkpim-dWuetlWw"
   >
     <HMapPolyLine points={points} />
+    <HMapMarker coords={{ lat: 52.5321472, lng: 13.3935785 }} icon={icon} />
   </HMap>,
   document.getElementById("app")
 );
