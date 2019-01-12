@@ -43,3 +43,8 @@ ReactDOM.render(
   document.getElementById("app")
 );
 ```
+
+## Components
+
+1. HMap - Default export from this module, should be used as a parent for other components
+2. HMapPolyLine - Draws a polyline on the map
