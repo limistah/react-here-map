@@ -43,7 +43,8 @@ ReactDOM.render(
 
 1. HMap - Default export from this module, should be used as a parent for other components
 2. HMapPolyLine - Draws a polyline on the map
-3. HMapMarker - Puts a marker on the map
+3. HMapPolygon - Draws a polygon on the map
+4. HMapMarker - Puts a marker on the map
 
 ## Usage
 
@@ -88,6 +89,38 @@ const points = [
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
 >
   <HMapPolyLine points={points} />
+</HMap>;
+```
+
+### HMapPolygon
+
+Draws a polygon on the map
+
+```js
+const points = [52, 13, 100, 48, 2, 100, 48, 16, 100, 52, 13, 100];
+
+const polygonOptions = {
+  style: {
+    fillColor: "#FFFFCC",
+    strokeColor: "#829",
+    lineWidth: 8
+  }
+};
+
+<HMap
+  style={{
+    height: "400px",
+    width: "800px"
+  }}
+  appId={APP_ID}
+  appCode={APP_CODE}
+  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+>
+  <HMapPolygon
+    points={polygonPoints}
+    options={polygonOptions}
+    setViewBounds="true"
+  />
 </HMap>;
 ```
 

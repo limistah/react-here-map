@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import HMap from "./components/HMap";
 import HMapPolyLine from "./components/objects/PolyLine";
+import HMapPolygon from "./components/objects/Polygon";
 import HMapMarker from "./components/objects/Marker";
 
 var points = [
@@ -29,6 +30,15 @@ const icon =
   'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
   'fill="white">H</text></svg>';
 
+const polygonOptions = {
+  style: {
+    fillColor: "#FFFFCC",
+    strokeColor: "#829",
+    lineWidth: 8
+  }
+};
+
+const polygonPoints = [52, 13, 100, 48, 2, 100, 48, 16, 100, 52, 13, 100];
 ReactDOM.render(
   <HMap
     style={{
@@ -40,6 +50,7 @@ ReactDOM.render(
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
     {/* <HMapPolyLine points={points} /> */}
+    {/* <HMapPolygon points={polygonPoints} options={polygonOptions} /> */}
     <HMapMarker coords={{ lat: 52.5321472, lng: 13.3935785 }} icon={icon} />
   </HMap>,
   document.getElementById("app")
