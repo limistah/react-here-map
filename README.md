@@ -45,6 +45,7 @@ ReactDOM.render(
 2. HMapPolyLine - Draws a polyline on the map
 3. HMapPolygon - Draws a polygon on the map
 4. HMapMarker - Puts a marker on the map
+5. HMapCircle - Draws a circle on the map
 
 ## Usage
 
@@ -147,5 +148,31 @@ const icon =
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
 >
   <HMapMarker coords={coords} icon={icon} />
+</HMap>;
+```
+
+### HMapCircle
+
+Puts a circle on the map
+
+```js
+const coords = [{ lat: 52.5309825, lng: 13.3845921 }];
+const circleOptions = {
+  style: {
+    strokeColor: "rgba(55, 85, 170, 0.6)", // Color of the perimeter
+    lineWidth: 2,
+    fillColor: "rgba(0, 128, 0, 0.7)" // Color of the circle
+  }
+};
+<HMap
+  style={{
+    height: "400px",
+    width: "800px"
+  }}
+  appId={APP_ID}
+  appCode={APP_CODE}
+  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+>
+  <HMapCircle coords={cords} radius={10000} options={circleOptions} />
 </HMap>;
 ```

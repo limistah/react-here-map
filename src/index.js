@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import HMap from "./components/HMap";
 import HMapPolyLine from "./components/objects/PolyLine";
 import HMapPolygon from "./components/objects/Polygon";
+import HMapCircle from "./components/objects/Circle";
 import HMapMarker from "./components/objects/Marker";
 
 var points = [
@@ -38,6 +39,14 @@ const polygonOptions = {
   }
 };
 
+const circleOptions = {
+  style: {
+    strokeColor: "rgba(55, 85, 170, 0.6)", // Color of the perimeter
+    lineWidth: 2,
+    fillColor: "rgba(0, 128, 0, 0.7)" // Color of the circle
+  }
+};
+
 const polygonPoints = [52, 13, 100, 48, 2, 100, 48, 16, 100, 52, 13, 100];
 ReactDOM.render(
   <HMap
@@ -51,6 +60,11 @@ ReactDOM.render(
   >
     {/* <HMapPolyLine points={points} /> */}
     {/* <HMapPolygon points={polygonPoints} options={polygonOptions} /> */}
+    <HMapCircle
+      coords={{ lat: 52.5321472, lng: 13.3935785 }}
+      radius={10000}
+      options={circleOptions}
+    />
     <HMapMarker coords={{ lat: 52.5321472, lng: 13.3935785 }} icon={icon} />
   </HMap>,
   document.getElementById("app")
