@@ -79,24 +79,51 @@ const reverseGeoCodingParameters = {
   maxresults: 1
 };
 
-const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
-  // <HMapMarker
-  //   coords={{ lat, lng }}
-  //   map={map}
-  //   platform={platform}
-  //   key={key}
-  //   icon={icon}
-  // />;
-  if (ui) {
-    ui.addBubble(
-      new H.ui.InfoBubble(
-        { lat, lng },
-        { content: location.Location.Address.Label }
-      )
-    );
-  }
+// const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
+//   // <HMapMarker
+//   //   coords={{ lat, lng }}
+//   //   map={map}
+//   //   platform={platform}
+//   //   key={key}
+//   //   icon={icon}
+//   // />;
+//   if (ui) {
+//     ui.addBubble(
+//       new H.ui.InfoBubble(
+//         { lat, lng },
+//         { content: location.Location.Address.Label }
+//       )
+//     );
+//   }
+//   return null;
+// };
+
+const LandmarkGeoMarker = ({
+  map,
+  platform,
+  ui,
+  lat,
+  lng,
+  location,
+  key,
+  _location
+}) => {
+  ui.addBubble(
+    new H.ui.InfoBubble(
+      {
+        lat,
+        lng
+      },
+      { content: _location.Name }
+    )
+  );
   return null;
 };
+// Create the parameters for the landmark search request:
+const landmarkSearchParameters = {
+  searchText: "TXL"
+};
+
 ReactDOM.render(
   <HMap
     style={{
@@ -124,9 +151,13 @@ ReactDOM.render(
     {/* <HMapGeoCode geoCodeParams={geoCodeParams}>
       <GeoMarker />
     </HMapGeoCode> */}
-
+    {/* 
     <HMapGeoCode geoCodeParams={reverseGeoCodingParameters} reverse={true}>
       <ReverseGeoMarker />
+    </HMapGeoCode> */}
+
+    <HMapGeoCode geoCodeParams={landmarkSearchParameters} landmark={true}>
+      <LandmarkGeoMarker />
     </HMapGeoCode>
   </HMap>,
   document.getElementById("app")

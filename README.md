@@ -260,21 +260,12 @@ const reverseGeoCodingParameters = {
 };
 // Can render any map element, make sure to pass map and platform as props to the children to avoid unwarranted behavior
 const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
-  // <HMapMarker
-  //   coords={{ lat, lng }}
-  //   map={map}
-  //   platform={platform}
-  //   key={key}
-  //   icon={icon}
-  // />;
-  if (ui) {
-    ui.addBubble(
-      new H.ui.InfoBubble(
-        { lat, lng },
-        { content: location.Location.Address.Label }
-      )
-    );
-  }
+  ui.addBubble(
+    new H.ui.InfoBubble(
+      { lat, lng },
+      { content: location.Location.Address.Label }
+    )
+  );
   return null;
 };
 
@@ -291,6 +282,55 @@ const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
   includeUI={true}
 >
   <HMapGeoCode geoCodeParams={reverseGeoCodingParameters} reverse={true}>
+    <ReverseGeoMarker />
+  </HMapGeoCode>
+</HMap>;
+```
+
+#### Landmark Point
+
+Locate landmark positions on the map
+
+```js
+const LandmarkGeoMarker = ({
+  map,
+  platform,
+  ui,
+  lat,
+  lng,
+  location,
+  key,
+  _location
+}) => {
+  ui.addBubble(
+    new H.ui.InfoBubble(
+      {
+        lat,
+        lng
+      },
+      { content: _location.Name }
+    )
+  );
+  return null;
+};
+// Create the parameters for the landmark search request:
+const landmarkSearchParameters = {
+  searchText: "TXL"
+};
+
+// Child of HMapGeoCode receives same params as above.
+<HMap
+  style={{
+    height: "400px",
+    width: "800px"
+  }}
+  appId={APP_ID}
+  appCode={APP_CODE}
+  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  interactive={true}
+  includeUI={true}
+>
+  <HMapGeoCode geoCodeParams={landmarkSearchParameters} landmark={true}>
     <ReverseGeoMarker />
   </HMapGeoCode>
 </HMap>;

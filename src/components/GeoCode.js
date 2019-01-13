@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import merge from "lodash.merge";
 
 function GeoCode(props) {
-  const { geoCodeParams, platform, map, ui, children, reverse } = merge(props);
+  const {
+    geoCodeParams,
+    platform,
+    map,
+    ui,
+    children,
+    reverse,
+    landmark
+  } = props;
   if (!H || !H.map || !map) {
     throw new Error("HMap has to be initialized before adding Map Objects");
   }
@@ -24,18 +31,33 @@ function GeoCode(props) {
   // Call the geocode method with the geocoding parameters,
   // the callback and an error callback function (called if a
   // communication error occurs):
-  if (reverse) {
+  if (landmark) {
+    geocoder.search(geoCodeParams, onResult, function(e) {
+      alert(e);
+    });
+  } else if (reverse) {
+    // Point to address
     geocoder.reverseGeocode(geoCodeParams, onResult, e => console.log(e));
   } else {
+    // Address to point
     geocoder.geocode(geoCodeParams, onResult, e => console.log(e));
   }
-
   return (
     locations.length &&
     locations.map(location => {
-      const lat = location.Location.DisplayPosition.Latitude;
-      const lng = location.Location.DisplayPosition.Longitude;
-      const params = { map, platform, ui, lat, lng, key: lat, location };
+      const _location = location.Location || location.Place.Locations[0];
+      const lat = _location.DisplayPosition.Latitude;
+      const lng = _location.DisplayPosition.Longitude;
+      const params = {
+        map,
+        platform,
+        ui,
+        lat,
+        lng,
+        key: lat,
+        location,
+        _location
+      };
       return React.cloneElement(children, params);
     })
   );
@@ -45,10 +67,10 @@ GeoCode.propTypes = {
   geoCodeParams: PropTypes.object,
   children: PropTypes.element.isRequired,
   reverse: PropTypes.bool,
-  coords: PropTypes.object,
-  radius: PropTypes.number,
+  landmark: PropTypes.bool,
   map: PropTypes.object,
-  platform: PropTypes.object
+  platform: PropTypes.object,
+  ui: PropTypes.object
 };
 
 export default GeoCode;
