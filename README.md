@@ -209,18 +209,16 @@ const rectangleOptions = {
 
 ### HMapGeoCode
 
-Converts an address to a Marker on the map
+> This uses React Hooks. Ensure that your react installation supports Hooks API
+
+#### Address to positions
+
+Converts an address to a position on the map
 
 ```js
-const points = [53.1, 13.1, 43.1, 40.1];
-const rectangleOptions = {
-  style: {
-    fillColor: "#FFFFCC",
-    strokeColor: "#E8FA75",
-    lineWidth: 8
-  }
+const geoCodeParams = {
+  searchText: "200 S Mathilda Ave, Sunnyvale, CA"
 };
-
 // Can render any map element, make sure to pass map and platform as props to the children to avoid unwarranted behavior
 const GeoMarker = ({ map, platform, lat, lng, key }) => (
   <HMapMarker
@@ -245,7 +243,55 @@ const GeoMarker = ({ map, platform, lat, lng, key }) => (
 >
   <HMapGeoCode geoCodeParams={geoCodeParams}>
     <GeoMarker />
-    <GeoMarker />
+  </HMapGeoCode>
+</HMap>;
+```
+
+#### Position to address(es)
+
+Converts an position to address(es) on the map
+
+```js
+// Create the parameters for the reverse geocoding request:
+const reverseGeoCodingParameters = {
+  prox: "52.5309,13.3847,150",
+  mode: "retrieveAddresses",
+  maxresults: 1
+};
+// Can render any map element, make sure to pass map and platform as props to the children to avoid unwarranted behavior
+const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
+  // <HMapMarker
+  //   coords={{ lat, lng }}
+  //   map={map}
+  //   platform={platform}
+  //   key={key}
+  //   icon={icon}
+  // />;
+  if (ui) {
+    ui.addBubble(
+      new H.ui.InfoBubble(
+        { lat, lng },
+        { content: location.Location.Address.Label }
+      )
+    );
+  }
+  return null;
+};
+
+// Child of HMapGeoCode receives same params as above.
+<HMap
+  style={{
+    height: "400px",
+    width: "800px"
+  }}
+  appId={APP_ID}
+  appCode={APP_CODE}
+  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  interactive={true}
+  includeUI={true}
+>
+  <HMapGeoCode geoCodeParams={reverseGeoCodingParameters} reverse={true}>
+    <ReverseGeoMarker />
   </HMapGeoCode>
 </HMap>;
 ```

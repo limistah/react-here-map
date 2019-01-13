@@ -62,7 +62,7 @@ const polygonPoints = [52, 13, 100, 48, 2, 100, 48, 16, 100, 52, 13, 100];
 const geoCodeParams = {
   searchText: "200 S Mathilda Ave, Sunnyvale, CA"
 };
-const GeoMarker = ({ map, platform, lat, lng, key }) => (
+const GeoMarker = ({ map, platform, ui, lat, lng, location, key }) => (
   <HMapMarker
     coords={{ lat, lng }}
     map={map}
@@ -71,6 +71,7 @@ const GeoMarker = ({ map, platform, lat, lng, key }) => (
     icon={icon}
   />
 );
+
 // Create the parameters for the reverse geocoding request:
 const reverseGeoCodingParameters = {
   prox: "52.5309,13.3847,150",
@@ -78,6 +79,24 @@ const reverseGeoCodingParameters = {
   maxresults: 1
 };
 
+const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
+  // <HMapMarker
+  //   coords={{ lat, lng }}
+  //   map={map}
+  //   platform={platform}
+  //   key={key}
+  //   icon={icon}
+  // />;
+  if (ui) {
+    ui.addBubble(
+      new H.ui.InfoBubble(
+        { lat, lng },
+        { content: location.Location.Address.Label }
+      )
+    );
+  }
+  return null;
+};
 ReactDOM.render(
   <HMap
     style={{
@@ -87,7 +106,7 @@ ReactDOM.render(
     appId="2Ts3vDUTLPW8kNUtyFRY"
     appCode="MDivMVFtNkpim-dWuetlWw"
     includeUI={true}
-    mapOptions={{}}
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
     {/* <HMapPolyLine points={points} /> */}
     {/* <HMapPolygon points={polygonPoints} options={polygonOptions} /> */}
@@ -102,8 +121,12 @@ ReactDOM.render(
       options={rectangleOptions}
     /> */}
 
-    <HMapGeoCode geoCodeParams={geoCodeParams}>
+    {/* <HMapGeoCode geoCodeParams={geoCodeParams}>
       <GeoMarker />
+    </HMapGeoCode> */}
+
+    <HMapGeoCode geoCodeParams={reverseGeoCodingParameters} reverse={true}>
+      <ReverseGeoMarker />
     </HMapGeoCode>
   </HMap>,
   document.getElementById("app")
