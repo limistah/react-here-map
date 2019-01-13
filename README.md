@@ -335,3 +335,169 @@ const landmarkSearchParameters = {
   </HMapGeoCode>
 </HMap>;
 ```
+
+### HMapRoute
+
+> This uses React Hooks. Ensure that your react installation supports Hooks API
+
+#### Displaying route on the Map
+
+Shows path to between two points based on params
+
+```js
+// Create the parameters for the routing request:
+var routeParams = {
+  // The routing mode:
+  mode: "fastest;car",
+  // The start point of the route:
+  waypoint0: "geo!50.1120423728813,8.68340740740811",
+  // The end point of the route:
+  waypoint1: "geo!52.5309916298853,13.3846220493377",
+  // To retrieve the shape of the route we choose the route
+  // representation mode 'display'
+  representation: "display"
+};
+const routeLineOptions = {
+  style: { strokeColor: "blue", lineWidth: 10 },
+  arrows: { fillColor: "white", frequency: 2, width: 0.8, length: 0.7 }
+};
+// Handles manipulation of the path between the two points
+const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
+  // Retrieve the mapped positions of the requested waypoints:
+  const startPoint = route.waypoint[0].mappedPosition;
+  const endPoint = route.waypoint[1].mappedPosition;
+
+  // Create a marker for the start point:
+  const startMarker = { lat: startPoint.latitude, lng: startPoint.longitude };
+  // Create a marker for the end point:
+  const endMarker = { lat: endPoint.latitude, lng: endPoint.longitude };
+
+  return (
+    <React.Fragment>
+      <HMapPolyLine points={routeShape} map={map} setViewBounds={true} />
+      <HMapMarker
+        coords={startMarker}
+        map={map}
+        platform={platform}
+        icon={icon}
+        setViewBounds={false}
+      />
+      <HMapMarker
+        coords={endMarker}
+        map={map}
+        platform={platform}
+        icon={icon}
+        setViewBounds={false}
+      />
+    </React.Fragment>
+  );
+};
+
+// 1. Using a custom renderer
+
+<HMapRoute
+  routeParams={routeParams}
+  icon={icon}
+  defaultDisplay={false}
+  lineOptions={routeLineOptions}
+>
+  <RouteMarker />
+</HMapRoute>;
+
+// Using default renderer, no children/child is required
+<HMapRoute
+  routeParams={routeParams}
+  icon={icon}
+  defaultDisplay={true}
+  lineOptions={routeLineOptions}
+/>;
+```
+
+#### Position to address(es)
+
+Converts an position to address(es) on the map
+
+```js
+// Create the parameters for the reverse geocoding request:
+const reverseGeoCodingParameters = {
+  prox: "52.5309,13.3847,150",
+  mode: "retrieveAddresses",
+  maxresults: 1
+};
+// Can render any map element, make sure to pass map and platform as props to the children to avoid unwarranted behavior
+const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
+  ui.addBubble(
+    new H.ui.InfoBubble(
+      { lat, lng },
+      { content: location.Location.Address.Label }
+    )
+  );
+  return null;
+};
+
+// Child of HMapGeoCode receives same params as above.
+<HMap
+  style={{
+    height: "400px",
+    width: "800px"
+  }}
+  appId={APP_ID}
+  appCode={APP_CODE}
+  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  interactive={true}
+  includeUI={true}
+>
+  <HMapGeoCode geoCodeParams={reverseGeoCodingParameters} reverse={true}>
+    <ReverseGeoMarker />
+  </HMapGeoCode>
+</HMap>;
+```
+
+#### Landmark Point
+
+Locate landmark positions on the map
+
+```js
+const LandmarkGeoMarker = ({
+  map,
+  platform,
+  ui,
+  lat,
+  lng,
+  location,
+  key,
+  _location
+}) => {
+  ui.addBubble(
+    new H.ui.InfoBubble(
+      {
+        lat,
+        lng
+      },
+      { content: _location.Name }
+    )
+  );
+  return null;
+};
+// Create the parameters for the landmark search request:
+const landmarkSearchParameters = {
+  searchText: "TXL"
+};
+
+// Child of HMapGeoCode receives same params as above.
+<HMap
+  style={{
+    height: "400px",
+    width: "800px"
+  }}
+  appId={APP_ID}
+  appCode={APP_CODE}
+  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  interactive={true}
+  includeUI={true}
+>
+  <HMapGeoCode geoCodeParams={landmarkSearchParameters} landmark={true}>
+    <ReverseGeoMarker />
+  </HMapGeoCode>
+</HMap>;
+```

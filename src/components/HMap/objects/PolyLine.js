@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import merge from "lodash.merge";
 
 function PolyLine(props) {
-  const { points, style, map, setViewBounds } = merge(
+  const { points, options, map, setViewBounds } = merge(
     { setViewBounds: true },
     props
   );
@@ -23,7 +23,7 @@ function PolyLine(props) {
   });
 
   // Initialize a polyLine with the lineString:
-  var polyLine = new H.map.Polyline(lineString, { style });
+  var polyLine = new H.map.Polyline(lineString, options);
 
   // Add the polyLine to the map:
   map.addObject(polyLine);
@@ -39,7 +39,7 @@ function PolyLine(props) {
 
 PolyLine.propTypes = {
   points: PropTypes.array.isRequired,
-  style: PropTypes.object,
+  options: PropTypes.object,
   map: PropTypes.object,
   setViewBounds: PropTypes.bool
 };

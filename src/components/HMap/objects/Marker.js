@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import merge from "lodash.merge";
 
 function Marker(props) {
-  const { icon, map, coords, type, setAsCenter } = merge(
-    { setAsCenter: true },
+  const { icon, map, coords, type, setViewBounds } = merge(
+    { setViewBounds: true },
     props
   );
   if (!H || !H.map || !map) {
@@ -35,7 +35,7 @@ function Marker(props) {
 
   // Add the marker to the map and center the map at the location of the marker:
   map.addObject(marker);
-  if (setAsCenter) {
+  if (setViewBounds) {
     map.setCenter(coords);
   }
 

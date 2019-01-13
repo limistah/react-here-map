@@ -7,6 +7,7 @@ import HMapCircle from "./components/HMap/objects/Circle";
 import HMapRectangle from "./components/HMap/objects/Rectangle";
 import HMapMarker from "./components/HMap/objects/Marker";
 import HMapGeoCode from "./components/GeoCode";
+import HMapRoute from "./components/Route";
 
 var points = [
   { lat: 52.5309825, lng: 13.3845921 },
@@ -87,14 +88,14 @@ const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
   //   key={key}
   //   icon={icon}
   // />;
-  // if (ui) {
-  //   ui.addBubble(
-  //     new H.ui.InfoBubble(
-  //       { lat, lng },
-  //       { content: location.Location.Address.Label }
-  //     )
-  //   );
-  // }
+  if (ui) {
+    ui.addBubble(
+      new H.ui.InfoBubble(
+        { lat, lng },
+        { content: location.Location.Address.Label }
+      )
+    );
+  }
   return null;
 };
 
@@ -124,6 +125,54 @@ const landmarkSearchParameters = {
   searchText: "TXL"
 };
 
+// Create the parameters for the routing request:
+var routeParams = {
+  // The routing mode:
+  mode: "fastest;car",
+  // The start point of the route:
+  waypoint0: "geo!50.1120423728813,8.68340740740811",
+  // The end point of the route:
+  waypoint1: "geo!52.5309916298853,13.3846220493377",
+  // To retrieve the shape of the route we choose the route
+  // representation mode 'display'
+  representation: "display"
+};
+
+const routeLineOptions = {
+  style: { strokeColor: "blue", lineWidth: 10 },
+  arrows: { fillColor: "white", frequency: 2, width: 0.8, length: 0.7 }
+};
+
+const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
+  // Retrieve the mapped positions of the requested waypoints:
+  const startPoint = route.waypoint[0].mappedPosition;
+  const endPoint = route.waypoint[1].mappedPosition;
+
+  // Create a marker for the start point:
+  const startMarker = { lat: startPoint.latitude, lng: startPoint.longitude };
+  // Create a marker for the end point:
+  const endMarker = { lat: endPoint.latitude, lng: endPoint.longitude };
+
+  return (
+    <React.Fragment>
+      <HMapPolyLine points={routeShape} map={map} setViewBounds={true} />
+      <HMapMarker
+        coords={startMarker}
+        map={map}
+        platform={platform}
+        icon={icon}
+        setViewBounds={false}
+      />
+      <HMapMarker
+        coords={endMarker}
+        map={map}
+        platform={platform}
+        icon={icon}
+        setViewBounds={false}
+      />
+    </React.Fragment>
+  );
+};
 ReactDOM.render(
   <HMap
     style={{
@@ -152,13 +201,22 @@ ReactDOM.render(
       <GeoMarker />
     </HMapGeoCode> */}
 
-    <HMapGeoCode geoCodeParams={reverseGeoCodingParameters} reverse={true}>
+    {/* <HMapGeoCode geoCodeParams={reverseGeoCodingParameters} reverse={true}>
       <ReverseGeoMarker />
-    </HMapGeoCode>
+    </HMapGeoCode> */}
 
     {/* <HMapGeoCode geoCodeParams={landmarkSearchParameters} landmark={true}>
       <LandmarkGeoMarker />
     </HMapGeoCode> */}
+
+    <HMapRoute
+      routeParams={routeParams}
+      icon={icon}
+      defaultDisplay={true}
+      lineOptions={routeLineOptions}
+    >
+      <RouteMarker />
+    </HMapRoute>
   </HMap>,
   document.getElementById("app")
 );
