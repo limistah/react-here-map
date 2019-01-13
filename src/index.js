@@ -57,11 +57,27 @@ const rectangleOptions = {
   }
 };
 
+const polygonPoints = [52, 13, 100, 48, 2, 100, 48, 16, 100, 52, 13, 100];
+
 const geoCodeParams = {
   searchText: "200 S Mathilda Ave, Sunnyvale, CA"
 };
+const GeoMarker = ({ map, platform, lat, lng, key }) => (
+  <HMapMarker
+    coords={{ lat, lng }}
+    map={map}
+    platform={platform}
+    key={key}
+    icon={icon}
+  />
+);
+// Create the parameters for the reverse geocoding request:
+const reverseGeoCodingParameters = {
+  prox: "52.5309,13.3847,150",
+  mode: "retrieveAddresses",
+  maxresults: 1
+};
 
-const polygonPoints = [52, 13, 100, 48, 2, 100, 48, 16, 100, 52, 13, 100];
 ReactDOM.render(
   <HMap
     style={{
@@ -87,7 +103,7 @@ ReactDOM.render(
     /> */}
 
     <HMapGeoCode geoCodeParams={geoCodeParams}>
-      <HMapMarker icon={icon} />
+      <GeoMarker />
     </HMapGeoCode>
   </HMap>,
   document.getElementById("app")

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import merge from "lodash.merge";
 
 function GeoCode(props) {
-  const { geoCodeParams, platform, map } = merge(props);
+  const { geoCodeParams, platform, map, children } = merge(props);
   if (!H || !H.map || !map) {
     throw new Error("HMap has to be initialized before adding Map Objects");
   }
@@ -40,20 +40,14 @@ function GeoCode(props) {
   geocoder.geocode(geoCodeParams, onResult, function(e) {
     alert(e);
   });
-  // There is no need to render something useful here, HereMap does that magically
+
   return (
     locations.length &&
     locations.map(location => {
-      const coords = {
-        lat: location.Location.DisplayPosition.Latitude,
-        lng: location.Location.DisplayPosition.Longitude
-      };
-      return React.cloneElement(props.children, {
-        map,
-        platform,
-        coords,
-        key: coords.lat
-      });
+      const lat = location.Location.DisplayPosition.Latitude;
+      const lng = location.Location.DisplayPosition.Longitude;
+      const params = { map, platform, lat, lng, key: lat };
+      return React.cloneElement(children, params);
     })
   );
 }

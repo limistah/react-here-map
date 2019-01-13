@@ -220,6 +220,18 @@ const rectangleOptions = {
     lineWidth: 8
   }
 };
+
+// Can render any map element, make sure to pass map and platform as props to the children to avoid unwarranted behavior
+const GeoMarker = ({ map, platform, lat, lng, key }) => (
+  <HMapMarker
+    coords={{ lat, lng }}
+    map={map}
+    platform={platform}
+    key={key}
+    icon={icon}
+  />
+);
+// Child of HMapGeoCode receives same params as above.
 <HMap
   style={{
     height: "400px",
@@ -232,7 +244,8 @@ const rectangleOptions = {
   includeUI={true}
 >
   <HMapGeoCode geoCodeParams={geoCodeParams}>
-    <HMapMarker icon={icon} />
+    <GeoMarker />
+    <GeoMarker />
   </HMapGeoCode>
 </HMap>;
 ```
