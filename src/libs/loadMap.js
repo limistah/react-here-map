@@ -16,7 +16,6 @@ const optionMerger = options => merge(defaults, options);
  */
 const initializer = options => {
   const _options = optionMerger(options || {});
-  console.log(_options);
   const { VERSION, version, interactive, includeUI } = _options;
 
   // Returns async loading of the component

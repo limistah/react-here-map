@@ -14,6 +14,7 @@ import initInteractionStyles from "./libs/initInteractionStyles";
  * @property {boolean} options.interactive Adds interactivity to the MAP
  * @property {boolean} options.includeUI Add UI script to the MAP
  * @property {Node} options.container DOM Element to hold the MAP
+ * @property {string} options.uiLang Language of the UI
  * @property {build} options.build Flag to tell if the MAP should be build immediately
  * @property {string} options.appId Here Map APP ID
  * @property {string} options.appCode Here Map APP code
@@ -36,6 +37,7 @@ export default async options => {
     MAP_TYPE,
     mapTypes,
     mapOptions,
+    uiLang,
     container,
     build
   } = _options;
@@ -61,7 +63,7 @@ export default async options => {
       mapEvents
     );
     if (includeUI) {
-      ret.ui = initDefaultUI(ret.platform, ret.map, includeUI);
+      ret.ui = initDefaultUI(ret.platform, ret.map, includeUI, uiLang);
     }
     // Adds the grabbing to the document
     initInteractionStyles();

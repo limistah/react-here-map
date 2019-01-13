@@ -1,7 +1,7 @@
-export default (platform, map, includeUI) => {
+export default (platform, map, includeUI, uiLang) => {
   if (!includeUI) {
     throw new Error("includeUI must be set to true to initialize default UI");
   }
   // Create the default UI components
-  return H.ui.UI.createDefault(map, platform.createDefaultLayers());
+  return H.ui.UI.createDefault(map, platform.createDefaultLayers(), uiLang);
 };

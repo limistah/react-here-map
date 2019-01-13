@@ -68,6 +68,7 @@ ReactDOM.render(
     interactive={true}
     includeUI={true}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+    uiLang="de-DE"
   >
     {/* <HMapPolyLine points={points} /> */}
     {/* <HMapPolygon points={polygonPoints} options={polygonOptions} /> */}

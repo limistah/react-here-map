@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import build from "../mapBuilder";
 import defaults from "../libs/defaults";
+import merge from "lodash.merge";
 
 class HMap extends React.Component {
   constructor(props) {
@@ -11,28 +12,14 @@ class HMap extends React.Component {
   }
 
   async componentDidMount() {
-    const {
-      appId,
-      appCode,
-      mapType,
-      useEvents,
-      interactive,
-      includeUI,
-      mapEvents,
-      mapOptions
-    } = this.props;
-    const builder = await build({
-      appId,
-      appCode,
-      mapType,
-      useEvents,
-      interactive,
-      includeUI,
-      mapEvents,
-      mapOptions,
-      container: this.container.current,
-      build: true
-    });
+    const args = merge(
+      {
+        container: this.container.current,
+        build: true
+      },
+      this.props
+    );
+    const builder = await build(args);
 
     this.setState({ builder });
   }
