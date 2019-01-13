@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import build from "../mapBuilder";
-import defaults from "../libs/defaults";
+import build from "../../mapBuilder";
+import defaults from "../../libs/defaults";
 import merge from "lodash.merge";
 
 class HMap extends React.Component {

@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import HMap from "./components/HMap";
-import HMapPolyLine from "./components/objects/PolyLine";
-import HMapPolygon from "./components/objects/Polygon";
-import HMapCircle from "./components/objects/Circle";
-import HMapRectangle from "./components/objects/Rectangle";
-import HMapMarker from "./components/objects/Marker";
+import HMapPolyLine from "./components/HMap/objects/PolyLine";
+import HMapPolygon from "./components/HMap/objects/Polygon";
+import HMapCircle from "./components/HMap/objects/Circle";
+import HMapRectangle from "./components/HMap/objects/Rectangle";
+import HMapMarker from "./components/HMap/objects/Marker";
 import HMapGeoCode from "./components/GeoCode";
 
 var points = [
@@ -79,24 +79,24 @@ const reverseGeoCodingParameters = {
   maxresults: 1
 };
 
-// const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
-//   // <HMapMarker
-//   //   coords={{ lat, lng }}
-//   //   map={map}
-//   //   platform={platform}
-//   //   key={key}
-//   //   icon={icon}
-//   // />;
-//   if (ui) {
-//     ui.addBubble(
-//       new H.ui.InfoBubble(
-//         { lat, lng },
-//         { content: location.Location.Address.Label }
-//       )
-//     );
-//   }
-//   return null;
-// };
+const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
+  // <HMapMarker
+  //   coords={{ lat, lng }}
+  //   map={map}
+  //   platform={platform}
+  //   key={key}
+  //   icon={icon}
+  // />;
+  // if (ui) {
+  //   ui.addBubble(
+  //     new H.ui.InfoBubble(
+  //       { lat, lng },
+  //       { content: location.Location.Address.Label }
+  //     )
+  //   );
+  // }
+  return null;
+};
 
 const LandmarkGeoMarker = ({
   map,
@@ -151,14 +151,14 @@ ReactDOM.render(
     {/* <HMapGeoCode geoCodeParams={geoCodeParams}>
       <GeoMarker />
     </HMapGeoCode> */}
-    {/* 
+
     <HMapGeoCode geoCodeParams={reverseGeoCodingParameters} reverse={true}>
       <ReverseGeoMarker />
-    </HMapGeoCode> */}
-
-    <HMapGeoCode geoCodeParams={landmarkSearchParameters} landmark={true}>
-      <LandmarkGeoMarker />
     </HMapGeoCode>
+
+    {/* <HMapGeoCode geoCodeParams={landmarkSearchParameters} landmark={true}>
+      <LandmarkGeoMarker />
+    </HMapGeoCode> */}
   </HMap>,
   document.getElementById("app")
 );
