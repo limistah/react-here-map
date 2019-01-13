@@ -47,6 +47,7 @@ ReactDOM.render(
 4. HMapMarker - Puts a marker on the map
 5. HMapCircle - Draws a circle on the map
 6. HMapRectangle - Draws a rectangle on the map
+7. HMapGeoCode - Turns a physical address to a point on the map
 
 ## Usage
 
@@ -203,5 +204,35 @@ const rectangleOptions = {
   includeUI={true}
 >
   <HMapRectangle points={points} options={rectangleOptions} />
+</HMap>;
+```
+
+### HMapGeoCode
+
+Converts an address to a Marker on the map
+
+```js
+const points = [53.1, 13.1, 43.1, 40.1];
+const rectangleOptions = {
+  style: {
+    fillColor: "#FFFFCC",
+    strokeColor: "#E8FA75",
+    lineWidth: 8
+  }
+};
+<HMap
+  style={{
+    height: "400px",
+    width: "800px"
+  }}
+  appId={APP_ID}
+  appCode={APP_CODE}
+  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  interactive={true}
+  includeUI={true}
+>
+  <HMapGeoCode geoCodeParams={geoCodeParams}>
+    <HMapMarker icon={icon} />
+  </HMapGeoCode>
 </HMap>;
 ```

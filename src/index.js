@@ -6,6 +6,7 @@ import HMapPolygon from "./components/objects/Polygon";
 import HMapCircle from "./components/objects/Circle";
 import HMapRectangle from "./components/objects/Rectangle";
 import HMapMarker from "./components/objects/Marker";
+import HMapGeoCode from "./components/GeoCode";
 
 var points = [
   { lat: 52.5309825, lng: 13.3845921 },
@@ -56,6 +57,10 @@ const rectangleOptions = {
   }
 };
 
+const geoCodeParams = {
+  searchText: "200 S Mathilda Ave, Sunnyvale, CA"
+};
+
 const polygonPoints = [52, 13, 100, 48, 2, 100, 48, 16, 100, 52, 13, 100];
 ReactDOM.render(
   <HMap
@@ -65,10 +70,8 @@ ReactDOM.render(
     }}
     appId="2Ts3vDUTLPW8kNUtyFRY"
     appCode="MDivMVFtNkpim-dWuetlWw"
-    interactive={true}
     includeUI={true}
-    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
-    uiLang="de-DE"
+    mapOptions={{}}
   >
     {/* <HMapPolyLine points={points} /> */}
     {/* <HMapPolygon points={polygonPoints} options={polygonOptions} /> */}
@@ -78,10 +81,14 @@ ReactDOM.render(
       options={circleOptions}
     /> */}
     {/* <HMapMarker coords={{ lat: 52.5321472, lng: 13.3935785 }} icon={icon} /> */}
-    <HMapRectangle
+    {/* <HMapRectangle
       points={[53.1, 13.1, 43.1, 40.1]}
       options={rectangleOptions}
-    />
+    /> */}
+
+    <HMapGeoCode geoCodeParams={geoCodeParams}>
+      <HMapMarker icon={icon} />
+    </HMapGeoCode>
   </HMap>,
   document.getElementById("app")
 );

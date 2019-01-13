@@ -20,7 +20,7 @@ class HMap extends React.Component {
       this.props
     );
     const builder = await build(args);
-
+    console.log(builder);
     this.setState({ builder });
   }
   createLoadingComponent() {
@@ -28,9 +28,9 @@ class HMap extends React.Component {
   }
   displayChildren() {
     const { children } = this.props;
-    const builder = this.state.builder;
+    const { map, platform } = this.state.builder;
     return React.Children.map(children, child =>
-      React.cloneElement(child, { map: builder.map || {} })
+      React.cloneElement(child, { map, platform })
     );
   }
   render() {
