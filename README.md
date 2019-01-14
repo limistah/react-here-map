@@ -340,7 +340,7 @@ const landmarkSearchParameters = {
 
 > This uses React Hooks. Ensure that your react installation supports Hooks API
 
-#### Displaying route on the Map
+#### Displaying route on the Map Using normal line
 
 Shows path to between two points based on params
 
@@ -413,26 +413,45 @@ const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
 />;
 ```
 
-#### Position to address(es)
-
-Converts an position to address(es) on the map
+#### Displaying route on the Map Using iso line
 
 ```js
 // Create the parameters for the reverse geocoding request:
-const reverseGeoCodingParameters = {
-  prox: "52.5309,13.3847,150",
-  mode: "retrieveAddresses",
-  maxresults: 1
+const isoRoutingParams = {
+  mode: "fastest;car;",
+  start: "geo!52.5,13.4",
+  range: "900",
+  rangetype: "time"
 };
-// Can render any map element, make sure to pass map and platform as props to the children to avoid unwarranted behavior
-const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
-  ui.addBubble(
-    new H.ui.InfoBubble(
-      { lat, lng },
-      { content: location.Location.Address.Label }
-    )
+
+const RouteMarkerIso = ({
+  map,
+  platform,
+  ui,
+  route,
+  routeShape,
+  center,
+  component
+}) => {
+  return (
+    <React.Fragment>
+      <Polygon
+        points={routeShape}
+        options={polygonOptions}
+        setViewBounds={true}
+        map={map}
+        platform={platform}
+      />
+      <Marker
+        coords={center}
+        map={map}
+        platform={platform}
+        icon={icon}
+        options={markerOptions}
+        setViewBounds={false}
+      />
+    </React.Fragment>
   );
-  return null;
 };
 
 // Child of HMapGeoCode receives same params as above.
@@ -484,7 +503,7 @@ const landmarkSearchParameters = {
   searchText: "TXL"
 };
 
-// Child of HMapGeoCode receives same params as above.
+// Using default display
 <HMap
   style={{
     height: "400px",
@@ -496,8 +515,35 @@ const landmarkSearchParameters = {
   interactive={true}
   includeUI={true}
 >
-  <HMapGeoCode geoCodeParams={landmarkSearchParameters} landmark={true}>
-    <ReverseGeoMarker />
-  </HMapGeoCode>
+  <HMapRoute
+    routeParams={isoRoutingParams}
+    icon={icon}
+    isoLine={true}
+    defaultDisplay={true}
+    lineOptions={routeLineOptions}
+  />
+</HMap>;
+
+// Using a custom display
+<HMap
+  style={{
+    height: "400px",
+    width: "800px"
+  }}
+  appId={APP_ID}
+  appCode={APP_CODE}
+  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  interactive={true}
+  includeUI={true}
+>
+  <HMapRoute
+    routeParams={isoRoutingParams}
+    icon={icon}
+    defaultDisplay={false}
+    isoLine={true}
+    lineOptions={routeLineOptions}
+  >
+    <RouteMarkerIso />
+  </HMapRoute>
 </HMap>;
 ```

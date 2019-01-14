@@ -173,6 +173,43 @@ const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
     </React.Fragment>
   );
 };
+
+const isoRoutingParams = {
+  mode: "fastest;car;",
+  start: "geo!52.5,13.4",
+  range: "900",
+  rangetype: "time"
+};
+
+const RouteMarkerIso = ({
+  map,
+  platform,
+  ui,
+  route,
+  routeShape,
+  center,
+  component
+}) => {
+  return (
+    <React.Fragment>
+      <Polygon
+        points={routeShape}
+        options={polygonOptions}
+        setViewBounds={true}
+        map={map}
+        platform={platform}
+      />
+      <Marker
+        coords={center}
+        map={map}
+        platform={platform}
+        icon={icon}
+        options={markerOptions}
+        setViewBounds={false}
+      />
+    </React.Fragment>
+  );
+};
 ReactDOM.render(
   <HMap
     style={{
@@ -209,13 +246,38 @@ ReactDOM.render(
       <LandmarkGeoMarker />
     </HMapGeoCode> */}
 
-    <HMapRoute
+    {/* <HMapRoute
       routeParams={routeParams}
       icon={icon}
       defaultDisplay={true}
       lineOptions={routeLineOptions}
+    /> */}
+
+    {/* <HMapRoute
+      routeParams={routeParams}
+      icon={icon}
+      defaultDisplay={false}
+      lineOptions={routeLineOptions}
     >
       <RouteMarker />
+    </HMapRoute> */}
+
+    {/* <HMapRoute
+      routeParams={isoRoutingParams}
+      icon={icon}
+      isoLine={true}
+      defaultDisplay={true}
+      lineOptions={routeLineOptions}
+    /> */}
+
+    <HMapRoute
+      routeParams={isoRoutingParams}
+      icon={icon}
+      defaultDisplay={false}
+      isoLine={true}
+      lineOptions={routeLineOptions}
+    >
+      <RouteMarkerIso />
     </HMapRoute>
   </HMap>,
   document.getElementById("app")

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import merge from "lodash.merge";
 
-function PolyLine(props) {
+function Polygon(props) {
   const { points, map, setViewBounds, options } = merge(
     { setViewBounds: true },
     props
@@ -17,7 +17,15 @@ function PolyLine(props) {
     );
   }
 
-  const lineString = new H.geo.LineString(points, "values lat lng alt");
+  let lineString = {};
+  if (points[0].split(",").length === 2) {
+    lineString = new H.geo.LineString();
+    points.forEach(function(coords) {
+      lineString.pushLatLngAlt.apply(lineString, coords.split(","));
+    });
+  } else {
+    lineString = new H.geo.LineString(points, "values lat lng alt");
+  }
 
   // Initialize a LineString and add all the points to it:
   const polygon = new H.map.Polygon(lineString, options);
@@ -34,11 +42,11 @@ function PolyLine(props) {
   return <div style={{ display: "none" }} />;
 }
 
-PolyLine.propTypes = {
+Polygon.propTypes = {
   points: PropTypes.array.isRequired,
   options: PropTypes.object,
   map: PropTypes.object,
   setViewBounds: PropTypes.bool
 };
 
-export default PolyLine;
+export default Polygon;
