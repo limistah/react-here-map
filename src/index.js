@@ -8,6 +8,7 @@ import HMapRectangle from "./components/HMap/objects/Rectangle";
 import HMapMarker from "./components/HMap/objects/Marker";
 import HMapGeoCode from "./components/GeoCode";
 import HMapRoute from "./components/Route";
+import HMapTraffic from "./components/Traffic";
 
 var points = [
   { lat: 52.5309825, lng: 13.3845921 },
@@ -219,6 +220,7 @@ ReactDOM.render(
     appId="2Ts3vDUTLPW8kNUtyFRY"
     appCode="MDivMVFtNkpim-dWuetlWw"
     includeUI={true}
+    interactive={false}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
     {/* <HMapPolyLine points={points} /> */}
@@ -270,7 +272,7 @@ ReactDOM.render(
       lineOptions={routeLineOptions}
     /> */}
 
-    <HMapRoute
+    {/* <HMapRoute
       routeParams={isoRoutingParams}
       icon={icon}
       defaultDisplay={false}
@@ -278,7 +280,8 @@ ReactDOM.render(
       lineOptions={routeLineOptions}
     >
       <RouteMarkerIso />
-    </HMapRoute>
+    </HMapRoute> */}
+    <HMapTraffic />
   </HMap>,
   document.getElementById("app")
 );

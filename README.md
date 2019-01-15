@@ -48,6 +48,8 @@ ReactDOM.render(
 5. HMapCircle - Draws a circle on the map
 6. HMapRectangle - Draws a rectangle on the map
 7. HMapGeoCode - Turns a physical address to a point on the map
+8. HMapRoute - Defines a route to locate two points
+9. HMapTraffic - Shows traffic and incident details on the map
 
 ## Usage
 
@@ -546,4 +548,22 @@ const landmarkSearchParameters = {
     <RouteMarkerIso />
   </HMapRoute>
 </HMap>;
+```
+
+### HMapTraffic
+
+Shows incidents and traffic on the map
+
+```js
+<HMap
+  style={{
+    height: "400px",
+    width: "800px"
+  }}
+  appId={APP_ID}
+  appCode={APP_CODE}
+  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+>
+  <HMapTraffic />
+</HMap>
 ```
