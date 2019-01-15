@@ -550,9 +550,40 @@ const landmarkSearchParameters = {
 </HMap>;
 ```
 
-### HMapTraffic
+### HMapLayer
 
-Shows incidents and traffic on the map
+Adds a layer to the map.
+
+Individual layer holds different information
+
+#### props
+
+`mapLayerType: sting` and should be in a dot prop form for
+
+```js
+{
+  normal: [
+    "xbase",
+    "xbasenight",
+    "base",
+    "basenight",
+    "map",
+    "mapnight",
+    "traffic",
+    "trafficnight",
+    "transit",
+    "panorama",
+    "panoramanight",
+    "labels",
+    "metaInfo"
+  ],
+  satellite: ["xbase", "base", "map", "traffic", "panorama", "labels"],
+  terrain: ["xbase", "base", "map", "traffic", "panorama", "labels"],
+  incidents: true
+}
+```
+
+e.g `mapLayerType="incidents" mapLayerType="normal.traffic"`
 
 ```js
 <HMap
@@ -564,6 +595,6 @@ Shows incidents and traffic on the map
   appCode={APP_CODE}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
 >
-  <HMapTraffic />
+  <HMapLayer mapLayerType="normal.trafficnight" />
 </HMap>
 ```

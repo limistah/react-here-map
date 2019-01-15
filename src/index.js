@@ -8,7 +8,7 @@ import HMapRectangle from "./components/HMap/objects/Rectangle";
 import HMapMarker from "./components/HMap/objects/Marker";
 import HMapGeoCode from "./components/GeoCode";
 import HMapRoute from "./components/Route";
-import HMapTraffic from "./components/Traffic";
+import HMapLayer from "./components/Layer";
 
 var points = [
   { lat: 52.5309825, lng: 13.3845921 },
@@ -281,7 +281,7 @@ ReactDOM.render(
     >
       <RouteMarkerIso />
     </HMapRoute> */}
-    <HMapTraffic />
+    <HMapLayer mapLayerType="normal.traffic" />
   </HMap>,
   document.getElementById("app")
 );
