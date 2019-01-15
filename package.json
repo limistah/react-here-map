@@ -1,7 +1,7 @@
 {
-  "name": "react-location-map",
+  "name": "react-here-map-interactive",
   "version": "0.0.1",
-  "description": "React component that combines Google Places Autocomplete with Google Map",
+  "description": "React components for working with Here Maps API",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,13 +9,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/limistah/react-location-map.git"
+    "url": "git+https://github.com/limistah/react-here-map-interactive.git"
   },
   "keywords": [
-    "google-maps",
+    "maps",
     "react",
-    "google-places",
+    "map places",
     "location",
+    "geocoding",
+    "here maps",
+    "here map",
     "map"
   ],
   "author": "Aleem Isiaka",
