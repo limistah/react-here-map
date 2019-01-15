@@ -44,7 +44,7 @@ export default async options => {
 
   const _mapType = mapType || MAP_TYPE;
   let ret = {
-    options: _options,
+    options: { ..._options, MAP_TYPE: _mapType },
     createMap: initMap,
     createPlatform: initPlatform,
     createInteraction: initInteraction,
