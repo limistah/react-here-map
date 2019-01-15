@@ -27,8 +27,7 @@ export default async options => {
   const _options = await init(options);
   // Get values from the options
   const {
-    appId,
-    appCode,
+    platformOptions,
     useEvents,
     mapEvents,
     interactive,
@@ -53,7 +52,7 @@ export default async options => {
   };
   if (container && build) {
     // Create the platform
-    ret.platform = initPlatform(appId, appCode);
+    ret.platform = initPlatform(platformOptions);
     // Create a Map
     ret.map = initMap(ret.platform, container, mapOptions, mapTypes, _mapType);
     ret.interaction = initInteraction(

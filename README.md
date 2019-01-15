@@ -30,8 +30,11 @@ ReactDOM.render(
       height: "400px",
       width: "800px"
     }}
-    appId={APP_ID}
-    appCode={APP_CODE}
+    platformOptions={{
+      appId: APP_ID,
+      appCode: APP_CODE
+      useHTTPS: true
+    }}
   >
     <HMapPolyLine points={points} />
   </HMap>,
@@ -96,8 +99,11 @@ _In some cases as we will soon see, there is an option for passing a custom comp
     height: "400px",
     width: "800px"
   }}
-  appId={APP_ID}
-  appCode={APP_CODE}
+  platformOptions={{
+    appId: APP_ID,
+    appCode: APP_CODE
+    useHTTPS: true
+  }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
 />
 ```
@@ -131,8 +137,11 @@ const points = [
     height: "400px",
     width: "800px"
   }}
-  appId={APP_ID}
-  appCode={APP_CODE}
+  platformOptions={{
+    appId: APP_ID,
+    appCode: APP_CODE
+    useHTTPS: true
+  }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
 >
   <HMapPolyLine points={points} />
@@ -167,8 +176,11 @@ const polygonOptions = {
     height: "400px",
     width: "800px"
   }}
-  appId={APP_ID}
-  appCode={APP_CODE}
+  platformOptions={{
+    appId: APP_ID,
+    appCode: APP_CODE
+    useHTTPS: true
+  }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
 >
   <HMapPolygon
@@ -208,8 +220,11 @@ const icon =
     height: "400px",
     width: "800px"
   }}
-  appId={APP_ID}
-  appCode={APP_CODE}
+  platformOptions={{
+    appId: APP_ID,
+    appCode: APP_CODE
+    useHTTPS: true
+  }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
 >
   <HMapMarker coords={coords} icon={icon} />
@@ -246,8 +261,11 @@ const circleOptions = {
     height: "400px",
     width: "800px"
   }}
-  appId={APP_ID}
-  appCode={APP_CODE}
+  platformOptions={{
+    appId: APP_ID,
+    appCode: APP_CODE
+    useHTTPS: true
+  }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
 >
   <HMapCircle coords={cords} radius={10000} options={circleOptions} />
@@ -282,8 +300,11 @@ const rectangleOptions = {
     height: "400px",
     width: "800px"
   }}
-  appId={APP_ID}
-  appCode={APP_CODE}
+  platformOptions={{
+    appId: APP_ID,
+    appCode: APP_CODE
+    useHTTPS: true
+  }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   interactive={true}
   includeUI={true}
@@ -331,8 +352,11 @@ const GeoMarker = ({ map, platform, ui, lat, lng }) => (
     height: "400px",
     width: "800px"
   }}
-  appId={APP_ID}
-  appCode={APP_CODE}
+  platformOptions={{
+    appId: APP_ID,
+    appCode: APP_CODE
+    useHTTPS: true
+  }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   interactive={true}
   includeUI={true}
@@ -372,8 +396,11 @@ const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
     height: "400px",
     width: "800px"
   }}
-  appId={APP_ID}
-  appCode={APP_CODE}
+  platformOptions={{
+    appId: APP_ID,
+    appCode: APP_CODE
+    useHTTPS: true
+  }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   interactive={true}
   includeUI={true}
@@ -415,8 +442,11 @@ const landmarkSearchParameters = {
     height: "400px",
     width: "800px"
   }}
-  appId={APP_ID}
-  appCode={APP_CODE}
+  platformOptions={{
+    appId: APP_ID,
+    appCode: APP_CODE
+    useHTTPS: true
+  }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   interactive={true}
   includeUI={true}
@@ -570,8 +600,11 @@ const RouteMarkerIso = ({
     height: "400px",
     width: "800px"
   }}
-  appId={APP_ID}
-  appCode={APP_CODE}
+  platformOptions={{
+    appId: APP_ID,
+    appCode: APP_CODE
+    useHTTPS: true
+  }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   interactive={true}
   includeUI={true}
@@ -591,8 +624,11 @@ const RouteMarkerIso = ({
     height: "400px",
     width: "800px"
   }}
-  appId={APP_ID}
-  appCode={APP_CODE}
+  platformOptions={{
+    appId: APP_ID,
+    appCode: APP_CODE
+    useHTTPS: true
+  }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   interactive={true}
   includeUI={true}
@@ -651,8 +687,11 @@ import HMap, { HMapLayer } from "@limistah/react-here-map";
     height: "400px",
     width: "800px"
   }}
-  appId={APP_ID}
-  appCode={APP_CODE}
+  platformOptions={{
+    appId: APP_ID,
+    appCode: APP_CODE
+    useHTTPS: true
+  }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
 >
   <HMapLayer mapLayerType="normal.trafficnight" />

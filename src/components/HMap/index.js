@@ -53,13 +53,12 @@ class HMap extends React.Component {
 
 HMap.propTypes = {
   version: PropTypes.string,
-  appId: PropTypes.string.isRequired,
-  appCode: PropTypes.string.isRequired,
   mapType: PropTypes.string,
   useEvents: PropTypes.bool,
   interactive: PropTypes.bool,
   includeUI: PropTypes.bool,
   mapEvents: PropTypes.object,
+  platformOptions: PropTypes.object.isRequired,
   mapOptions: PropTypes.object
 };
 

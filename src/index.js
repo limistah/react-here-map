@@ -217,8 +217,12 @@ ReactDOM.render(
       height: "400px",
       width: "800px"
     }}
-    appId="2Ts3vDUTLPW8kNUtyFRY"
-    appCode="MDivMVFtNkpim-dWuetlWw"
+    platformOptions={{
+      appId: "2Ts3vDUTLPW8kNUtyFRY",
+      appCode: "MDivMVFtNkpim-dWuetlWw",
+      useCIT: true,
+      useHTTPS: true
+    }}
     includeUI={true}
     interactive={false}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}

@@ -11,7 +11,7 @@
   };
   var n,
     r = !0,
-    o = "6034fbb71e88f193ab84",
+    o = "d56b1af8db07ae091b55",
     i = 1e4,
     a = {},
     u = [],
@@ -14437,11 +14437,13 @@ object-assign
           }
         );
       },
-      _ = function(e, t) {
-        if (!e || !t) throw new Error("Options must include appId and appCode");
+      _ = function(e) {
+        var t = e.appId,
+          n = e.appCode;
+        if (!t || !n) throw new Error("Options must include appId and appCode");
         if ("undefined" == typeof H || !H.service)
           throw new Error("Here Map JavaScripts is not loaded.");
-        return new H.service.Platform({ app_id: e, app_code: t, useCIT: !0 });
+        return new H.service.Platform(e);
       },
       S = n(50),
       E = n.n(S),
@@ -14533,7 +14535,7 @@ object-assign
     var M = (function() {
       var e,
         t = ((e = regeneratorRuntime.mark(function e(t) {
-          var n, r, o, i, a, u, l, c, s, f, p, d, h, v, y, m;
+          var n, r, o, i, a, u, l, c, s, f, p, d, h, v, y;
           return regeneratorRuntime.wrap(
             function(e) {
               for (;;)
@@ -14543,35 +14545,34 @@ object-assign
                   case 2:
                     return (
                       (n = e.sent),
-                      (r = n.appId),
-                      (o = n.appCode),
-                      (i = n.useEvents),
-                      (a = n.mapEvents),
-                      (u = n.interactive),
-                      (l = n.includeUI),
-                      (c = n.mapType),
-                      (s = n.MAP_TYPE),
-                      (f = n.mapTypes),
-                      (p = n.mapOptions),
-                      (d = n.uiLang),
-                      (h = n.container),
-                      (v = n.build),
-                      (m = {
-                        options: j({}, n, { MAP_TYPE: (y = c || s) }),
+                      (r = n.platformOptions),
+                      (o = n.useEvents),
+                      (i = n.mapEvents),
+                      (a = n.interactive),
+                      (u = n.includeUI),
+                      (l = n.mapType),
+                      (c = n.MAP_TYPE),
+                      (s = n.mapTypes),
+                      (f = n.mapOptions),
+                      (p = n.uiLang),
+                      (d = n.container),
+                      (h = n.build),
+                      (y = {
+                        options: j({}, n, { MAP_TYPE: (v = l || c) }),
                         createMap: T,
                         createPlatform: _,
                         createInteraction: P,
                         createDefaultUI: O,
                         createInteractionStyles: C
                       }),
-                      h &&
-                        v &&
-                        ((m.platform = _(r, o)),
-                        (m.map = T(m.platform, h, p, f, y)),
-                        (m.interaction = P(m.map, u, i, a)),
-                        l && (m.ui = O(m.platform, m.map, l, d)),
+                      d &&
+                        h &&
+                        ((y.platform = _(r)),
+                        (y.map = T(y.platform, d, f, s, v)),
+                        (y.interaction = P(y.map, a, o, i)),
+                        u && (y.ui = O(y.platform, y.map, u, p)),
                         C()),
-                      e.abrupt("return", m)
+                      e.abrupt("return", y)
                     );
                   case 8:
                   case "end":
@@ -14791,13 +14792,12 @@ object-assign
     })();
     z.propTypes = {
       version: l.a.string,
-      appId: l.a.string.isRequired,
-      appCode: l.a.string.isRequired,
       mapType: l.a.string,
       useEvents: l.a.bool,
       interactive: l.a.bool,
       includeUI: l.a.bool,
       mapEvents: l.a.object,
+      platformOptions: l.a.object.isRequired,
       mapOptions: l.a.object
     };
     var V = z;
@@ -15267,8 +15267,12 @@ object-assign
         V,
         {
           style: { height: "400px", width: "800px" },
-          appId: "2Ts3vDUTLPW8kNUtyFRY",
-          appCode: "MDivMVFtNkpim-dWuetlWw",
+          platformOptions: {
+            appId: "2Ts3vDUTLPW8kNUtyFRY",
+            appCode: "MDivMVFtNkpim-dWuetlWw",
+            useCIT: !0,
+            useHTTPS: !0
+          },
           includeUI: !0,
           interactive: !1,
           mapOptions: { center: { lat: 52.5321472, lng: 13.3935785 } }

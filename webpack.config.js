@@ -21,7 +21,7 @@ module.exports = {
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
   devServer: {
-    contentBase: "./dist",
+    contentBase: "./docs",
     hot: true
   }
 };
