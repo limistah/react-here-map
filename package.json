@@ -1,6 +1,6 @@
 {
   "name": "react-here-map-interactive",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "React components for working with Here Maps API",
   "main": "./src/main.js",
   "scripts": {
