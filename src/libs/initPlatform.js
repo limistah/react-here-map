@@ -1,6 +1,6 @@
 export default options => {
-  const { appId, appCode } = options;
-  if (!appId || !appCode) {
+  const { app_id, app_code } = options;
+  if (!app_id || !app_code) {
     throw new Error("Options must include appId and appCode");
   }
   if (typeof H === "undefined" || !H.service) {

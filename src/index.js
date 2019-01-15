@@ -218,8 +218,8 @@ ReactDOM.render(
       width: "800px"
     }}
     platformOptions={{
-      appId: "2Ts3vDUTLPW8kNUtyFRY",
-      appCode: "MDivMVFtNkpim-dWuetlWw",
+      app_id: "2Ts3vDUTLPW8kNUtyFRY",
+      app_code: "MDivMVFtNkpim-dWuetlWw",
       useCIT: true,
       useHTTPS: true
     }}

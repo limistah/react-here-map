@@ -31,8 +31,8 @@ ReactDOM.render(
       width: "800px"
     }}
     platformOptions={{
-      appId: APP_ID,
-      appCode: APP_CODE
+      app_id: APP_ID,
+      app_code: APP_CODE
       useHTTPS: true
     }}
   >
@@ -85,8 +85,8 @@ _In some cases as we will soon see, there is an option for passing a custom comp
 #### props
 
 - **version** PropTypes.string - One of the supported version. Defaults to `'v3/3.0'`
-- **appId** PropTypes.string.isRequired - Application ID from account dashboard
-- **appCode** PropTypes.string.isRequired - Application Code from account dashboard
+- **app_id** PropTypes.string.isRequired - Application ID from account dashboard
+- **app_code** PropTypes.string.isRequired - Application Code from account dashboard
 - **mapType** PropTypes.string - One of the above types accessed as a dot prop. Default `'normal.map'`
 - **interactive** PropTypes.bool - Makes the map react to events. Needed for event handling
 - **includeUI** PropTypes.bool - Determines
@@ -100,8 +100,8 @@ _In some cases as we will soon see, there is an option for passing a custom comp
     width: "800px"
   }}
   platformOptions={{
-    appId: APP_ID,
-    appCode: APP_CODE
+    app_id: APP_ID,
+    app_code: APP_CODE
     useHTTPS: true
   }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
@@ -138,8 +138,8 @@ const points = [
     width: "800px"
   }}
   platformOptions={{
-    appId: APP_ID,
-    appCode: APP_CODE
+    app_id: APP_ID,
+    app_code: APP_CODE
     useHTTPS: true
   }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
@@ -177,8 +177,8 @@ const polygonOptions = {
     width: "800px"
   }}
   platformOptions={{
-    appId: APP_ID,
-    appCode: APP_CODE
+    app_id: APP_ID,
+    app_code: APP_CODE
     useHTTPS: true
   }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
@@ -221,8 +221,8 @@ const icon =
     width: "800px"
   }}
   platformOptions={{
-    appId: APP_ID,
-    appCode: APP_CODE
+    app_id: APP_ID,
+    app_code: APP_CODE
     useHTTPS: true
   }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
@@ -262,8 +262,8 @@ const circleOptions = {
     width: "800px"
   }}
   platformOptions={{
-    appId: APP_ID,
-    appCode: APP_CODE
+    app_id: APP_ID,
+    app_code: APP_CODE
     useHTTPS: true
   }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
@@ -301,8 +301,8 @@ const rectangleOptions = {
     width: "800px"
   }}
   platformOptions={{
-    appId: APP_ID,
-    appCode: APP_CODE
+    app_id: APP_ID,
+    app_code: APP_CODE
     useHTTPS: true
   }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
@@ -353,8 +353,8 @@ const GeoMarker = ({ map, platform, ui, lat, lng }) => (
     width: "800px"
   }}
   platformOptions={{
-    appId: APP_ID,
-    appCode: APP_CODE
+    app_id: APP_ID,
+    app_code: APP_CODE
     useHTTPS: true
   }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
@@ -397,8 +397,8 @@ const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
     width: "800px"
   }}
   platformOptions={{
-    appId: APP_ID,
-    appCode: APP_CODE
+    app_id: APP_ID,
+    app_code: APP_CODE
     useHTTPS: true
   }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
@@ -443,8 +443,8 @@ const landmarkSearchParameters = {
     width: "800px"
   }}
   platformOptions={{
-    appId: APP_ID,
-    appCode: APP_CODE
+    app_id: APP_ID,
+    app_code: APP_CODE
     useHTTPS: true
   }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
@@ -601,8 +601,8 @@ const RouteMarkerIso = ({
     width: "800px"
   }}
   platformOptions={{
-    appId: APP_ID,
-    appCode: APP_CODE
+    app_id: APP_ID,
+    app_code: APP_CODE
     useHTTPS: true
   }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
@@ -625,8 +625,8 @@ const RouteMarkerIso = ({
     width: "800px"
   }}
   platformOptions={{
-    appId: APP_ID,
-    appCode: APP_CODE
+    app_id: APP_ID,
+    app_code: APP_CODE
     useHTTPS: true
   }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
@@ -688,8 +688,8 @@ import HMap, { HMapLayer } from "@limistah/react-here-map";
     width: "800px"
   }}
   platformOptions={{
-    appId: APP_ID,
-    appCode: APP_CODE
+    app_id: APP_ID,
+    app_code: APP_CODE
     useHTTPS: true
   }}
   mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
