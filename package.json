@@ -1,8 +1,8 @@
 {
   "name": "react-here-map-interactive",
-  "version": "0.0.1",
+  "version": "0.9.1",
   "description": "React components for working with Here Maps API",
-  "main": "index.js",
+  "main": "./src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --config ./webpack.config.js --mode development"
