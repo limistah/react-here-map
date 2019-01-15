@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import merge from "lodash.merge";
 
 function Marker(props) {
-  const { icon, map, coords, type, setViewBounds } = merge(
+  const { icon, map, coords, type, options, setViewBounds } = merge(
     { setViewBounds: true },
     props
   );
@@ -22,7 +22,7 @@ function Marker(props) {
   }
 
   let mapIcon = {};
-  if (type && type === "DomIcon") {
+  if (type && type === "DOM") {
     // Displays a DOM Icon
     mapIcon = new H.map.DomIcon(icon);
   } else {
@@ -31,7 +31,7 @@ function Marker(props) {
   }
 
   // Create an icon, an object holding the latitude and longitude, and a marker:
-  const marker = new H.map.Marker(coords, { icon: mapIcon });
+  const marker = new H.map.Marker(coords, { ...options, icon: mapIcon });
 
   // Add the marker to the map and center the map at the location of the marker:
   map.addObject(marker);
@@ -46,7 +46,9 @@ function Marker(props) {
 Marker.propTypes = {
   coords: PropTypes.object.isRequired,
   icon: PropTypes.any.isRequired,
+  options: PropTypes.object,
   type: PropTypes.string,
+  setViewBounds: PropTypes.bool,
   map: PropTypes.object
 };
 

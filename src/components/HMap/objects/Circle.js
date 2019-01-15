@@ -4,7 +4,7 @@ import merge from "lodash.merge";
 
 function Circle(props) {
   const { radius, map, coords, options, setAsCenter } = merge(
-    { setAsCenter: true },
+    { setViewBounds: true },
     props
   );
   if (!H || !H.map || !map) {
@@ -31,7 +31,7 @@ function Circle(props) {
 
   // Add the marker to the map and center the map at the location of the marker:
   map.addObject(circle);
-  if (setAsCenter) {
+  if (setViewBounds) {
     map.setCenter(coords);
   }
 
@@ -43,7 +43,7 @@ Circle.propTypes = {
   coords: PropTypes.object.isRequired,
   options: PropTypes.object,
   radius: PropTypes.number,
-  setAsCenter: PropTypes.bool,
+  setViewBounds: PropTypes.bool,
   map: PropTypes.object
 };
 
