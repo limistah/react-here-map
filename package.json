@@ -1,5 +1,5 @@
 {
-  "name": "react-here-map-interactive",
+  "name": "react-here-map",
   "version": "0.10.1",
   "description": "React components for working with Here Maps API",
   "main": "./src/main.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/limistah/react-here-map-interactive.git"
+    "url": "git+https://github.com/limistah/react-here-map.git"
   },
   "keywords": [
     "maps",
@@ -33,8 +33,8 @@
     "dot-prop": "^4.2.0",
     "lodash.merge": "^4.6.1",
     "prop-types": "^15.6.2",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "16.8.0-alpha.0",
+    "react-dom": "16.8.0-alpha.0"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",

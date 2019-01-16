@@ -36,6 +36,7 @@ function Router(props) {
   // Define a callback function to process the routing response:
   const onResult = function(result) {
     setResultResponse(result.response);
+    console.log("got here");
     let _routeShape = [];
     if (isoLine && resultResponse.isoline) {
       component = resultResponse.isoline[0].component[0];

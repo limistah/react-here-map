@@ -224,7 +224,7 @@ ReactDOM.render(
       useHTTPS: true
     }}
     includeUI={true}
-    interactive={false}
+    interactive={true}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
     {/* <HMapPolyLine points={points} /> */}
@@ -240,9 +240,9 @@ ReactDOM.render(
       options={rectangleOptions}
     /> */}
 
-    {/* <HMapGeoCode geoCodeParams={geoCodeParams}>
+    <HMapGeoCode geoCodeParams={geoCodeParams}>
       <GeoMarker />
-    </HMapGeoCode> */}
+    </HMapGeoCode>
 
     {/* <HMapGeoCode geoCodeParams={reverseGeoCodingParameters} reverse={true}>
       <ReverseGeoMarker />
@@ -285,7 +285,7 @@ ReactDOM.render(
     >
       <RouteMarkerIso />
     </HMapRoute> */}
-    <HMapLayer mapLayerType="normal.traffic" />
+    {/* <HMapLayer mapLayerType="normal.traffic" /> */}
   </HMap>,
   document.getElementById("app")
 );

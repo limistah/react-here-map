@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import merge from "lodash.merge";
 
 function Circle(props) {
-  const { radius, map, coords, options, setAsCenter } = merge(
+  const { radius, map, coords, options, setViewBounds } = merge(
     { setViewBounds: true },
     props
   );
