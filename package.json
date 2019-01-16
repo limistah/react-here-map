@@ -25,9 +25,9 @@
   "author": "Aleem Isiaka",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/limistah/react-location-map/issues"
+    "url": "https://github.com/limistah/react-here-map/issues"
   },
-  "homepage": "https://github.com/limistah/react-location-map#readme",
+  "homepage": "https://github.com/limistah/react-here-map#readme",
   "dependencies": {
     "@limistah/here-map-js": "^1.7.0",
     "dot-prop": "^4.2.0",
