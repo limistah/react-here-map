@@ -10,6 +10,9 @@ import HMapGeoCode from "./components/GeoCode";
 import HMapRoute from "./components/Route";
 import HMapLayer from "./components/Layer";
 
+import HMapPlatform from ".//components/Platform";
+import HMapPlaces from "./components/Places";
+
 var points = [
   { lat: 52.5309825, lng: 13.3845921 },
   { lat: 52.5311923, lng: 13.3853495 },
@@ -212,81 +215,95 @@ const RouteMarkerIso = ({
   );
 };
 ReactDOM.render(
-  <HMap
-    style={{
-      height: "400px",
-      width: "800px"
-    }}
-    platformOptions={{
-      app_id: "2Ts3vDUTLPW8kNUtyFRY",
-      app_code: "MDivMVFtNkpim-dWuetlWw",
-      useCIT: true,
-      useHTTPS: true
-    }}
-    includeUI={true}
-    interactive={true}
-    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
-  >
-    {/* <HMapPolyLine points={points} /> */}
-    {/* <HMapPolygon points={polygonPoints} options={polygonOptions} /> */}
-    {/* <HMapCircle
-      coords={{ lat: 52.5321472, lng: 13.3935785 }}
-      radius={10000}
-      options={circleOptions}
-    /> */}
-    {/* <HMapMarker coords={{ lat: 52.5321472, lng: 13.3935785 }} icon={icon} /> */}
-    {/* <HMapRectangle
-      points={[53.1, 13.1, 43.1, 40.1]}
-      options={rectangleOptions}
-    /> */}
-
-    <HMapGeoCode geoCodeParams={geoCodeParams}>
-      <GeoMarker />
-    </HMapGeoCode>
-
-    {/* <HMapGeoCode geoCodeParams={reverseGeoCodingParameters} reverse={true}>
-      <ReverseGeoMarker />
-    </HMapGeoCode> */}
-
-    {/* <HMapGeoCode geoCodeParams={landmarkSearchParameters} landmark={true}>
-      <LandmarkGeoMarker />
-    </HMapGeoCode> */}
-
-    {/* <HMapRoute
-      routeParams={routeParams}
-      icon={icon}
-      defaultDisplay={true}
-      lineOptions={routeLineOptions}
-    /> */}
-
-    {/* <HMapRoute
-      routeParams={routeParams}
-      icon={icon}
-      defaultDisplay={false}
-      lineOptions={routeLineOptions}
+  <React.Fragment>
+    <HMapPlatform
+      app_id="2Ts3vDUTLPW8kNUtyFRY"
+      app_code="MDivMVFtNkpim-dWuetlWw"
+      useCIT={true}
+      useHTTPS={true}
+      includePlaces={true}
+      interactive={true}
     >
-      <RouteMarker />
-    </HMapRoute> */}
+      <HMapPlaces library="search" />
+    </HMapPlatform>
 
-    {/* <HMapRoute
-      routeParams={isoRoutingParams}
-      icon={icon}
-      isoLine={true}
-      defaultDisplay={true}
-      lineOptions={routeLineOptions}
-    /> */}
-
-    {/* <HMapRoute
-      routeParams={isoRoutingParams}
-      icon={icon}
-      defaultDisplay={false}
-      isoLine={true}
-      lineOptions={routeLineOptions}
+    <HMapPlatform
+      app_id="2Ts3vDUTLPW8kNUtyFRY"
+      app_code="MDivMVFtNkpim-dWuetlWw"
+      useCIT={true}
+      useHTTPS={true}
+      includeUI={true}
+      includePlaces={true}
     >
-      <RouteMarkerIso />
-    </HMapRoute> */}
-    {/* <HMapLayer mapLayerType="normal.traffic" /> */}
-  </HMap>,
+      <HMap
+        style={{
+          height: "400px",
+          width: "800px"
+        }}
+        mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 }, zoom: 10 }}
+      >
+        {/* <HMapPolyLine points={points} /> */}
+        {/* <HMapPolygon points={polygonPoints} options={polygonOptions} /> */}
+        {/* <HMapCircle
+          coords={{ lat: 52.5321472, lng: 13.3935785 }}
+          radius={10000}
+          options={circleOptions}
+        />
+        <HMapMarker coords={{ lat: 52.5321472, lng: 13.3935785 }} icon={icon} />
+        <HMapRectangle
+          points={[53.1, 13.1, 43.1, 40.1]}
+          options={rectangleOptions}
+        />
+
+        <HMapGeoCode geoCodeParams={geoCodeParams}>
+          <GeoMarker />
+        </HMapGeoCode>
+
+        <HMapGeoCode geoCodeParams={reverseGeoCodingParameters} reverse={true}>
+          <ReverseGeoMarker />
+        </HMapGeoCode>
+
+        <HMapGeoCode geoCodeParams={landmarkSearchParameters} landmark={true}>
+          <LandmarkGeoMarker />
+        </HMapGeoCode>
+
+        <HMapRoute
+          routeParams={routeParams}
+          icon={icon}
+          defaultDisplay={true}
+          lineOptions={routeLineOptions}
+        />
+
+        <HMapRoute
+          routeParams={routeParams}
+          icon={icon}
+          defaultDisplay={false}
+          lineOptions={routeLineOptions}
+        >
+          <RouteMarker />
+        </HMapRoute>
+
+        <HMapRoute
+          routeParams={isoRoutingParams}
+          icon={icon}
+          isoLine={true}
+          defaultDisplay={true}
+          lineOptions={routeLineOptions}
+        /> */}
+
+        <HMapRoute
+          routeParams={isoRoutingParams}
+          icon={icon}
+          defaultDisplay={false}
+          isoLine={true}
+          lineOptions={routeLineOptions}
+        >
+          <RouteMarkerIso />
+        </HMapRoute>
+        <HMapLayer mapLayerType="normal.traffic" />
+      </HMap>
+    </HMapPlatform>
+  </React.Fragment>,
   document.getElementById("app")
 );
 module.hot.accept();

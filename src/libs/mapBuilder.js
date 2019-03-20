@@ -1,33 +1,32 @@
-import init from "./libs/loadMap";
-import initPlatform from "./libs/initPlatform";
-import initMap from "./libs/initMap";
-import initInteraction from "./libs/initInteraction";
-import initDefaultUI from "./libs/initDefaultUI";
-import initInteractionStyles from "./libs/initInteractionStyles";
+import initMap from "./initMap";
+import initInteraction from "./initInteraction";
+import initDefaultUI from "./initDefaultUI";
+import initInteractionStyles from "./initInteractionStyles";
 
 /**
  * The whole library is bootstrapped after the initialization is done using the options
  * @property {string} options.version Version of the api to load. Defaults to v3
- * @property {boolean} options.useEvents Should load map events
+ * @property {string} options.VERSION Default version Defaults to v3
  * @property {object} options.mapEvents Map events implementation
  * @property {object} options.mapOptions Options needed to initialize the map
+ * @property {object} options.platformOptions Options needed to initialize the map
  * @property {boolean} options.interactive Adds interactivity to the MAP
+ * @property {boolean} options.useEvents Adds event handling to the map
  * @property {boolean} options.includeUI Add UI script to the MAP
+ * @property {boolean} options.build Determines if the map should be built
  * @property {Node} options.container DOM Element to hold the MAP
  * @property {string} options.uiLang Language of the UI
  * @property {build} options.build Flag to tell if the MAP should be build immediately
  * @property {string} options.appId Here Map APP ID
  * @property {string} options.appCode Here Map APP code
  * @property {string} options.mapType The type of the map to load e.g // "normal.map"
+ * @property {string} options.MAP_TYPE Default map type to load "normal.map"
  * @param {object} options Items necessary to run the library
  * @returns {object}
  */
-
-export default async options => {
-  const _options = await init(options);
+export default (platform, options) => {
   // Get values from the options
   const {
-    platformOptions,
     useEvents,
     mapEvents,
     interactive,
@@ -39,22 +38,15 @@ export default async options => {
     uiLang,
     container,
     build
-  } = _options;
+  } = options;
 
   const _mapType = mapType || MAP_TYPE;
-  let ret = {
-    options: { ..._options, MAP_TYPE: _mapType },
-    createMap: initMap,
-    createPlatform: initPlatform,
-    createInteraction: initInteraction,
-    createDefaultUI: initDefaultUI,
-    createInteractionStyles: initInteractionStyles
-  };
+
+  let ret = { options: { ...options, MAP_TYPE: _mapType }, platform };
+
   if (container && build) {
-    // Create the platform
-    ret.platform = initPlatform(platformOptions);
     // Create a Map
-    ret.map = initMap(ret.platform, container, mapOptions, mapTypes, _mapType);
+    ret.map = initMap(platform, container, mapOptions, mapTypes, _mapType);
     ret.interaction = initInteraction(
       ret.map,
       interactive,
@@ -62,10 +54,16 @@ export default async options => {
       mapEvents
     );
     if (includeUI) {
-      ret.ui = initDefaultUI(ret.platform, ret.map, includeUI, uiLang);
+      ret.ui = initDefaultUI(platform, ret.map, includeUI, uiLang);
     }
     // Adds the grabbing to the document
     initInteractionStyles();
+  } else {
+    ret.createMap = initMap;
+    ret.createPlatform = initPlatform;
+    ret.createInteraction = initInteraction;
+    ret.createDefaultUI = initDefaultUI;
+    ret.createInteractionStyles = initInteractionStyles;
   }
   return ret;
 };

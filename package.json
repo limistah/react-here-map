@@ -29,8 +29,11 @@
   },
   "homepage": "https://github.com/limistah/react-here-map#readme",
   "dependencies": {
-    "@limistah/here-map-js": "^1.7.0",
+    "@limistah/here-map-js": "^3.1.0",
+    "debounce": "^1.2.0",
     "dot-prop": "^4.2.0",
+    "glamor": "^2.20.40",
+    "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.1",
     "prop-types": "^15.6.2",
     "react": "16.8.0-alpha.0",

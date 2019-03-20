@@ -54,6 +54,8 @@ const _mapEvents = [
 
 const defaultClassName = "here-map-container";
 
+const includePlaces = false;
+
 // Function that does really nothing, still it is a function, and has its right!
 const noop = () => {};
 let mapEvents = {};
@@ -67,6 +69,7 @@ export default {
   mapOptions,
   interactive,
   includeUI,
+  includePlaces,
   useEvents,
   containerId,
   defaultClassName

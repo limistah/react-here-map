@@ -5,14 +5,14 @@ It simplifies the use of the Here Map JavaScript API through incorporating them 
 
 ## Installation
 
-`npm i --save react-here-map`
+`npm i --save @limistah/react-here-map`
 
 ## General Usage
 
 ```js
 import React from "react";
 import ReactDOM from "react-dom";
-import HMap, { HMapPolyLine } from "@limistah/react-here-map";
+import HPlatform, { HMap, HMapPolyLine } from "@limistah/react-here-map";
 
 const points = [
   { lat: 52.5309825, lng: 13.3845921 },
@@ -25,36 +25,78 @@ const points = [
 ];
 
 ReactDOM.render(
-  <HMap
-    style={{
-      height: "400px",
-      width: "800px"
-    }}
-    platformOptions={{
-      app_id: APP_ID,
-      app_code: APP_CODE
-      useHTTPS: true
-    }}
+  <HPlatform
+    app_id="YOUR_APP_ID"
+    app_code="YOUR_APP_CODE"
+    useCIT={true}
+    useHTTPS={true}
+    includeUI={true}
+    includePlaces={true}
   >
-    <HMapPolyLine points={points} />
-  </HMap>,
+    <HMap
+      style={{
+        height: "400px",
+        width: "800px"
+      }}
+      mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 }, zoom: 10 }}
+    >
+      <HMapPolyLine points={points} />
+    </HMap>
+  </HPlatform>,
   document.getElementById("app")
 );
 ```
 
 ## Components
 
+1. **[HPlatform](#HPlatform)** - Platform initializer. All major components should be its child.
 1. **[HMap](#hmap)** - Default export from this module, should be used as a parent for other components
-2. **[HMapPolyLine](#hmappolyline)** - Draws a polyline on the map
-3. **[HMapPolygon](#hmappolygon)** - Draws a polygon on the map
-4. **[HMapMarker](#hmapmarker)** - Puts a marker on the map
-5. **[HMapCircle](#hmapcircle)** - Draws a circle on the map
-6. **[HMapRectangle](#hmaprectangle)** - Draws a rectangle on the map
-7. **[HMapGeoCode](#hmapgeocode)** - Turns a physical address to a point on the map
-8. **[HMapRoute](#hmaproute)** - Defines a route to locate two points
-9. **[HMapLayer](#hmaplayer)** - Adds additional informational layer on the map
+1. **[HMapPolyLine](#hmappolyline)** - Draws a polyline on the map. A direct child of the map
+1. **[HMapPolygon](#hmappolygon)** - Draws a polygon on the map. A direct child of the map
+1. **[HMapMarker](#hmapmarker)** - Puts a marker on the map. A direct child of the map
+1. **[HMapCircle](#hmapcircle)** - Draws a circle on the map. A direct child of the map
+1. **[HMapRectangle](#hmaprectangle)** - Draws a rectangle on the map. A direct child of the map
+1. **[HMapGeoCode](#hmapgeocode)** - Turns a physical address to a point on the map
+1. **[HMapRoute](#hmaproute)** - Defines a route to locate two points. A direct child of the map
+1. **[HMapLayer](#hmaplayer)** - Adds additional informational layer on the map. A direct child of the map
 
 ## Usage in details
+
+### HPlatform
+
+A container for all of the components in this library. Generates a platform that are injected into all of its direct children.
+
+```js
+<HPlatform
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
+  useCIT={true}
+  useHTTPS={true}
+  includeUI={true}
+  includePlaces={true}
+>
+  {/*Children come in here*/}
+</HPlatform>
+```
+
+All direct children of `HPlatform` component receives:
+
+- **platform** A reference to H.service.platform [Docs](https://developer.here.com/documentation/maps/topics_api/h-service-platform.html)
+- **options** A reference to the options used to bootstrap the scripts. [See here](https://www.npmjs.com/package/@limistah/here-map-js):
+
+#### props
+
+Props were determined by the options required for initializing the platform.
+
+- **version** PropTypes.string - One of the supported version. Defaults to `'v3/3.0'`
+- **app_id** PropTypes.string.isRequired - Application ID from account dashboard
+- **app_code** PropTypes.string.isRequired - Application Code from account dashboard
+- **mapType** PropTypes.string - One of the above types accessed as a dot prop. Default `'normal.map'`
+- **interactive** PropTypes.bool - Makes the map react to events. Needed for event handling
+- **includeUI** PropTypes.bool - Add the UI controls
+- **includePlaces** PropTypes.bool - Add the module for working with places
+- **useCIT** PropTypes.boolean - Default to `true`
+- **useHTTPS** PropTypes.boolean - Load the library using HTTPS. Default to `true`
 
 ### HMap
 
@@ -84,28 +126,26 @@ _In some cases as we will soon see, there is an option for passing a custom comp
 
 #### props
 
-- **version** PropTypes.string - One of the supported version. Defaults to `'v3/3.0'`
-- **app_id** PropTypes.string.isRequired - Application ID from account dashboard
-- **app_code** PropTypes.string.isRequired - Application Code from account dashboard
-- **mapType** PropTypes.string - One of the above types accessed as a dot prop. Default `'normal.map'`
-- **interactive** PropTypes.bool - Makes the map react to events. Needed for event handling
-- **includeUI** PropTypes.bool - Determines
 - **mapEvents** PropTypes.object - [officially supported events](https://developer.here.com/documentation/maps/topics/events.html)
 - **mapOptions** PropTypes.object - [officially supported options](https://developer.here.com/documentation/maps/topics_api/h-map-options.html)
 
 ```js
-<HMap
-  style={{
-    height: "400px",
-    width: "800px"
-  }}
-  platformOptions={{
-    app_id: APP_ID,
-    app_code: APP_CODE
-    useHTTPS: true
-  }}
-  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
-/>
+<HPlatform
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
+  useCIT={true}
+  useHTTPS={true}
+  includeUI={true}
+  includePlaces={true}
+>
+  <HMap
+    style={{
+      height: "400px",
+      width: "800px"
+    }}
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  />
+</HPlatform>
 ```
 
 ### HMapPolyLine
@@ -121,7 +161,7 @@ Draws a polyline on the map
 #### Usage
 
 ```js
-import HMap, { HMapPolyLine } from "@limistah/react-here-map";
+import HPlatform, { HMap, HMapPolyLine } from "@limistah/react-here-map";
 const points = [
   { lat: 52.5309825, lng: 13.3845921 },
   { lat: 52.5311923, lng: 13.3853495 },
@@ -132,20 +172,25 @@ const points = [
   { lat: 52.5321472, lng: 13.3935785 }
 ];
 
-<HMap
-  style={{
-    height: "400px",
-    width: "800px"
-  }}
-  platformOptions={{
-    app_id: APP_ID,
-    app_code: APP_CODE
-    useHTTPS: true
-  }}
-  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+<HPlatform
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
+  useCIT={true}
+  useHTTPS={true}
+  includeUI={true}
+  includePlaces={true}
 >
-  <HMapPolyLine points={points} />
-</HMap>;
+  <HMap
+    style={{
+      height: "400px",
+      width: "800px"
+    }}
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  >
+    <HMapPolyLine points={points} />
+  </HMap>
+  ;
+</HPlatform>;
 ```
 
 ### HMapPolygon
@@ -160,7 +205,7 @@ Draws a polygon on the map
 #### Usage
 
 ```js
-import HMap, { HMapPolygon } from "@limistah/react-here-map";
+import HPlatform, { HMap, HMapPolygon } from "@limistah/react-here-map";
 const points = [52, 13, 100, 48, 2, 100, 48, 16, 100, 52, 13, 100];
 // const points = ['52,13']
 const polygonOptions = {
@@ -170,25 +215,28 @@ const polygonOptions = {
     lineWidth: 8
   }
 };
-
-<HMap
-  style={{
-    height: "400px",
-    width: "800px"
-  }}
-  platformOptions={{
-    app_id: APP_ID,
-    app_code: APP_CODE
-    useHTTPS: true
-  }}
-  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+<HPlatform
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
+  useCIT={true}
+  useHTTPS={true}
+  includeUI={true}
+  includePlaces={true}
 >
-  <HMapPolygon
-    points={polygonPoints}
-    options={polygonOptions}
-    setViewBounds="true"
-  />
-</HMap>;
+  <HMap
+    style={{
+      height: "400px",
+      width: "800px"
+    }}
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  >
+    <HMapPolygon
+      points={polygonPoints}
+      options={polygonOptions}
+      setViewBounds="true"
+    />
+  </HMap>
+</HPlatform>;
 ```
 
 ### HMapMarker
@@ -206,7 +254,7 @@ Puts a marker on the map
 ### Usage
 
 ```js
-import HMap, { HMapMarker } from "@limistah/react-here-map";
+import HPlatform, { HMap, HMapMarker } from "@limistah/react-here-map";
 const coords = [{ lat: 52.5309825, lng: 13.3845921 }];
 const icon =
   '<svg width="24" height="24" ' +
@@ -215,20 +263,24 @@ const icon =
   'height="22" /><text x="12" y="18" font-size="12pt" ' +
   'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
   'fill="white">H</text></svg>';
-<HMap
-  style={{
-    height: "400px",
-    width: "800px"
-  }}
-  platformOptions={{
-    app_id: APP_ID,
-    app_code: APP_CODE
-    useHTTPS: true
-  }}
-  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+<HPlatform
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
+  useCIT={true}
+  useHTTPS={true}
+  includeUI={true}
+  includePlaces={true}
 >
-  <HMapMarker coords={coords} icon={icon} />
-</HMap>;
+  <HMap
+    style={{
+      height: "400px",
+      width: "800px"
+    }}
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  >
+    <HMapMarker coords={coords} icon={icon} />
+  </HMap>
+</HPlatform>;
 ```
 
 ### HMapCircle
@@ -245,7 +297,7 @@ Puts a circle on the map
 #### Usage
 
 ```js
-import HMap, { HMapCircle } from "@limistah/react-here-map";
+import HPlatform, { HMap, HMapCircle } from "@limistah/react-here-map";
 
 const coords = [{ lat: 52.5309825, lng: 13.3845921 }];
 
@@ -256,20 +308,24 @@ const circleOptions = {
     fillColor: "rgba(0, 128, 0, 0.7)" // Color of the circle
   }
 };
-<HMap
-  style={{
-    height: "400px",
-    width: "800px"
-  }}
-  platformOptions={{
-    app_id: APP_ID,
-    app_code: APP_CODE
-    useHTTPS: true
-  }}
-  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+<HPlatform
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
+  useCIT={true}
+  useHTTPS={true}
+  includeUI={true}
+  includePlaces={true}
 >
-  <HMapCircle coords={cords} radius={10000} options={circleOptions} />
-</HMap>;
+  <HMap
+    style={{
+      height: "400px",
+      width: "800px"
+    }}
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  >
+    <HMapCircle coords={cords} radius={10000} options={circleOptions} />
+  </HMap>
+</HPlatform>;
 ```
 
 ### HMapRectangle
@@ -285,7 +341,7 @@ Puts a rectangle on the map
 #### Usage
 
 ```js
-import HMap, { HMapRectangle } from "@limistah/react-here-map";
+import HPlatform, { HMap, HMapRectangle } from "@limistah/react-here-map";
 
 const points = [53.1, 13.1, 43.1, 40.1];
 const rectangleOptions = {
@@ -295,27 +351,29 @@ const rectangleOptions = {
     lineWidth: 8
   }
 };
-<HMap
-  style={{
-    height: "400px",
-    width: "800px"
-  }}
-  platformOptions={{
-    app_id: APP_ID,
-    app_code: APP_CODE
-    useHTTPS: true
-  }}
-  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
-  interactive={true}
+<HPlatform
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
+  useCIT={true}
+  useHTTPS={true}
   includeUI={true}
+  includePlaces={true}
 >
-  <HMapRectangle points={points} options={rectangleOptions} />
-</HMap>;
+  <HMap
+    style={{
+      height: "400px",
+      width: "800px"
+    }}
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  >
+    <HMapRectangle points={points} options={rectangleOptions} />
+  </HMap>
+</HPlatform>;
 ```
 
 ### HMapGeoCode
 
-> This uses React Hooks. Ensure that your react installation supports Hooks API
+> This uses React Hooks. Ensure that your react installation supports The Hooks API
 
 #### Props
 
@@ -331,7 +389,11 @@ const rectangleOptions = {
 Converts an address to a position on the map
 
 ```js
-import HMap, { HMapGeoCode, HMapMarker } from "@limistah/react-here-map";
+import HPlatform, {
+  HMap,
+  HMapGeoCode,
+  HMapMarker
+} from "@limistah/react-here-map";
 
 const geoCodeParams = {
   searchText: "200 S Mathilda Ave, Sunnyvale, CA"
@@ -347,24 +409,26 @@ const GeoMarker = ({ map, platform, ui, lat, lng }) => (
   />
 );
 // Child of HMapGeoCode receives same params as above.
-<HMap
-  style={{
-    height: "400px",
-    width: "800px"
-  }}
-  platformOptions={{
-    app_id: APP_ID,
-    app_code: APP_CODE
-    useHTTPS: true
-  }}
-  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
-  interactive={true}
+<HPlatform
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
+  useCIT={true}
+  useHTTPS={true}
   includeUI={true}
+  includePlaces={true}
 >
-  <HMapGeoCode geoCodeParams={geoCodeParams}>
-    <GeoMarker />
-  </HMapGeoCode>
-</HMap>;
+  <HMap
+    style={{
+      height: "400px",
+      width: "800px"
+    }}
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  >
+    <HMapGeoCode geoCodeParams={geoCodeParams}>
+      <GeoMarker />
+    </HMapGeoCode>
+  </HMap>
+</HPlatform>;
 ```
 
 ##### Position to address(es)
@@ -372,7 +436,7 @@ const GeoMarker = ({ map, platform, ui, lat, lng }) => (
 Converts an position to address(es) on the map
 
 ```js
-import HMap from "@limistah/react-here-map";
+import HPlatform, { HMap } from "@limistah/react-here-map";
 // Create the parameters for the reverse geocoding request:
 const reverseGeoCodingParameters = {
   prox: "52.5309,13.3847,150",
@@ -391,24 +455,26 @@ const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
 };
 
 // Child of HMapGeoCode receives same params as above.
-<HMap
-  style={{
-    height: "400px",
-    width: "800px"
-  }}
-  platformOptions={{
-    app_id: APP_ID,
-    app_code: APP_CODE
-    useHTTPS: true
-  }}
-  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
-  interactive={true}
+<HPlatform
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
+  useCIT={true}
+  useHTTPS={true}
   includeUI={true}
+  includePlaces={true}
 >
-  <HMapGeoCode geoCodeParams={reverseGeoCodingParameters} reverse={true}>
-    <ReverseGeoMarker />
-  </HMapGeoCode>
-</HMap>;
+  <HMap
+    style={{
+      height: "400px",
+      width: "800px"
+    }}
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  >
+    <HMapGeoCode geoCodeParams={reverseGeoCodingParameters} reverse={true}>
+      <ReverseGeoMarker />
+    </HMapGeoCode>
+  </HMap>
+</HPlatform>;
 ```
 
 ##### Landmark Point
@@ -416,7 +482,7 @@ const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
 Locate landmark positions on the map
 
 ```js
-import HMap from "@limistah/react-here-map";
+import HPlatform, { HMap } from "@limistah/react-here-map";
 
 const LandmarkGeoMarker = ({
   map,
@@ -437,24 +503,26 @@ const landmarkSearchParameters = {
 };
 
 // Child of HMapGeoCode receives same params as above.
-<HMap
-  style={{
-    height: "400px",
-    width: "800px"
-  }}
-  platformOptions={{
-    app_id: APP_ID,
-    app_code: APP_CODE
-    useHTTPS: true
-  }}
-  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
-  interactive={true}
+<HPlatform
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
+  useCIT={true}
+  useHTTPS={true}
   includeUI={true}
+  includePlaces={true}
 >
-  <HMapGeoCode geoCodeParams={landmarkSearchParameters} landmark={true}>
-    <ReverseGeoMarker />
-  </HMapGeoCode>
-</HMap>;
+  <HMap
+    style={{
+      height: "400px",
+      width: "800px"
+    }}
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  >
+    <HMapGeoCode geoCodeParams={landmarkSearchParameters} landmark={true}>
+      <ReverseGeoMarker />
+    </HMapGeoCode>
+  </HMap>
+</HPlatform>;
 ```
 
 ### HMapRoute
@@ -478,7 +546,8 @@ Shows path to between two points based on params
 #### Usages
 
 ```js
-import HMap, {
+import HPlatform, {
+  HMap,
   HMapRoute,
   HMapMarker,
   HMapPolyLine
@@ -555,7 +624,11 @@ const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
 #### Displaying route on the Map Using iso line
 
 ```js
-import HMap, { HMapPolygon, HMapRoute } from "@limistah/react-here-map";
+import HPlatform, {
+  HMap,
+  HMapPolygon,
+  HMapRoute
+} from "@limistah/react-here-map";
 // Create the parameters for the reverse geocoding request:
 const isoRoutingParams = {
   mode: "fastest;car;",
@@ -595,54 +668,52 @@ const RouteMarkerIso = ({
 };
 
 // Using default display
-<HMap
-  style={{
-    height: "400px",
-    width: "800px"
-  }}
-  platformOptions={{
-    app_id: APP_ID,
-    app_code: APP_CODE
-    useHTTPS: true
-  }}
-  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
-  interactive={true}
+<HPlatform
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
+  useCIT={true}
+  useHTTPS={true}
   includeUI={true}
+  includePlaces={true}
 >
-  <HMapRoute
-    routeParams={isoRoutingParams}
-    icon={icon}
-    isoLine={true}
-    defaultDisplay={true}
-    lineOptions={routeLineOptions}
-  />
-</HMap>;
-
-// Using a custom display
-<HMap
-  style={{
-    height: "400px",
-    width: "800px"
-  }}
-  platformOptions={{
-    app_id: APP_ID,
-    app_code: APP_CODE
-    useHTTPS: true
-  }}
-  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
-  interactive={true}
-  includeUI={true}
->
-  <HMapRoute
-    routeParams={isoRoutingParams}
-    icon={icon}
-    defaultDisplay={false}
-    isoLine={true}
-    lineOptions={routeLineOptions}
+  <HMap
+    style={{
+      height: "400px",
+      width: "800px"
+    }}
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+    interactive={true}
+    includeUI={true}
   >
-    <RouteMarkerIso />
-  </HMapRoute>
-</HMap>;
+    <HMapRoute
+      routeParams={isoRoutingParams}
+      icon={icon}
+      isoLine={true}
+      defaultDisplay={true}
+      lineOptions={routeLineOptions}
+    />
+  </HMap>
+  ; // Using a custom display
+  <HMap
+    style={{
+      height: "400px",
+      width: "800px"
+    }}
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+    interactive={true}
+    includeUI={true}
+  >
+    <HMapRoute
+      routeParams={isoRoutingParams}
+      icon={icon}
+      defaultDisplay={false}
+      isoLine={true}
+      lineOptions={routeLineOptions}
+    >
+      <RouteMarkerIso />
+    </HMapRoute>
+  </HMap>
+</HPlatform>;
 ```
 
 ### HMapLayer
@@ -681,19 +752,24 @@ Individual layer holds different information
 #### Usage
 
 ```js
-import HMap, { HMapLayer } from "@limistah/react-here-map";
-<HMap
-  style={{
-    height: "400px",
-    width: "800px"
-  }}
-  platformOptions={{
-    app_id: APP_ID,
-    app_code: APP_CODE
-    useHTTPS: true
-  }}
-  mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+import HPlatform, { HMap, HMapLayer } from "@limistah/react-here-map";
+<HPlatform
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
+  useCIT={true}
+  useHTTPS={true}
+  includeUI={true}
+  includePlaces={true}
 >
-  <HMapLayer mapLayerType="normal.trafficnight" />
-</HMap>;
+  <HMap
+    style={{
+      height: "400px",
+      width: "800px"
+    }}
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+  >
+    <HMapLayer mapLayerType="normal.trafficnight" />
+  </HMap>
+  ;
+</HPlatform>;
 ```

@@ -3,10 +3,15 @@ import PropTypes from "prop-types";
 import merge from "lodash.merge";
 
 function Rectangle(props) {
-  const { map, points, options, setViewBounds } = merge(
-    { setViewBounds: true },
-    props
-  );
+  const {
+    map,
+    points,
+    options,
+    setViewBounds,
+    platform,
+    ui,
+    __options
+  } = merge({ setViewBounds: true }, props);
   if (!H || !H.map || !map) {
     throw new Error("HMap has to be initialized before adding Map Objects");
   }

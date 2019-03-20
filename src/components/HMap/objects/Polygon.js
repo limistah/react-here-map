@@ -3,14 +3,18 @@ import PropTypes from "prop-types";
 import merge from "lodash.merge";
 
 function Polygon(props) {
-  const { points, map, setViewBounds, options } = merge(
-    { setViewBounds: true },
-    props
-  );
+  const {
+    points,
+    map,
+    setViewBounds,
+    options,
+    platform,
+    ui,
+    __options
+  } = merge({ setViewBounds: true }, props);
   if (!H || !H.map || !map) {
     throw new Error("HMap has to be initialized before adding Map Objects");
   }
-
   if (!Array.isArray(points)) {
     throw new Error(
       "points should be an array of number to use in drawing the points"
@@ -18,7 +22,8 @@ function Polygon(props) {
   }
 
   let lineString = {};
-  if (points[0].split(",").length === 2) {
+  const firstEl = points[0];
+  if (typeof firstEl === "string" && firstEl.split(",").length === 2) {
     lineString = new H.geo.LineString();
     points.forEach(function(coords) {
       lineString.pushLatLngAlt.apply(lineString, coords.split(","));

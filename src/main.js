@@ -1,4 +1,5 @@
-import HMap from "./components/HMap";
+import HPlatform from "./components/Platform";
+import Map from "./components/HMap";
 import PolyLine from "./components/HMap/objects/PolyLine";
 import Polygon from "./components/HMap/objects/Polygon";
 import Marker from "./components/HMap/objects/Marker";
@@ -16,4 +17,5 @@ export const HMapRectangle = Rectangle;
 export const HMapRoute = Route;
 export const HMapLayer = Layer;
 export const HMapGeoCode = GeoCode;
-export default HMap;
+export const HMap = Map;
+export default HPlatform;

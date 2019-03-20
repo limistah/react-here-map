@@ -3,10 +3,16 @@ import PropTypes from "prop-types";
 import merge from "lodash.merge";
 
 function Circle(props) {
-  const { radius, map, coords, options, setViewBounds } = merge(
-    { setViewBounds: true },
-    props
-  );
+  const {
+    radius,
+    map,
+    coords,
+    options,
+    setViewBounds,
+    platform,
+    ui,
+    __options
+  } = merge({ setViewBounds: true }, props);
   if (!H || !H.map || !map) {
     throw new Error("HMap has to be initialized before adding Map Objects");
   }

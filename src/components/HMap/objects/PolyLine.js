@@ -3,10 +3,15 @@ import PropTypes from "prop-types";
 import merge from "lodash.merge";
 
 function PolyLine(props) {
-  const { points, options, map, setViewBounds } = merge(
-    { setViewBounds: true },
-    props
-  );
+  const {
+    points,
+    options,
+    map,
+    setViewBounds,
+    platform,
+    ui,
+    __options
+  } = merge({ setViewBounds: true }, props);
   if (!H || !H.map || !map) {
     throw new Error("HMap has to be initialized before adding Map Objects");
   }

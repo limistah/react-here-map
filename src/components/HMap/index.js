@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import build from "../../mapBuilder";
+import build from "../../libs/mapBuilder";
 import defaults from "../../libs/defaults";
 import merge from "lodash.merge";
 
@@ -11,16 +11,18 @@ class HMap extends React.Component {
     this.state = { builder: {} };
   }
 
-  async componentDidMount() {
-    const args = merge(
+  componentDidMount() {
+    const _props = this.props;
+    const _options = merge(
       {
         container: this.container.current,
         build: true
       },
-      this.props
+      _props.options,
+      _props
     );
-    const builder = await build(args);
-    console.log(builder);
+    delete _options.options;
+    const builder = build(_props.platform, _options);
     this.setState({ builder });
   }
   createLoadingComponent() {
@@ -35,8 +37,9 @@ class HMap extends React.Component {
   }
   render() {
     const { style, loadingEl } = this.props;
-    const loading = loadingEl || this.createLoadingComponent();
+    const { options } = this.state.builder;
 
+    const loading = loadingEl || this.createLoadingComponent();
     return (
       <div
         id={defaults.containerId}
@@ -44,8 +47,8 @@ class HMap extends React.Component {
         style={style}
         ref={this.container}
       >
-        {typeof H === "undefined" && loading}
-        {typeof H === "object" && this.displayChildren()}
+        {typeof H === "undefined" && !options && loading}
+        {typeof H === "object" && options && this.displayChildren()}
       </div>
     );
   }
@@ -58,7 +61,8 @@ HMap.propTypes = {
   interactive: PropTypes.bool,
   includeUI: PropTypes.bool,
   mapEvents: PropTypes.object,
-  platformOptions: PropTypes.object.isRequired,
+  platform: PropTypes.object,
+  options: PropTypes.object,
   mapOptions: PropTypes.object
 };
 
