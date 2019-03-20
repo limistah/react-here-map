@@ -5,7 +5,7 @@ It simplifies the use of the Here Map JavaScript API through incorporating them 
 
 ## Installation
 
-`npm i --save @limistah/react-here-map`
+`npm i --save react-here-map`
 
 ## General Usage
 
