@@ -1,18 +1,18 @@
-# @limistah/react-here-map
+# react-here-map
 
 React components for displaying and working with Here Map.
 It simplifies the use of the Here Map JavaScript API through incorporating them into React as components, which can be imported and easily rendered with easy configuration and modifications.
 
 ## Installation
 
-`npm i --save @limistah/react-here-map`
+`npm i --save react-here-map`
 
 ## General Usage
 
 ```js
 import React from "react";
 import ReactDOM from "react-dom";
-import HPlatform, { HMap, HMapPolyLine } from "@limistah/react-here-map";
+import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
 
 const points = [
   { lat: 52.5309825, lng: 13.3845921 },
@@ -82,7 +82,7 @@ A container for all of the components in this library. Generates a platform that
 All direct children of `HPlatform` component receives:
 
 - **platform** A reference to H.service.platform [Docs](https://developer.here.com/documentation/maps/topics_api/h-service-platform.html)
-- **options** A reference to the options used to bootstrap the scripts. [See here](https://www.npmjs.com/package/@limistah/here-map-js):
+- **options** A reference to the options used to bootstrap the scripts. [See here](https://www.npmjs.com/package/here-map-js):
 
 #### props
 
@@ -161,7 +161,7 @@ Draws a polyline on the map
 #### Usage
 
 ```js
-import HPlatform, { HMap, HMapPolyLine } from "@limistah/react-here-map";
+import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
 const points = [
   { lat: 52.5309825, lng: 13.3845921 },
   { lat: 52.5311923, lng: 13.3853495 },
@@ -205,7 +205,7 @@ Draws a polygon on the map
 #### Usage
 
 ```js
-import HPlatform, { HMap, HMapPolygon } from "@limistah/react-here-map";
+import HPlatform, { HMap, HMapPolygon } from "react-here-map";
 const points = [52, 13, 100, 48, 2, 100, 48, 16, 100, 52, 13, 100];
 // const points = ['52,13']
 const polygonOptions = {
@@ -254,7 +254,7 @@ Puts a marker on the map
 ### Usage
 
 ```js
-import HPlatform, { HMap, HMapMarker } from "@limistah/react-here-map";
+import HPlatform, { HMap, HMapMarker } from "react-here-map";
 const coords = [{ lat: 52.5309825, lng: 13.3845921 }];
 const icon =
   '<svg width="24" height="24" ' +
@@ -297,7 +297,7 @@ Puts a circle on the map
 #### Usage
 
 ```js
-import HPlatform, { HMap, HMapCircle } from "@limistah/react-here-map";
+import HPlatform, { HMap, HMapCircle } from "react-here-map";
 
 const coords = [{ lat: 52.5309825, lng: 13.3845921 }];
 
@@ -341,7 +341,7 @@ Puts a rectangle on the map
 #### Usage
 
 ```js
-import HPlatform, { HMap, HMapRectangle } from "@limistah/react-here-map";
+import HPlatform, { HMap, HMapRectangle } from "react-here-map";
 
 const points = [53.1, 13.1, 43.1, 40.1];
 const rectangleOptions = {
@@ -393,7 +393,7 @@ import HPlatform, {
   HMap,
   HMapGeoCode,
   HMapMarker
-} from "@limistah/react-here-map";
+} from "react-here-map";
 
 const geoCodeParams = {
   searchText: "200 S Mathilda Ave, Sunnyvale, CA"
@@ -436,7 +436,7 @@ const GeoMarker = ({ map, platform, ui, lat, lng }) => (
 Converts an position to address(es) on the map
 
 ```js
-import HPlatform, { HMap } from "@limistah/react-here-map";
+import HPlatform, { HMap } from "react-here-map";
 // Create the parameters for the reverse geocoding request:
 const reverseGeoCodingParameters = {
   prox: "52.5309,13.3847,150",
@@ -482,7 +482,7 @@ const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
 Locate landmark positions on the map
 
 ```js
-import HPlatform, { HMap } from "@limistah/react-here-map";
+import HPlatform, { HMap } from "react-here-map";
 
 const LandmarkGeoMarker = ({
   map,
@@ -551,7 +551,7 @@ import HPlatform, {
   HMapRoute,
   HMapMarker,
   HMapPolyLine
-} from "@limistah/react-here-map";
+} from "react-here-map";
 
 // Create the parameters for the routing request:
 var routeParams = {
@@ -628,7 +628,7 @@ import HPlatform, {
   HMap,
   HMapPolygon,
   HMapRoute
-} from "@limistah/react-here-map";
+} from "react-here-map";
 // Create the parameters for the reverse geocoding request:
 const isoRoutingParams = {
   mode: "fastest;car;",
@@ -752,7 +752,7 @@ Individual layer holds different information
 #### Usage
 
 ```js
-import HPlatform, { HMap, HMapLayer } from "@limistah/react-here-map";
+import HPlatform, { HMap, HMapLayer } from "react-here-map";
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
