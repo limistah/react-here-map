@@ -2,11 +2,12 @@
   "name": "react-here-map",
   "version": "1.0.2",
   "description": "React components for working with Here Maps API",
-  "main": "./src/main.js",
+  "main": "./lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
-    "build": "webpack --config ./webpack.config.js --mode production"
+    "build": "webpack --config ./webpack.config.js --mode production",
+    "build:babel": "babel src -d lib --ignore macros,tx,spec.js"
   },
   "repository": {
     "type": "git",
@@ -40,7 +41,8 @@
     "react-dom": "16.8.0-alpha.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
     "@babel/plugin-transform-async-to-generator": "^7.2.0",
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.2.3",
@@ -56,7 +58,7 @@
     "react-hot-loader": "^4.6.3",
     "rollup": "^1.1.0",
     "webpack": "^4.28.4",
-    "webpack-cli": "^3.2.1",
+    "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.1.14"
   },
   "husky": {
