@@ -1,11 +1,19 @@
 # react-here-map
 
-React components for displaying and working with Here Map.
-It simplifies the use of the Here Map JavaScript API through incorporating them into React as components, which can be imported and easily rendered with easy configuration and modifications.
+React components for rendering and working with
+[Here Maps](https://www.here.com/).
+
+It simplifies the use of the Here Map JavaScript API with the help React
+components.
+
+The components can be imported and easily rendered. It also comes with seamless
+configuration and modifications.
 
 ## Installation
 
-`npm i --save react-here-map`
+NPM: `npm i --save react-here-map`
+
+Yarn: `yarn add react-here-map`
 
 ## General Usage
 
@@ -47,24 +55,48 @@ ReactDOM.render(
 );
 ```
 
-## Components
+## Docs
 
-1. **[HPlatform](#HPlatform)** - Platform initializer. All major components should be its child.
-1. **[HMap](#hmap)** - Default export from this module, should be used as a parent for other components
-1. **[HMapPolyLine](#hmappolyline)** - Draws a polyline on the map. A direct child of the map
-1. **[HMapPolygon](#hmappolygon)** - Draws a polygon on the map. A direct child of the map
-1. **[HMapMarker](#hmapmarker)** - Puts a marker on the map. A direct child of the map
-1. **[HMapCircle](#hmapcircle)** - Draws a circle on the map. A direct child of the map
-1. **[HMapRectangle](#hmaprectangle)** - Draws a rectangle on the map. A direct child of the map
-1. **[HMapGeoCode](#hmapgeocode)** - Turns a physical address to a point on the map
-1. **[HMapRoute](#hmaproute)** - Defines a route to locate two points. A direct child of the map
-1. **[HMapLayer](#hmaplayer)** - Adds additional informational layer on the map. A direct child of the map
+The default export from this library instantiates the Here Maps platform.
 
-## Usage in details
+This is required before initialization of other libraries by the Here Map
+Javascript SDK.
 
-### HPlatform
+The platform is expected to be a direct parent of all other supported
+components.
 
-A container for all of the components in this library. Generates a platform that are injected into all of its direct children.
+Interesting components are exported, they can be customized using supported
+props.
+
+### Components
+
+1. **[HPlatform](#HPlatform)** - Platform initializer. All major components
+   should be its child.
+1. **[HMap](#hmap)** - Default export from this module, should be used as a
+   parent for other components
+1. **[HMapPolyLine](#hmappolyline)** - Draws a polyline on the map. A direct
+   child of the map
+1. **[HMapPolygon](#hmappolygon)** - Draws a polygon on the map. A direct child
+   of the map
+1. **[HMapMarker](#hmapmarker)** - Puts a marker on the map. A direct child of
+   the map
+1. **[HMapCircle](#hmapcircle)** - Draws a circle on the map. A direct child of
+   the map
+1. **[HMapRectangle](#hmaprectangle)** - Draws a rectangle on the map. A direct
+   child of the map
+1. **[HMapGeoCode](#hmapgeocode)** - Turns a physical address to a point on the
+   map
+1. **[HMapRoute](#hmaproute)** - Defines a route to locate two points. A direct
+   child of the map
+1. **[HMapLayer](#hmaplayer)** - Adds additional informational layer on the map.
+   A direct child of the map
+
+### Usage in details
+
+#### HPlatform
+
+A container for all of the components in this library. Generates a platform that
+are injected into all of its direct children.
 
 ```js
 <HPlatform
@@ -81,24 +113,31 @@ A container for all of the components in this library. Generates a platform that
 
 All direct children of `HPlatform` component receives:
 
-- **platform** A reference to H.service.platform [Docs](https://developer.here.com/documentation/maps/topics_api/h-service-platform.html)
-- **options** A reference to the options used to bootstrap the scripts. [See here](https://www.npmjs.com/package/here-map-js):
+- **platform** A reference to H.service.platform
+  [Docs](https://developer.here.com/documentation/maps/topics_api/h-service-platform.html)
+- **options** A reference to the options used to bootstrap the scripts.
+  [See here](https://www.npmjs.com/package/here-map-js):
 
-#### props
+##### props
 
 Props were determined by the options required for initializing the platform.
 
-- **version** PropTypes.string - One of the supported version. Defaults to `'v3/3.0'`
+- **version** PropTypes.string - One of the supported version. Defaults to
+  `'v3/3.0'`
 - **app_id** PropTypes.string.isRequired - Application ID from account dashboard
-- **app_code** PropTypes.string.isRequired - Application Code from account dashboard
-- **mapType** PropTypes.string - One of the above types accessed as a dot prop. Default `'normal.map'`
-- **interactive** PropTypes.bool - Makes the map react to events. Needed for event handling
+- **app_code** PropTypes.string.isRequired - Application Code from account
+  dashboard
+- **mapType** PropTypes.string - One of the above types accessed as a dot prop.
+  Default `'normal.map'`
+- **interactive** PropTypes.bool - Makes the map react to events. Needed for
+  event handling
 - **includeUI** PropTypes.bool - Add the UI controls
 - **includePlaces** PropTypes.bool - Add the module for working with places
 - **useCIT** PropTypes.boolean - Default to `true`
-- **useHTTPS** PropTypes.boolean - Load the library using HTTPS. Default to `true`
+- **useHTTPS** PropTypes.boolean - Load the library using HTTPS. Default to
+  `true`
 
-### HMap
+#### HMap
 
 Displays a Map for the types passed as props or default `normal.map`
 
@@ -115,19 +154,30 @@ Map types
 
 All direct children of `HMap` component receives:
 
-- **map** A reference to the map object used to create the visual map. [Docs](https://developer.here.com/documentation/maps/topics_api/h-map.html)
-- **platform** A reference to H.service.platform [Docs](https://developer.here.com/documentation/maps/topics_api/h-service-platform.html)
-- **ui** A reference to the ui object that does inclusion of ui elements. [Docs](https://developer.here.com/documentation/maps/topics_api/h-ui-intro.html)
-- **\_\_options** A reference to the options merged with writable defaults used in bootsrapping the map and its items
+- **map** A reference to the map object used to create the visual map.
+  [Docs](https://developer.here.com/documentation/maps/topics_api/h-map.html)
+- **platform** A reference to H.service.platform
+  [Docs](https://developer.here.com/documentation/maps/topics_api/h-service-platform.html)
+- **ui** A reference to the ui object that does inclusion of ui elements.
+  [Docs](https://developer.here.com/documentation/maps/topics_api/h-ui-intro.html)
+- **\_\_options** A reference to the options merged with writable defaults used
+  in bootsrapping the map and its items
 
-_In any case you wish to render a supported component of this library outside the context of the map, make sure to render in a place where the above props can be passed explicitly to avoid nasty, unfriendly errors._
+_In any case you wish to render a supported component of this library outside
+the context of the map, make sure to render in a place where the above props can
+be passed explicitly to avoid nasty, unfriendly errors._
 
-_In some cases as we will soon see, there is an option for passing a custom component with more enhancements (defined by the programmer), these props are received as first class directly from the containing parent and not from HMap, but still holds same object's reference_
+_In some cases as we will soon see, there is an option for passing a custom
+component with more enhancements (defined by the programmer), these props are
+received as first class directly from the containing parent and not from HMap,
+but still holds same object's reference_
 
-#### props
+##### props
 
-- **mapEvents** PropTypes.object - [officially supported events](https://developer.here.com/documentation/maps/topics/events.html)
-- **mapOptions** PropTypes.object - [officially supported options](https://developer.here.com/documentation/maps/topics_api/h-map-options.html)
+- **mapEvents** PropTypes.object -
+  [officially supported events](https://developer.here.com/documentation/maps/topics/events.html)
+- **mapOptions** PropTypes.object -
+  [officially supported options](https://developer.here.com/documentation/maps/topics_api/h-map-options.html)
 
 ```js
 <HPlatform
@@ -148,15 +198,18 @@ _In some cases as we will soon see, there is an option for passing a custom comp
 </HPlatform>
 ```
 
-### HMapPolyLine
+#### HMapPolyLine
 
 Draws a polyline on the map
 
-#### Props
+##### Props
 
-- **points**: PropTypes.array.isRequired - Array of objects containing lat and lng
-- **options**: PropTypes.object - [Officially supported options](https://developer.here.com/documentation/maps/topics_api/h-map-polyline-options.html)
-- **setViewBounds**: PropTypes.bool - Makes the line centered in the container. Default `true`
+- **points**: PropTypes.array.isRequired - Array of objects containing lat and
+  lng
+- **options**: PropTypes.object -
+  [Officially supported options](https://developer.here.com/documentation/maps/topics_api/h-map-polyline-options.html)
+- **setViewBounds**: PropTypes.bool - Makes the line centered in the container.
+  Default `true`
 
 #### Usage
 
@@ -193,14 +246,16 @@ const points = [
 </HPlatform>;
 ```
 
-### HMapPolygon
+#### HMapPolygon
 
 Draws a polygon on the map
 
-#### Props
+##### Props
 
-- **points**: PropTypes.array.isRequired - Array containing points or an array of lat,lng string separated by comma.
-- **options**: PropTypes.object - options for the polygon. [Docs](https://developer.here.com/documentation/maps/topics_api/h-map-spatial-options.html#h-map-spatial-options)
+- **points**: PropTypes.array.isRequired - Array containing points or an array
+  of lat,lng string separated by comma.
+- **options**: PropTypes.object - options for the polygon.
+  [Docs](https://developer.here.com/documentation/maps/topics_api/h-map-spatial-options.html#h-map-spatial-options)
 
 #### Usage
 
@@ -239,7 +294,7 @@ const polygonOptions = {
 </HPlatform>;
 ```
 
-### HMapMarker
+#### HMapMarker
 
 Puts a marker on the map
 
@@ -247,9 +302,13 @@ Puts a marker on the map
 
 - **coords**: PropTypes.object.isRequired Object with lat and lng for the marker
 - **icon**: PropTypes.any.isRequired Icon for the marker
-- **options** PropTypes.object [Officially documented Options](https://developer.here.com/documentation/maps/topics_api/h-map-marker-options.html)
+- **options** PropTypes.object
+  [Officially documented Options](https://developer.here.com/documentation/maps/topics_api/h-map-marker-options.html)
 - **type**: PropTypes.string One of `undefined` | `DOM`. Default `undefined`
-- **setViewBounds**: PropTypes.bool Centers the map with the marker. Default `true`
+- **setViewBounds**: PropTypes.bool Centers the map with the marker. Default
+  `true`
+
+#
 
 ### Usage
 
@@ -283,18 +342,22 @@ const icon =
 </HPlatform>;
 ```
 
-### HMapCircle
+#### HMapCircle
 
 Puts a circle on the map
 
-#### Props
+##### Props
 
-- **coords**: PropTypes.object.isRequired - Object with lat and lng for the circle center point on the map
-- **options**: PropTypes.object - Options for the circle. [Docs](https://developer.here.com/documentation/maps/topics_api/h-map-circle-options.html)
-- **radius**: PropTypes.number - How large should one edge of the circle to the center point
-- **setViewBounds**: PropTypes.bool - Centers the map with the circle. Default `true`
+- **coords**: PropTypes.object.isRequired - Object with lat and lng for the
+  circle center point on the map
+- **options**: PropTypes.object - Options for the circle.
+  [Docs](https://developer.here.com/documentation/maps/topics_api/h-map-circle-options.html)
+- **radius**: PropTypes.number - How large should one edge of the circle to the
+  center point
+- **setViewBounds**: PropTypes.bool - Centers the map with the circle. Default
+  `true`
 
-#### Usage
+##### Usage
 
 ```js
 import HPlatform, { HMap, HMapCircle } from "react-here-map";
@@ -328,17 +391,20 @@ const circleOptions = {
 </HPlatform>;
 ```
 
-### HMapRectangle
+#### HMapRectangle
 
 Puts a rectangle on the map
 
-#### Props
+##### Props
 
-- **points**: PropTypes.array.isRequired - Four element array of point defining the boundaries of the rectangle
-- **options**: PropTypes.object - Options for the rectangle. [Docs](https://developer.here.com/documentation/maps/topics_api/h-map-spatial-options.html#h-map-spatial-options)
-- **setViewBounds**: PropTypes.bool - Centers the map with the circle. Default `true`
+- **points**: PropTypes.array.isRequired - Four element array of point defining
+  the boundaries of the rectangle
+- **options**: PropTypes.object - Options for the rectangle.
+  [Docs](https://developer.here.com/documentation/maps/topics_api/h-map-spatial-options.html#h-map-spatial-options)
+- **setViewBounds**: PropTypes.bool - Centers the map with the circle. Default
+  `true`
 
-#### Usage
+##### Usage
 
 ```js
 import HPlatform, { HMap, HMapRectangle } from "react-here-map";
@@ -371,29 +437,33 @@ const rectangleOptions = {
 </HPlatform>;
 ```
 
-### HMapGeoCode
+#### HMapGeoCode
 
-> This uses React Hooks. Ensure that your react installation supports The Hooks API
+> This uses React Hooks. Ensure that your react installation supports The Hooks
+> API
 
-#### Props
+##### Props
 
-- **geoCodeParams**: PropTypes.object - Depends on the type being used. [Default params](https://developer.here.com/documentation/geocoder/topics/resource-geocode.html) to be used when reverse and landmark are falsy, [reverse params](https://developer.here.com/documentation/geocoder/topics/resource-reverse-geocode.html) to be used when reverse is set to true, [landmark params ](https://developer.here.com/documentation/geocoder/topics/resource-search.html) to be used when landmark is set to true
-- **children**: PropTypes.element.isRequired - React Element that receives `map, platform, lat, lng` as props
+- **geoCodeParams**: PropTypes.object - Depends on the type being used.
+  [Default params](https://developer.here.com/documentation/geocoder/topics/resource-geocode.html)
+  to be used when reverse and landmark are falsy,
+  [reverse params](https://developer.here.com/documentation/geocoder/topics/resource-reverse-geocode.html)
+  to be used when reverse is set to true,
+  [landmark params ](https://developer.here.com/documentation/geocoder/topics/resource-search.html)
+  to be used when landmark is set to true
+- **children**: PropTypes.element.isRequired - React Element that receives
+  `map, platform, lat, lng` as props
 - **reverse**: PropTypes.bool - Should implement reverse geo coding
 - **landmark**: PropTypes.bool - Should implement landmark geo coding
 
-#### Usage
+##### Usage
 
 ##### Address to positions
 
 Converts an address to a position on the map
 
 ```js
-import HPlatform, {
-  HMap,
-  HMapGeoCode,
-  HMapMarker
-} from "react-here-map";
+import HPlatform, { HMap, HMapGeoCode, HMapMarker } from "react-here-map";
 
 const geoCodeParams = {
   searchText: "200 S Mathilda Ave, Sunnyvale, CA"
@@ -477,7 +547,7 @@ const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
 </HPlatform>;
 ```
 
-##### Landmark Point
+###### Landmark Point
 
 Locate landmark positions on the map
 
@@ -525,25 +595,30 @@ const landmarkSearchParameters = {
 </HPlatform>;
 ```
 
-### HMapRoute
+#### HMapRoute
 
 > This uses React Hooks. Ensure that your react installation supports Hooks API
 
-#### Displaying route on the Map Using normal line
+##### Displaying route on the Map Using normal line
 
 Shows path to between two points based on params
 
-#### Props
+##### Props
 
-- **routeParams**: PropTypes.object - [Officially documented route params](https://developer.here.com/documentation/routing/topics/resource-parameters-common.html)
-- **lineOptions**: PropTypes.object - [Officially supported poly line options](https://developer.here.com/documentation/maps/topics_api/h-map-polyline-options.html)
+- **routeParams**: PropTypes.object -
+  [Officially documented route params](https://developer.here.com/documentation/routing/topics/resource-parameters-common.html)
+- **lineOptions**: PropTypes.object -
+  [Officially supported poly line options](https://developer.here.com/documentation/maps/topics_api/h-map-polyline-options.html)
 - **icon**: PropTypes.any - Icon to be used for the marker
-- **markerOptions**: PropTypes.object - [Officially supported marker Options](https://developer.here.com/documentation/maps/topics_api/h-map-marker-options.html)
-- **children**: PropTypes.element - React element that receives `map, platform, ui, route, key, routeShape` as props
-- **renderDefaultLine**: PropTypes.bool - Should use default renderer instead of a custom renderer as children
+- **markerOptions**: PropTypes.object -
+  [Officially supported marker Options](https://developer.here.com/documentation/maps/topics_api/h-map-marker-options.html)
+- **children**: PropTypes.element - React element that receives
+  `map, platform, ui, route, key, routeShape` as props
+- **renderDefaultLine**: PropTypes.bool - Should use default renderer instead of
+  a custom renderer as children
 - **isoLine**: PropTypes.bool - Use IsoLine instead of a Polyline
 
-#### Usages
+##### Usages
 
 ```js
 import HPlatform, {
@@ -624,11 +699,7 @@ const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
 #### Displaying route on the Map Using iso line
 
 ```js
-import HPlatform, {
-  HMap,
-  HMapPolygon,
-  HMapRoute
-} from "react-here-map";
+import HPlatform, { HMap, HMapPolygon, HMapRoute } from "react-here-map";
 // Create the parameters for the reverse geocoding request:
 const isoRoutingParams = {
   mode: "fastest;car;",
@@ -716,15 +787,16 @@ const RouteMarkerIso = ({
 </HPlatform>;
 ```
 
-### HMapLayer
+#### HMapLayer
 
 Adds a layer to the map.
 
 Individual layer holds different information
 
-#### props
+##### props
 
-**mapLayerType**: PropTypes.string.isRequired In a dot prop form e.g `mapLayerType="incidents", mapLayerType="normal.traffic"`
+**mapLayerType**: PropTypes.string.isRequired In a dot prop form e.g
+`mapLayerType="incidents", mapLayerType="normal.traffic"`
 
 ```js
 {
@@ -749,7 +821,7 @@ Individual layer holds different information
 }
 ```
 
-#### Usage
+##### Usage
 
 ```js
 import HPlatform, { HMap, HMapLayer } from "react-here-map";
