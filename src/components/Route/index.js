@@ -36,7 +36,6 @@ function Router(props) {
   // Define a callback function to process the routing response:
   const onResult = function(result) {
     setResultResponse(result.response);
-    console.log("got here");
     let _routeShape = [];
     if (isoLine && resultResponse.isoline) {
       component = resultResponse.isoline[0].component[0];
@@ -53,6 +52,7 @@ function Router(props) {
       route = resultResponse.route[0];
       // Pick the route's shape:
       _routeShape = route.shape;
+      console.log(_routeShape);
       _routeShape = _routeShape.map(point => {
         const coords = point.split(",");
         return { lat: coords[0], lng: coords[1] };
@@ -69,12 +69,12 @@ function Router(props) {
 
   if (isoLine) {
     // Call the Routing API to calculate an isoline:
-    router.calculateIsoline(routeParams, onResult, e => console.log(e.message));
+    // router.calculateIsoline(routeParams, onResult, e => console.log(e.message));
   } else {
     // Call calculateRoute() with the routing parameters,
     // the callback and an error callback function (called if a
     // communication error occurs):
-    router.calculateRoute(routeParams, onResult, e => console.log(e.message));
+    // router.calculateRoute(routeParams, onResult, e => console.log(e.message));
   }
 
   const renderPolygon = () => {

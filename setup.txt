@@ -1,0 +1,13 @@
+Init NPM
+Init GIT
+Add React, and dependencies
+Add Jest For testing
+Add Commitizen
+Add Rollup
+Add Size check
+Add styleguide
+Add husky
+Add eslint
+Write Code
+Add Typings
+Update package.json
