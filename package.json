@@ -2,7 +2,10 @@
   "name": "react-here-map",
   "version": "1.1.0",
   "description": "React components for working with Here Maps API",
-  "main": "./lib/index.js",
+  "main": "./dist/index.js",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "clean": "rimraf ./dist",
     "test": "cross-env NODE_ENV=test npm run eslint:src && jest --coverage && npm run typescript",
@@ -100,6 +103,7 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.0.1",
     "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.1.2",
     "rollup-plugin-uglify": "^6.0.2",
     "sinon": "^3.2.1",
     "size-limit": "^0.19.2",
@@ -125,5 +129,11 @@
   },
   "engines": {
     "node": ">= 8"
-  }
+  },
+  "size-limit": [
+    {
+      "path": "index.js",
+      "limit": "9 KB"
+    }
+  ]
 }
