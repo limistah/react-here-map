@@ -9,6 +9,10 @@ components.
 The components can be imported and easily rendered. It also comes with seamless
 configuration and modifications.
 
+## Demo
+
+[See it here](https://github.com/limistah/react-here-map)
+
 ## Installation
 
 Using NPM:
@@ -109,8 +113,8 @@ are injected into all of its direct children.
 import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
 
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -192,8 +196,8 @@ but still holds same object's reference_
 import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
 
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -237,8 +241,8 @@ const points = [
 ];
 
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -282,8 +286,8 @@ const polygonOptions = {
 };
 
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -337,8 +341,8 @@ const icon =
   'fill="white">H</text></svg>';
 
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -386,8 +390,8 @@ const circleOptions = {
   }
 };
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -432,8 +436,8 @@ const rectangleOptions = {
   }
 };
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -503,8 +507,8 @@ const GeoMarker = ({ map, platform, ui, lat, lng, key }) => (
 );
 // Child of HMapGeoCode receives same params as above.
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -549,8 +553,8 @@ const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
 
 // Child of HMapGeoCode receives same params as above.
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -597,8 +601,8 @@ const landmarkSearchParameters = {
 
 // Child of HMapGeoCode receives same params as above.
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -711,8 +715,8 @@ const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
 };
 
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -803,8 +807,8 @@ const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
 };
 
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -886,8 +890,8 @@ const RouteMarkerIso = ({
 };
 
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -967,8 +971,8 @@ const RouteMarkerIso = ({
 };
 
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -1037,8 +1041,8 @@ import HPlatform, { HMap, HMapLayer } from "react-here-map";
 
 // Child of HMapGeoCode receives same params as above.
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includeUI
@@ -1100,8 +1104,8 @@ Search for places on the map
 import HPlatform, { HMap, HMapPlaces } from "react-here-map";
 
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id="YOUR_APP_ID"
+  app_code="YOUR_APP_CODE"
   useCIT
   useHTTPS
   includePlaces
