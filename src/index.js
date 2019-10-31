@@ -8,6 +8,7 @@ import Rectangle from "./components/HMap/objects/Rectangle";
 import GeoCode from "./components/GeoCode";
 import Route from "./components/Route";
 import Layer from "./components/Layer";
+import Places from "./components/Places";
 
 export const HMapPolyLine = PolyLine;
 export const HMapPolygon = Polygon;
@@ -17,5 +18,6 @@ export const HMapRectangle = Rectangle;
 export const HMapRoute = Route;
 export const HMapLayer = Layer;
 export const HMapGeoCode = GeoCode;
+export const HMapPlaces = Places;
 export const HMap = Map;
 export default HPlatform;
