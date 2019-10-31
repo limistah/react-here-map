@@ -162,7 +162,17 @@ Place.propTypes = {
   className: PropTypes.string,
   inputClassName: PropTypes.string,
   containerStyle: PropTypes.object,
-  inputStyle: PropTypes.object
+  inputStyle: PropTypes.object,
+
+  itemContainerClass: PropTypes.string, // Place result item container class
+  iconClass: PropTypes.string, // Place result item icon class
+  itemClass: PropTypes.string, // Place result item class
+  placeClassName: PropTypes.string, // Class for the actual container for the whole element
+  getItem: PropTypes.func, // Callback when an item is clicked in the result
+  markerOptions: PropTypes.object, // Options for the marker
+  markerIcon: PropTypes.element, // Icon for the marker
+  markerType: PropTypes.string, // Type of marker icon
+  multiMarker: PropTypes.bool // allow for many markers
 };
 
 export default Place;
