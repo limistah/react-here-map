@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import merge from "lodash.merge";
+import initMapObjectEvents from "../../../libs/initMapObjectEvents";
 
 function Rectangle(props) {
   const {
@@ -8,6 +9,7 @@ function Rectangle(props) {
     points,
     options,
     setViewBounds,
+    objectEvents,
     platform,
     ui,
     __options
@@ -31,6 +33,9 @@ function Rectangle(props) {
   // Create an rectangle
   const rectangle = new H.map.Rect(boundingBox, options);
 
+  // Add event listener to the object if intention of using the object is defined
+  initMapObjectEvents(rectangle, objectEvents, __options);
+
   // Add a rectangle to the map
   map.addObject(rectangle);
   if (setViewBounds) {
@@ -45,7 +50,8 @@ function Rectangle(props) {
 Rectangle.propTypes = {
   options: PropTypes.object,
   points: PropTypes.array.isRequired,
-  map: PropTypes.object
+  map: PropTypes.object,
+  objectEvents: PropTypes.object
 };
 
 export default Rectangle;

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import merge from "lodash.merge";
+import initMapObjectEvents from "../../../libs/initMapObjectEvents";
 
 function Polygon(props) {
   const {
@@ -8,6 +9,7 @@ function Polygon(props) {
     map,
     setViewBounds,
     options,
+    objectEvents,
     platform,
     ui,
     __options
@@ -35,6 +37,9 @@ function Polygon(props) {
   // Initialize a LineString and add all the points to it:
   const polygon = new H.map.Polygon(lineString, options);
 
+  // Add event listener to the object if intention of using the object is defined
+  initMapObjectEvents(polygon, objectEvents, __options);
+
   // Add the polyLine to the map:
   map.addObject(polygon);
 
@@ -51,7 +56,8 @@ Polygon.propTypes = {
   points: PropTypes.array.isRequired,
   options: PropTypes.object,
   map: PropTypes.object,
-  setViewBounds: PropTypes.bool
+  setViewBounds: PropTypes.bool,
+  objectEvents: PropTypes.object
 };
 
 export default Polygon;
