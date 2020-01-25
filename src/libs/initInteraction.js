@@ -10,17 +10,11 @@ export default (map, interactive, useEvents, mapEvents) => {
     for (const type in mapEvents) {
       if (mapEvents.hasOwnProperty(type)) {
         const callback = mapEvents[type];
-        map.addEventListener(type, evt => {
-          // switch (evt.type) {
-          //   case "pointerenter":
-          //     console.log("Entering");
-          //   case "pointerleave":
-          //     console.log("Leaving");
-          //   case "pointermove":
-          //     console.log("Moving");
-          // }
-          callback();
-        });
+        if (callback && typeof callback === "function") {
+          map.addEventListener(type, function(evt) {
+            callback.apply(null, arguments);
+          });
+        }
       }
     }
   }

@@ -23,7 +23,6 @@ function Platform(props) {
 
   return platform.A == "api.here.com" && options.app_code
     ? React.Children.map(props.children, child => {
-        console.log(child);
         return React.cloneElement(child, { platform, options });
       })
     : null;

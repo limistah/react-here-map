@@ -58,3 +58,32 @@ import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
   />
 </HPlatform>;
 ```
+
+To use an event, you have to pass interactive to the `HPlatform` and pass in
+`useEvents` and `mapEvents` props to the `HMap` like this:
+
+```js
+import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
+
+<HPlatform
+  app_id="2Ts3vDUTLPW8kNUtyFRY"
+  app_code="MDivMVFtNkpim-dWuetlWw"
+  useCIT
+  useHTTPS
+  interactive
+  includeUI
+  includePlaces
+>
+  <HMap
+    style={{
+      height: "400px",
+      width: "800px"
+    }}
+    useEvents
+    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
+    mapEvents={{ pointerdown: e => console.log("Pointer Down", e) }}
+  />
+</HPlatform>;
+```
+
+A `pointerdown` event is listened to, which receives the details of the event.
