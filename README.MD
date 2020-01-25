@@ -11,7 +11,7 @@ configuration and modifications.
 
 ## Demo
 
-[See it here](https://github.com/limistah/react-here-map)
+[See it here](https://limistah.github.io/react-here-map/)
 
 ## Installation
 
