@@ -19,6 +19,10 @@ module.exports = {
       content: "./examples/sections/Introduction.MD"
     },
     {
+      name: "Events",
+      content: "./examples/sections/Events.MD"
+    },
+    {
       name: "Components",
       content: "./examples/sections/Components.MD",
       sections: [
