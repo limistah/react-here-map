@@ -31,6 +31,7 @@ const circleOptions = {
   useCIT
   useHTTPS
   includeUI
+  interactive
   includePlaces
 >
   <HMap
@@ -38,9 +39,15 @@ const circleOptions = {
       height: "400px",
       width: "800px"
     }}
+    useEvents
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
-    <HMapCircle coords={circleCoords} radius={10000} options={circleOptions} />
+    <HMapCircle
+      coords={circleCoords}
+      radius={10000}
+      options={circleOptions}
+      objectEvents={{ pointerdown: e => console.log("Circle Pointer Down", e) }}
+    />
   </HMap>
 </HPlatform>;
 ```
