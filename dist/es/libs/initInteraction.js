@@ -10,17 +10,12 @@ export default (function (map, interactive, useEvents, mapEvents) {
       if (mapEvents.hasOwnProperty(type)) {
         (function () {
           var callback = mapEvents[type];
-          map.addEventListener(type, function (evt) {
-            // switch (evt.type) {
-            //   case "pointerenter":
-            //     console.log("Entering");
-            //   case "pointerleave":
-            //     console.log("Leaving");
-            //   case "pointermove":
-            //     console.log("Moving");
-            // }
-            callback();
-          });
+
+          if (callback && typeof callback === "function") {
+            map.addEventListener(type, function (evt) {
+              callback.apply(null, arguments);
+            });
+          }
         })();
       }
     }

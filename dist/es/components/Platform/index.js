@@ -39,7 +39,6 @@ function Platform(props) {
       options = platformData.options; // console.log("Got here");
 
   return platform.A == "api.here.com" && options.app_code ? React.Children.map(props.children, function (child) {
-    console.log(child);
     return React.cloneElement(child, {
       platform: platform,
       options: options

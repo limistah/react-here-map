@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import merge from "lodash.merge";
+import initMapObjectEvents from "../../../libs/initMapObjectEvents";
 
 function PolyLine(props) {
   var _merge = merge({
@@ -10,6 +11,7 @@ function PolyLine(props) {
       options = _merge.options,
       map = _merge.map,
       setViewBounds = _merge.setViewBounds,
+      objectEvents = _merge.objectEvents,
       platform = _merge.platform,
       ui = _merge.ui,
       __options = _merge.__options;
@@ -28,7 +30,9 @@ function PolyLine(props) {
     lineString.pushPoint(point);
   }); // Initialize a polyLine with the lineString:
 
-  var polyLine = new H.map.Polyline(lineString, options); // Add the polyLine to the map:
+  var polyLine = new H.map.Polyline(lineString, options); // Add event listener to the object if intention of using the object is defined
+
+  initMapObjectEvents(polyLine, objectEvents, __options); // Add the polyLine to the map:
 
   map.addObject(polyLine);
 
@@ -49,6 +53,7 @@ PolyLine.propTypes = {
   points: PropTypes.array.isRequired,
   options: PropTypes.object,
   map: PropTypes.object,
-  setViewBounds: PropTypes.bool
+  setViewBounds: PropTypes.bool,
+  objectEvents: PropTypes.object
 };
 export default PolyLine;

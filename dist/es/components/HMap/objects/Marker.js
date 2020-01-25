@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import merge from "lodash.merge";
+import initMapObjectEvents from "../../../libs/initMapObjectEvents";
 
 function Marker(props) {
   var _merge = merge({
@@ -18,6 +19,7 @@ function Marker(props) {
       updateMarker = _merge.updateMarker,
       marker = _merge.marker,
       getMarker = _merge.getMarker,
+      objectEvents = _merge.objectEvents,
       platform = _merge.platform,
       ui = _merge.ui,
       __options = _merge.__options;
@@ -59,6 +61,8 @@ function Marker(props) {
   }); // This object exists we don't want to add it again. Update the position
 
   if (!objectExists && !updateMarker) {
+    // Add event listener to the object if intention of using the object is defined
+    initMapObjectEvents(_marker, objectEvents, __options);
     map.addObject(_marker);
   } else if (updateMarker) {
     // If we are updating, no need to create
@@ -83,6 +87,7 @@ Marker.propTypes = {
   options: PropTypes.object,
   type: PropTypes.string,
   setViewBounds: PropTypes.bool,
-  map: PropTypes.object
+  map: PropTypes.object,
+  objectEvents: PropTypes.object
 };
 export default Marker;

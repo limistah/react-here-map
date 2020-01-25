@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import merge from "lodash.merge";
+import initMapObjectEvents from "../../../libs/initMapObjectEvents";
 
 function Circle(props) {
   var _merge = merge({
@@ -11,6 +12,7 @@ function Circle(props) {
       coords = _merge.coords,
       options = _merge.options,
       setViewBounds = _merge.setViewBounds,
+      objectEvents = _merge.objectEvents,
       platform = _merge.platform,
       ui = _merge.ui,
       __options = _merge.__options;
@@ -29,7 +31,9 @@ function Circle(props) {
 
   var circle = new H.map.Circle( // The central point of the circle
   coords, // The radius of the circle in meters
-  radius || 1000, options); // Add the marker to the map and center the map at the location of the marker:
+  radius || 1000, options); // Add event listener to the object if intention of using the object is defined
+
+  initMapObjectEvents(circle, objectEvents, __options); // Add the marker to the map and center the map at the location of the marker:
 
   map.addObject(circle);
 
@@ -50,6 +54,7 @@ Circle.propTypes = {
   options: PropTypes.object,
   radius: PropTypes.number,
   setViewBounds: PropTypes.bool,
-  map: PropTypes.object
+  map: PropTypes.object,
+  objectEvents: PropTypes.object
 };
 export default Circle;
