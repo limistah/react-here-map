@@ -41,13 +41,14 @@ const points = [
   { lat: 52.5315142, lng: 13.3872163 },
   { lat: 52.5316215, lng: 13.3885574 },
   { lat: 52.5320399, lng: 13.3925807 },
-  { lat: 52.5321472, lng: 13.3935785 }
+  { lat: 52.5321472, lng: 13.3935785 },
 ];
 
 ReactDOM.render(
   <HPlatform
     app_id="YOUR_APP_ID"
     app_code="YOUR_APP_CODE"
+    apikey={"YOUR_API_KEY_FOR_V3.1"}
     useCIT
     useHTTPS
     includeUI
@@ -56,7 +57,7 @@ ReactDOM.render(
     <HMap
       style={{
         height: "400px",
-        width: "800px"
+        width: "800px",
       }}
       mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 }, zoom: 10 }}
     >
@@ -117,6 +118,7 @@ import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -140,7 +142,8 @@ Props were determined by the options required for initializing a platform.
 - **version** PropTypes.string - One of the supported version. Defaults to
   `'v3/3.0'`
 - **app_id** PropTypes.string.isRequired - Application ID from account dashboard
-- **app_code** PropTypes.string.isRequired - Application Code from account
+- **app_code** PropTypes.string.isRequired - Application Code from account dashboard
+- **app_code** PropTypes.string.isRequired - API KEY for usage with version 3.1Code from account
   dashboard
 - **mapType** PropTypes.string - One of the above types accessed as a dot prop.
   Default `'normal.map'`
@@ -200,6 +203,7 @@ import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -208,7 +212,7 @@ import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   />
@@ -239,12 +243,13 @@ const points = [
   { lat: 52.5315142, lng: 13.3872163 },
   { lat: 52.5316215, lng: 13.3885574 },
   { lat: 52.5320399, lng: 13.3925807 },
-  { lat: 52.5321472, lng: 13.3935785 }
+  { lat: 52.5321472, lng: 13.3935785 },
 ];
 
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -253,7 +258,7 @@ const points = [
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
@@ -283,13 +288,14 @@ const polygonOptions = {
   style: {
     fillColor: "#FFFFCC",
     strokeColor: "#829",
-    lineWidth: 8
-  }
+    lineWidth: 8,
+  },
 };
 
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -298,7 +304,7 @@ const polygonOptions = {
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
@@ -345,6 +351,7 @@ const icon =
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -353,7 +360,7 @@ const icon =
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
@@ -388,12 +395,13 @@ const circleOptions = {
   style: {
     strokeColor: "rgba(55, 85, 170, 0.6)", // Color of the perimeter
     lineWidth: 2,
-    fillColor: "rgba(0, 128, 0, 0.7)" // Color of the circle
-  }
+    fillColor: "rgba(0, 128, 0, 0.7)", // Color of the circle
+  },
 };
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -402,7 +410,7 @@ const circleOptions = {
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
@@ -434,12 +442,13 @@ const rectangleOptions = {
   style: {
     fillColor: "#FFFFCC",
     strokeColor: "#E8FA75",
-    lineWidth: 8
-  }
+    lineWidth: 8,
+  },
 };
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -448,7 +457,7 @@ const rectangleOptions = {
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
@@ -476,6 +485,7 @@ import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   interactive // Required for events
@@ -485,11 +495,11 @@ import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
     useEvents // Required for events
-    mapEvents={{ pointerdown: e => console.log("Map Pointer Down", e) }} // event handlers
+    mapEvents={{ pointerdown: (e) => console.log("Map Pointer Down", e) }} // event handlers
   />
 </HPlatform>;
 ```
@@ -513,7 +523,7 @@ import HPlatform, {
   HMapMarker,
   HMapPolygon,
   HMapPolyLine,
-  HMapRectangle
+  HMapRectangle,
 } from "react-here-map";
 
 const rectanglePoints = [51.5072, 0, 48.8567, 2.3508];
@@ -521,22 +531,22 @@ const rectangleOptions = {
   style: {
     fillColor: "#FFFFCC",
     strokeColor: "#E8FA75",
-    lineWidth: 8
-  }
+    lineWidth: 8,
+  },
 };
 const circleCoords = { lat: 52.3667, lng: 4.9 };
 const circleOptions = {
   style: {
     strokeColor: "rgba(55, 85, 170, 0.6)", // Color of the perimeter
     lineWidth: 2,
-    fillColor: "rgba(0, 128, 0, 0.7)" // Color of the circle
-  }
+    fillColor: "rgba(0, 128, 0, 0.7)", // Color of the circle
+  },
 };
 
 const polyLinePoints = [
   { lat: 52.5167, lng: 13.3833 },
   { lat: 50.0833, lng: 14.4167 },
-  { lat: 52.2333, lng: 21.0167 }
+  { lat: 52.2333, lng: 21.0167 },
 ];
 
 const polygonPoints = [45.4667, 9.1833, 0, 48.1333, 11.566, 0, 50.08, 8.24, 0];
@@ -544,8 +554,8 @@ const polygonOptions = {
   style: {
     fillColor: "#FFFFCC",
     strokeColor: "#829",
-    lineWidth: 8
-  }
+    lineWidth: 8,
+  },
 };
 
 const markerCoords = { lat: 48.2, lng: 16.3667 };
@@ -561,6 +571,7 @@ const markerIcon =
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -570,51 +581,54 @@ const markerIcon =
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     useEvents // Required for events
-    mapEvents={{ pointerdown: e => console.log("Map Pointer Down", e) }} // event handlers
+    mapEvents={{ pointerdown: (e) => console.log("Map Pointer Down", e) }} // event handlers
     mapOptions={{
       center: { lat: 51, lng: 7 },
       zoom: 5,
-      pixelRatio: window.devicePixelRatio || 1
+      pixelRatio: window.devicePixelRatio || 1,
     }}
   >
     <HMapCircle
       coords={circleCoords}
       radius={198000}
       options={circleOptions}
-      objectEvents={{ pointerdown: e => console.log("Circle Pointer Down", e) }}
+      objectEvents={{
+        pointerdown: (e) => console.log("Circle Pointer Down", e),
+      }}
     />
     <HMapRectangle
       points={rectanglePoints}
       options={rectangleOptions}
       objectEvents={{
-        pointerdown: e => console.log("Rectangle Pointer Down", e)
+        pointerdown: (e) => console.log("Rectangle Pointer Down", e),
       }}
     />
     <HMapPolyLine
       points={polyLinePoints}
       objectEvents={{
-        pointerdown: e => console.log("Polyline Pointer Down", e)
+        pointerdown: (e) => console.log("Polyline Pointer Down", e),
       }}
     />
     <HMapPolygon
       points={polygonPoints}
       options={polygonOptions}
       objectEvents={{
-        pointerdown: e => console.log("Polygon Pointer Down", e)
+        pointerdown: (e) => console.log("Polygon Pointer Down", e),
       }}
     />
     <HMapMarker
       coords={markerCoords}
       icon={markerIcon}
-      objectEvents={{ pointerdown: e => console.log("Marker Pointer Down", e) }}
+      objectEvents={{
+        pointerdown: (e) => console.log("Marker Pointer Down", e),
+      }}
     />
   </HMap>
 </HPlatform>;
 ```
-
 
 #### HMapGeoCode
 
@@ -645,7 +659,7 @@ Converts an address to a position on the map
 import HPlatform, { HMap, HMapGeoCode, HMapMarker } from "react-here-map";
 
 const geoCodeParams = {
-  searchText: "200 S Mathilda Ave, Sunnyvale, CA"
+  searchText: "200 S Mathilda Ave, Sunnyvale, CA",
 };
 
 const icon =
@@ -670,6 +684,7 @@ const GeoMarker = ({ map, platform, ui, lat, lng, key }) => (
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -678,7 +693,7 @@ const GeoMarker = ({ map, platform, ui, lat, lng, key }) => (
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
@@ -699,7 +714,7 @@ import HPlatform, { HMap, HMapGeoCode } from "react-here-map";
 const reverseGeoCodingParameters = {
   prox: "52.5309,13.3847,150",
   mode: "retrieveAddresses",
-  maxresults: 1
+  maxresults: 1,
 };
 // Can render any map element, make sure to pass map and platform as props to the children to avoid unwarranted behavior
 const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
@@ -716,6 +731,7 @@ const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -724,7 +740,7 @@ const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
@@ -750,20 +766,21 @@ const LandmarkGeoMarker = ({
   lng,
   location,
   key,
-  _location
+  _location,
 }) => {
   ui.addBubble(new H.ui.InfoBubble({ lat, lng }, { content: _location.Name }));
   return null;
 };
 // Create the parameters for the landmark search request:
 const landmarkSearchParameters = {
-  searchText: "TXL"
+  searchText: "TXL",
 };
 
 // Child of HMapGeoCode receives same params as above.
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -772,7 +789,7 @@ const landmarkSearchParameters = {
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
@@ -815,7 +832,7 @@ import HPlatform, {
   HMap,
   HMapRoute,
   HMapMarker,
-  HMapPolyLine
+  HMapPolyLine,
 } from "react-here-map";
 
 // Create the parameters for the routing request:
@@ -828,11 +845,11 @@ var routeParams = {
   waypoint1: "geo!52.5309916298853,13.3846220493377",
   // To retrieve the shape of the route we choose the route
   // representation mode 'display'
-  representation: "display"
+  representation: "display",
 };
 const routeLineOptions = {
   style: { strokeColor: "blue", lineWidth: 10 },
-  arrows: { fillColor: "white", frequency: 2, width: 0.8, length: 0.7 }
+  arrows: { fillColor: "white", frequency: 2, width: 0.8, length: 0.7 },
 };
 
 const icon =
@@ -878,6 +895,7 @@ const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -886,7 +904,7 @@ const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
@@ -907,7 +925,7 @@ import HPlatform, {
   HMap,
   HMapRoute,
   HMapMarker,
-  HMapPolyLine
+  HMapPolyLine,
 } from "react-here-map";
 
 // Create the parameters for the routing request:
@@ -920,11 +938,11 @@ var routeParams = {
   waypoint1: "geo!52.5309916298853,13.3846220493377",
   // To retrieve the shape of the route we choose the route
   // representation mode 'display'
-  representation: "display"
+  representation: "display",
 };
 const routeLineOptions = {
   style: { strokeColor: "blue", lineWidth: 10 },
-  arrows: { fillColor: "white", frequency: 2, width: 0.8, length: 0.7 }
+  arrows: { fillColor: "white", frequency: 2, width: 0.8, length: 0.7 },
 };
 
 const icon =
@@ -970,6 +988,7 @@ const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -978,7 +997,7 @@ const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
@@ -1005,12 +1024,12 @@ const isoRoutingParams = {
   mode: "fastest;car;",
   start: "geo!52.5,13.4",
   range: "900",
-  rangetype: "time"
+  rangetype: "time",
 };
 
 const routeLineOptions = {
   style: { strokeColor: "blue", lineWidth: 10 },
-  arrows: { fillColor: "white", frequency: 2, width: 0.8, length: 0.7 }
+  arrows: { fillColor: "white", frequency: 2, width: 0.8, length: 0.7 },
 };
 const icon =
   '<svg width="24" height="24" ' +
@@ -1027,7 +1046,7 @@ const RouteMarkerIso = ({
   route,
   routeShape,
   center,
-  component
+  component,
 }) => {
   return (
     <React.Fragment>
@@ -1053,6 +1072,7 @@ const RouteMarkerIso = ({
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -1061,7 +1081,7 @@ const RouteMarkerIso = ({
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
     interactive
@@ -1087,12 +1107,12 @@ const isoRoutingParams = {
   mode: "fastest;car;",
   start: "geo!52.5,13.4",
   range: "900",
-  rangetype: "time"
+  rangetype: "time",
 };
 
 const routeLineOptions = {
   style: { strokeColor: "blue", lineWidth: 10 },
-  arrows: { fillColor: "white", frequency: 2, width: 0.8, length: 0.7 }
+  arrows: { fillColor: "white", frequency: 2, width: 0.8, length: 0.7 },
 };
 const icon =
   '<svg width="24" height="24" ' +
@@ -1108,7 +1128,7 @@ const RouteMarkerIso = ({
   route,
   routeShape,
   center,
-  component
+  component,
 }) => {
   return (
     <React.Fragment>
@@ -1134,6 +1154,7 @@ const RouteMarkerIso = ({
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -1142,7 +1163,7 @@ const RouteMarkerIso = ({
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
     interactive
@@ -1204,6 +1225,7 @@ import HPlatform, { HMap, HMapLayer } from "react-here-map";
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includeUI
@@ -1212,7 +1234,7 @@ import HPlatform, { HMap, HMapLayer } from "react-here-map";
   <HMap
     style={{
       height: "400px",
-      width: "800px"
+      width: "800px",
     }}
     mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
   >
@@ -1267,6 +1289,7 @@ import HPlatform, { HMap, HMapPlaces } from "react-here-map";
 <HPlatform
   app_id="YOUR_APP_ID"
   app_code="YOUR_APP_CODE"
+  apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
   includePlaces
@@ -1275,6 +1298,12 @@ import HPlatform, { HMap, HMapPlaces } from "react-here-map";
   <HMapPlaces library="search" />
 </HPlatform>;
 ```
+
+## CHANGES
+
+**06/05/2020**
+
+- Includes support for V3.1 API_KEY
 
 ## Contributions
 

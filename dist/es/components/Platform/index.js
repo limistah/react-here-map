@@ -36,9 +36,8 @@ function Platform(props) {
     });
   }, [platformData.platform.A]);
   var platform = platformData.platform,
-      options = platformData.options; // console.log("Got here");
-
-  return platform.A == "api.here.com" && options.app_code ? React.Children.map(props.children, function (child) {
+      options = platformData.options;
+  return platform.A == "api.here.com" && (options.app_code || options.apikey) ? React.Children.map(props.children, function (child) {
     return React.cloneElement(child, {
       platform: platform,
       options: options

@@ -4,25 +4,24 @@ import defaults from "./../../libs/defaults";
 import merge from "lodash.merge";
 import initPlatform from "./../../libs/initPlatform";
 
-const optionMerger = options => merge(defaults, options);
+const optionMerger = (options) => merge(defaults, options);
 
 function Platform(props) {
   const [platformData, setPlatformData] = useState({
     platform: {},
-    options: {}
+    options: {},
   });
   useEffect(() => {
     // const { version, interactive, includeUI, includePlaces } = props;
-    loadMap(props).then(options => {
+    loadMap(props).then((options) => {
       const platform = initPlatform(options);
       setPlatformData({ platform, options });
     });
   }, [platformData.platform.A]);
   const { platform, options } = platformData;
-  // console.log("Got here");
 
-  return platform.A == "api.here.com" && options.app_code
-    ? React.Children.map(props.children, child => {
+  return platform.A == "api.here.com" && (options.app_code || options.apikey)
+    ? React.Children.map(props.children, (child) => {
         return React.cloneElement(child, { platform, options });
       })
     : null;
