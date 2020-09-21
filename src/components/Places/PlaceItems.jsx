@@ -1,21 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
-import PlaceItem from "./PlaceItem";
-import { css } from "glamor";
+import React from 'react';
+import PropTypes from 'prop-types';
+import PlaceItem from './PlaceItem';
+import { css } from 'glamor';
 
 const _contClass = css({
-  bottom: "-52px",
-  left: "15px",
-  width: "400px",
-  borderRadius: "5px",
-  background: "#00afaa"
+  bottom: '-52px',
+  left: '15px',
+  width: '400px',
+  borderRadius: '5px',
+  background: '#00afaa'
 });
 
-const PlaceItems = props => {
+const PlaceItems = (props) => {
   const { containerClass, getItem, items, iconClass, itemClass } = props;
   return (
     <div className={`${_contClass} ${containerClass}`}>
-      {items.map(item => (
+      {items.map((item) => (
         <PlaceItem
           iconClass={iconClass}
           itemClass={itemClass}

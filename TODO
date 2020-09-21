@@ -1,0 +1,16 @@
+DONE
+- HMapPolyLine (Refact)
+- HMapPolygon (Refact)
+- HMapCircle (Refact)
+- HMapRectangle (Refact)
+- HMap (Refact)
+- HPlatform (Refact)
+
+TODO
+- HMapRoute (Refact)
+- HMapMarker (Refact)
+- Event Handling
+
+MIGHT DO
+- HMapLayer
+- HMapGeoCode

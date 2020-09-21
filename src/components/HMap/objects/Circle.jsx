@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types'
-import merge from 'lodash.merge'
-import initMapObjectEvents from '../../../libs/initMapObjectEvents'
+import PropTypes from 'prop-types';
+import merge from 'lodash.merge';
+import initMapObjectEvents from '../../../libs/initMapObjectEvents';
 
 function Circle(props) {
   const {
@@ -13,17 +13,17 @@ function Circle(props) {
     map,
     ui,
     __options
-  } = merge({ setViewBounds: true }, props)
+  } = merge({ setViewBounds: true }, props);
 
   // Circle can only be initialized inside HMap
   if (!H || !H.map || !map) {
-    throw new Error('HMap has to be initialized before adding Map Objects')
+    throw new Error('HMap has to be initialized before adding Map Objects');
   }
 
   if (!coords || !coords.lat || !coords.lng) {
     throw new Error(
       '"coords" should be an object with "lat" and "lng" specified'
-    )
+    );
   }
 
   const circle = new H.map.Circle(
@@ -31,20 +31,20 @@ function Circle(props) {
     // The radius of the Circle in m
     radius * 1000 || 1000,
     options
-  )
+  );
 
   // Add event listener to the object if intention of using the object is defined
-  initMapObjectEvents(circle, objectEvents, __options)
+  initMapObjectEvents(circle, objectEvents, __options);
 
   // Add the Circle to the map
-  map.addObject(circle)
+  map.addObject(circle);
 
   if (setViewBounds) {
     // Zooms and centers the map to the Circle
-    map.setViewBounds(circle.getBounds())
+    map.setViewBounds(circle.getBounds());
   }
 
-  return null
+  return null;
 }
 
 Circle.propTypes = {
@@ -57,6 +57,6 @@ Circle.propTypes = {
   map: PropTypes.object,
   ui: PropTypes.object,
   __options: PropTypes.object
-}
+};
 
-export default Circle
+export default Circle;

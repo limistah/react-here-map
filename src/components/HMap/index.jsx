@@ -1,20 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import build from '../../libs/mapBuilder'
-import defaults from '../../libs/defaults'
-import setEventListeners from '../../libs/setEventListeners'
-import changeMapStyle from '../../libs/changeMapStyle'
-import merge from 'lodash.merge'
+import React from 'react';
+import PropTypes from 'prop-types';
+import build from '../../libs/mapBuilder';
+import defaults from '../../libs/defaults';
+import setEventListeners from '../../libs/setEventListeners';
+import changeMapStyle from '../../libs/changeMapStyle';
+import merge from 'lodash.merge';
 
 class HMap extends React.Component {
-  constructor(props) {
-    super(props)
-    this.container = React.createRef()
-    this.state = { builder: {} }
+  constructor() {
+    super();
+    this.container = React.createRef();
+    this.state = { builder: {} };
   }
 
   componentDidMount() {
-    const _props = this.props
+    const _props = this.props;
     const _options = merge(
       {
         container: this.container.current,
@@ -22,12 +22,12 @@ class HMap extends React.Component {
       },
       _props.options,
       _props
-    )
-    delete _options.options
-    const builder = build(_props.platform, _options)
-    setEventListeners(builder)
-    changeMapStyle(builder)
-    this.setState({ builder })
+    );
+    delete _options.options;
+    const builder = build(_props.platform, _options);
+    setEventListeners(builder);
+    changeMapStyle(builder);
+    this.setState({ builder });
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -39,21 +39,24 @@ class HMap extends React.Component {
   //   }
   //   return false
   // }
+
   createLoadingComponent() {
-    return <div>Loading</div>
+    return <div>Loading</div>;
   }
+
   displayChildren() {
-    const { children } = this.props
-    const { map, platform, ui, options } = this.state.builder
+    const { children } = this.props;
+    const { map, platform, ui, options } = this.state.builder;
     return React.Children.map(children, (child) =>
       React.cloneElement(child, { map, platform, ui, __options: options })
-    )
+    );
   }
-  render() {
-    const { style, loadingEl } = this.props
-    const { options } = this.state.builder
 
-    const loading = loadingEl || this.createLoadingComponent()
+  render() {
+    const { style, loadingEl } = this.props;
+    const { options } = this.state.builder;
+
+    const loading = loadingEl || this.createLoadingComponent();
 
     return (
       <div
@@ -65,7 +68,7 @@ class HMap extends React.Component {
         {typeof H === 'undefined' && !options && loading}
         {typeof H === 'object' && options && this.displayChildren()}
       </div>
-    )
+    );
   }
 }
 
@@ -79,6 +82,6 @@ HMap.propTypes = {
   platform: PropTypes.object,
   options: PropTypes.object,
   mapOptions: PropTypes.object
-}
+};
 
-export default HMap
+export default HMap;

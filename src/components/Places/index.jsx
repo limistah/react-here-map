@@ -1,18 +1,18 @@
-import React, { useState, memo } from "react";
-import PlaceInput from "./PlaceInput";
-import PlaceItems from "./PlaceItems";
-import placeBuilder from "./../../libs/placeBuilder";
-import PropTypes from "prop-types";
-import HMap from "./../HMap";
-import HMapMarker from "../HMap/objects/Marker";
-import { css } from "glamor";
+import React, { useState, memo } from 'react';
+import PlaceInput from './PlaceInput';
+import PlaceItems from './PlaceItems';
+import placeBuilder from './../../libs/placeBuilder';
+import PropTypes from 'prop-types';
+import HMap from './../HMap';
+import HMapMarker from '../HMap/objects/Marker';
+import { css } from 'glamor';
 
 const placeStyle = css({
-  paddingRight: "15px",
-  paddingLeft: "15px",
-  marginRight: "auto",
-  marginLeft: "auto",
-  position: "relative",
+  paddingRight: '15px',
+  paddingLeft: '15px',
+  marginRight: 'auto',
+  marginLeft: 'auto',
+  position: 'relative'
 });
 
 const Place = memo((props) => {
@@ -32,11 +32,11 @@ const Place = memo((props) => {
     markerType, // Type of marker icon
     multiMarker, // allow for many markers
     mapOptions, // Options to consider when loading the map
-    platform, // Platform passed by the platform parent component
+    platform // Platform passed by the platform parent component
   } = props;
 
   // Stores the search values
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
   const handleGetValue = (value) => {
     setSearchValue(value);
     // Update the params  as well
@@ -44,20 +44,20 @@ const Place = memo((props) => {
   };
   // Ensure that supported library type is passed. Defaults to search
   const type = [
-    "search",
-    "categories",
-    "around",
-    "explore",
-    "here",
-    "suggest",
+    'search',
+    'categories',
+    'around',
+    'explore',
+    'here',
+    'suggest'
   ].includes(library)
     ? library
-    : "search";
+    : 'search';
   const [searchResult, setSearchResult] = useState([]);
   // Params for the place request
   const [params, setParams] = useState({
     q: searchValue || query,
-    cat: category,
+    cat: category
   });
 
   const [updateMarker, setUpdateMarker] = useState(false);
@@ -74,7 +74,7 @@ const Place = memo((props) => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
       const {
-        coords: { latitude, longitude },
+        coords: { latitude, longitude }
       } = position;
       const coords = { lat: latitude, lng: longitude };
       let _params = params;
@@ -86,13 +86,13 @@ const Place = memo((props) => {
       setMapCenter(coords);
     });
   } else {
-    console.log("Geolocation is not supported by this browser.");
+    console.log('Geolocation is not supported by this browser.');
   }
 
   // Handles when a result item is clicked
   const handleGetItem = (item) => {
     // Prevent for failure when calling 'undefined' as function
-    const _getItem = typeof getItem == "function" ? getItem : () => {};
+    const _getItem = typeof getItem == 'function' ? getItem : () => {};
     setSearchResult([]);
     // Only non multi marker should update the current marker
     setUpdateMarker(!multiMarker);
@@ -116,7 +116,7 @@ const Place = memo((props) => {
   return (
     <div className={`${placeStyle} ${placeClassName}`}>
       <PlaceInput
-        className={inputClassName || ""}
+        className={inputClassName || ''}
         style={inputStyle}
         getValue={handleGetValue}
       />
@@ -132,8 +132,8 @@ const Place = memo((props) => {
       {!!mapCenter.lat && (
         <HMap
           style={{
-            height: "200px",
-            width: "400px",
+            height: '200px',
+            width: '400px'
           }}
           platform={platform}
           options={props.options}
@@ -172,7 +172,7 @@ Place.propTypes = {
   markerOptions: PropTypes.object, // Options for the marker
   markerIcon: PropTypes.element, // Icon for the marker
   markerType: PropTypes.string, // Type of marker icon
-  multiMarker: PropTypes.bool, // allow for many markers
+  multiMarker: PropTypes.bool // allow for many markers
 };
 
 export default Place;

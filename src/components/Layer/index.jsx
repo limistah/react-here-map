@@ -1,17 +1,19 @@
-import PropTypes from "prop-types";
-import dotProp from "dot-prop";
-import validateMapType from "../../libs/validateMapType";
+import PropTypes from 'prop-types';
+import dotProp from 'dot-prop';
+import validateMapType from '../../libs/validateMapType';
 
-function Traffic(props) {
+function Layer(props) {
   const {
+    mapLayerType,
     platform,
     map,
-    mapLayerType,
     __options: { mapTypes }
   } = props;
+
   if (!H || !H.map || !map) {
-    throw new Error("HMap has to be initialized before adding Map Objects");
+    throw new Error('HMap has to be initialized before adding Map Objects');
   }
+
   validateMapType(mapTypes, mapLayerType);
   const defaultLayers = platform.createDefaultLayers();
   map.addLayer(dotProp.get(defaultLayers, mapLayerType));
@@ -19,10 +21,10 @@ function Traffic(props) {
 }
 
 Traffic.propTypes = {
-  platform: PropTypes.object,
-  __options: PropTypes.object,
   mapLayerType: PropTypes.string.isRequired,
-  map: PropTypes.object
+  platform: PropTypes.object,
+  map: PropTypes.object,
+  __options: PropTypes.object
 };
 
-export default Traffic;
+export default Layer;

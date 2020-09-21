@@ -1,29 +1,10 @@
 # react-here-maps
 
-> Made with create-react-library
+React components for rendering and working with Here Maps.
 
-[![NPM](https://img.shields.io/npm/v/react-here-maps.svg)](https://www.npmjs.com/package/react-here-maps) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+It simplifies the use of the Here Map JavaScript API with the help React components.
 
-## Install
-
-```bash
-npm install --save react-here-maps
-```
-
-## Usage
-
-```jsx
-import React, { Component } from 'react'
-
-import MyComponent from 'react-here-maps'
-import 'react-here-maps/dist/index.css'
-
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
-}
-```
+The components can be imported and easily rendered. It also comes with seamless configuration and modifications.
 
 ## License
 

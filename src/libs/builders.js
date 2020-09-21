@@ -1,8 +1,8 @@
-import initPlatform from './initPlatform'
-import initMap from './initMap'
-import initInteraction from './initInteraction'
-import initDefaultUI from './initDefaultUI'
-import initInteractionStyles from './initInteractionStyles'
+import initPlatform from './initPlatform';
+import initMap from './initMap';
+import initInteraction from './initInteraction';
+import initDefaultUI from './initDefaultUI';
+import initInteractionStyles from './initInteractionStyles';
 
 /**
  * The whole library is bootstrapped after the initialization is done using the options
@@ -40,10 +40,10 @@ export default (platform, options) => {
     language,
     container,
     build
-  } = options
+  } = options;
 
-  const _mapType = mapType || MAP_TYPE
-  let ret = { options: { ...options, MAP_TYPE: _mapType }, platform }
+  const _mapType = mapType || MAP_TYPE;
+  let ret = { options: { ...options, MAP_TYPE: _mapType }, platform };
   const buildMap = () => {
     if (container && build) {
       // Create a Map
@@ -54,29 +54,29 @@ export default (platform, options) => {
         mapTypes,
         _mapType,
         language
-      )
+      );
       if (interactive) {
         ret.interaction = initInteraction(
           ret.map,
           interactive,
           useEvents,
           mapEvents
-        )
+        );
         // Adds the grabbing to the document
-        initInteractionStyles()
+        initInteractionStyles();
       }
 
       if (includeUI) {
-        ret.ui = initDefaultUI(ret.platform, ret.map, includeUI, language)
+        ret.ui = initDefaultUI(ret.platform, ret.map, includeUI, language);
       }
     } else {
-      ;(ret.createMap = initMap),
+      (ret.createMap = initMap),
         (ret.createPlatform = initPlatform),
         (ret.createInteraction = initInteraction),
         (ret.createDefaultUI = initDefaultUI),
-        (ret.createInteractionStyles = initInteractionStyles)
+        (ret.createInteractionStyles = initInteractionStyles);
     }
-    return ret
-  }
-  return { buildMap }
-}
+    return ret;
+  };
+  return { buildMap };
+};

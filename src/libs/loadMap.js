@@ -1,9 +1,9 @@
-import hereMapJS from '@limistah/here-map-js'
-import defaults from './defaults'
-import merge from 'lodash.merge'
+import hereMapJS from '@limistah/here-map-js';
+import defaults from './defaults';
+import merge from 'lodash.merge';
 
 // Merges the option with the defaults to create a unison and make required values available
-const optionMerger = (options) => merge(defaults, options)
+const optionMerger = (options) => merge(defaults, options);
 
 /**
  * Script initialization, bootstraps needed utils for successful running of the library
@@ -14,8 +14,8 @@ const optionMerger = (options) => merge(defaults, options)
  * @param {object} options Items necessary to run the library
  */
 const initializer = (options) => {
-  const _options = optionMerger(options || {})
-  const { VERSION, version, interactive, includeUI, includePlaces } = _options
+  const _options = optionMerger(options || {});
+  const { VERSION, version, interactive, includeUI, includePlaces } = _options;
   // Returns async loading of the component
   // First load the core, to save us reference error if all of the libraries are loaded asynchronously due to race conditions
   return hereMapJS({
@@ -23,7 +23,7 @@ const initializer = (options) => {
     includePlaces,
     interactive,
     version: version || VERSION
-  }).then(() => _options)
-}
+  }).then(() => _options);
+};
 
-export default initializer
+export default initializer;

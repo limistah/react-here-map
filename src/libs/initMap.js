@@ -1,5 +1,5 @@
-import dotProp from 'dot-prop'
-import validateMapType from './validateMapType'
+import dotProp from 'dot-prop';
+import validateMapType from './validateMapType';
 
 export default (
   platform,
@@ -9,13 +9,13 @@ export default (
   mapType,
   language
 ) => {
-  validateMapType(mapTypes, mapType)
+  validateMapType(mapTypes, mapType);
 
   // Create default layers and set specified language (no or unkown language will default to English)
   const defaultLayers = platform.createDefaultLayers({
     lg: language
-  })
+  });
 
   // Instantiate (and display) a map object:
-  return new H.Map(container, dotProp.get(defaultLayers, mapType), mapOptions)
-}
+  return new H.Map(container, dotProp.get(defaultLayers, mapType), mapOptions);
+};

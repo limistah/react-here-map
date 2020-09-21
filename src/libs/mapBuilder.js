@@ -1,7 +1,7 @@
-import initMap from './initMap'
-import initInteraction from './initInteraction'
-import initDefaultUI from './initDefaultUI'
-import initInteractionStyles from './initInteractionStyles'
+import initMap from './initMap';
+import initInteraction from './initInteraction';
+import initDefaultUI from './initDefaultUI';
+import initInteractionStyles from './initInteractionStyles';
 
 /**
  * The whole library is bootstrapped after the initialization is done using the options
@@ -38,11 +38,11 @@ export default (platform, options) => {
     language,
     container,
     build
-  } = options
+  } = options;
 
-  const _mapType = mapType || MAP_TYPE
+  const _mapType = mapType || MAP_TYPE;
 
-  let ret = { options: { ...options, MAP_TYPE: _mapType }, platform }
+  let ret = { options: { ...options, MAP_TYPE: _mapType }, platform };
 
   if (container && build) {
     // Create a Map
@@ -53,24 +53,24 @@ export default (platform, options) => {
       mapTypes,
       _mapType,
       language
-    )
+    );
     ret.interaction = initInteraction(
       ret.map,
       interactive,
       useEvents,
       mapEvents
-    )
+    );
     if (includeUI) {
-      ret.ui = initDefaultUI(platform, ret.map, includeUI, language)
+      ret.ui = initDefaultUI(platform, ret.map, includeUI, language);
     }
     // Adds the grabbing to the document
-    initInteractionStyles()
+    initInteractionStyles();
   } else {
-    ret.createMap = initMap
-    ret.createPlatform = initPlatform
-    ret.createInteraction = initInteraction
-    ret.createDefaultUI = initDefaultUI
-    ret.createInteractionStyles = initInteractionStyles
+    ret.createMap = initMap;
+    ret.createPlatform = initPlatform;
+    ret.createInteraction = initInteraction;
+    ret.createDefaultUI = initDefaultUI;
+    ret.createInteractionStyles = initInteractionStyles;
   }
-  return ret
-}
+  return ret;
+};

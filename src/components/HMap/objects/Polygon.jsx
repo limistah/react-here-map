@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types'
-import merge from 'lodash.merge'
-import initMapObjectEvents from '../../../libs/initMapObjectEvents'
+import PropTypes from 'prop-types';
+import merge from 'lodash.merge';
+import initMapObjectEvents from '../../../libs/initMapObjectEvents';
 
 function Polygon(props) {
   const {
@@ -12,40 +12,40 @@ function Polygon(props) {
     map,
     ui,
     __options
-  } = merge({ setViewBounds: true }, props)
+  } = merge({ setViewBounds: true }, props);
 
   // Polygon can only be initialized inside HMap
   if (!H || !H.map || !map) {
-    throw new Error('HMap has to be initialized before adding Map Objects')
+    throw new Error('HMap has to be initialized before adding Map Objects');
   }
 
   if (!Array.isArray(points) || points.length < 2) {
     throw new Error(
       '"points" should be an array of atleast 2 objects with "lat" and "lng" specified'
-    )
+    );
   }
 
   // Initialize a LineString and add all the points to it:
-  var lineString = new H.geo.LineString()
+  var lineString = new H.geo.LineString();
   points.forEach((point) => {
-    lineString.pushPoint(point)
-  })
+    lineString.pushPoint(point);
+  });
 
   // Initialize a Polygon and add the Linestring and Polygon options to it
-  const polygon = new H.map.Polygon(lineString, options)
+  const polygon = new H.map.Polygon(lineString, options);
 
   // Add event listener to the object if intention of using the object is defined
-  initMapObjectEvents(polygon, objectEvents, __options)
+  initMapObjectEvents(polygon, objectEvents, __options);
 
   // Add the Polygon to the map
-  map.addObject(polygon)
+  map.addObject(polygon);
 
   if (setViewBounds) {
     // Zooms and centers the map to the Polygon
-    map.setViewBounds(polygon.getBounds())
+    map.setViewBounds(polygon.getBounds());
   }
 
-  return null
+  return null;
 }
 
 Polygon.propTypes = {
@@ -57,6 +57,6 @@ Polygon.propTypes = {
   map: PropTypes.object,
   ui: PropTypes.object,
   __options: PropTypes.object
-}
+};
 
-export default Polygon
+export default Polygon;
