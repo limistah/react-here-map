@@ -1,7 +1,7 @@
 {
   "name": "react-here-maps",
   "version": "1.0.0",
-  "description": "Made with create-react-library",
+  "description": "Library to use the HERE map JS SDK in React",
   "author": "RobinUit",
   "license": "MIT",
   "repository": "RobinUit/react-here-maps",
@@ -49,5 +49,11 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "@limistah/here-map-js": "^3.1.0",
+    "glamor": "^2.20.40",
+    "lodash": "^4.17.20",
+    "lodash.debounce": "^4.0.8"
+  }
 }
