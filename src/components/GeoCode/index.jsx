@@ -1,47 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 function GeoCode(props) {
-  const {
-    geoCodeParams,
-    platform,
-    map,
-    ui,
-    children,
-    reverse,
-    landmark
-  } = props;
-  if (!H || !H.map || !map) {
-    throw new Error('HMap has to be initialized before adding Map Objects');
-  }
+  const { geoCodeParams, children, type, platform, map, ui } = props;
 
-  if (!geoCodeParams) {
-    throw new Error('geoCodeParams is not set');
-  }
   const [locations, setLocations] = useState([]);
 
-  // Define a callback function to process the geocoding response:
-  var onResult = function (result) {
-    setLocations(result.Response.View[0].Result);
-  };
+  useEffect(() => {
+    handleErrors();
+  }, []);
 
-  // Get an instance of the geocoding service:
-  var geocoder = platform.getGeocodingService();
+  useEffect(() => {
+    const geocoder = platform.getGeocodingService();
+    if (locations) {
+      switch (type) {
+        case 'search':
+          geocoder.search(geoCodeParams, onResult, onError);
+          break;
+        case 'reverse':
+          geocoder.reverseGeocode(geoCodeParams, onResult, onError);
+          break;
+        case 'geocode':
+        default:
+          geocoder.geocode(geoCodeParams, onResult, onError);
+      }
+    }
+  }, [geoCodeParams]);
 
-  // Call the geocode method with the geocoding parameters,
-  // the callback and an error callback function (called if a
-  // communication error occurs):
-  if (landmark) {
-    geocoder.search(geoCodeParams, onResult, function (e) {
-      alert(e);
-    });
-  } else if (reverse) {
-    // Point to address
-    geocoder.reverseGeocode(geoCodeParams, onResult, (e) => console.log(e));
-  } else {
-    // Address to point
-    geocoder.geocode(geoCodeParams, onResult, (e) => console.log(e));
+  function handleErrors() {
+    // GeoCode can only be initialized inside HMap
+    if (!H || !H.map || !map) {
+      throw new Error('HMap has to be initialized before adding Map Objects');
+    }
+
+    if (!geoCodeParams) {
+      throw new Error('geoCodeParams is not set');
+    }
   }
+
+  function onResult(result) {
+    setLocations(result.Response.View[0].Result);
+  }
+
+  function onError(error) {
+    throw new Error(error);
+  }
+
   return (
     locations.length &&
     locations.map((location) => {
@@ -64,10 +68,9 @@ function GeoCode(props) {
 }
 
 GeoCode.propTypes = {
-  geoCodeParams: PropTypes.object,
-  children: PropTypes.element.isRequired,
-  reverse: PropTypes.bool,
-  landmark: PropTypes.bool,
+  geoCodeParams: PropTypes.object.isRequired,
+  children: PropTypes.element,
+  type: PropTypes.string,
   map: PropTypes.object,
   platform: PropTypes.object,
   ui: PropTypes.object

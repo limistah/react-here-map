@@ -1,6 +1,3 @@
-/**
- * @type {string} Default version for the API
- */
 const VERSION = 'v3/3.0';
 const MAP_TYPE = 'normal.map';
 const _test = true;
@@ -38,7 +35,6 @@ const languageOptions = {
   TUR: 'tr-TR', //Turkish
   CHI: 'zh-CN' //Chinese
 };
-
 const mapOptions = {
   zoom: 2,
   center: {
@@ -46,11 +42,20 @@ const mapOptions = {
     lng: 0
   }
 };
+const representationModeTypes =
+  // https://developer.here.com/documentation/routing/dev_guide/topics/resource-param-type-route-representation-options.html
+  [
+    'overview',
+    'display',
+    'dragNDrop',
+    'navigation',
+    'linkPaging',
+    'turnByTurn'
+  ];
 const useEvents = false;
 const interactive = false;
 const includeUI = false;
 const includePlaces = false;
-
 const _mapEvents = [
   'pointerdown',
   'pointerup',
@@ -64,10 +69,8 @@ const _mapEvents = [
   'tab',
   'dbltap'
 ];
-
 const containerId = 'HERE_MAP_CONTAINER';
 const defaultClassName = 'here-map-container';
-
 const noop = () => {};
 let mapEvents = {};
 _mapEvents.map((name) => (mapEvents[name] = noop));
@@ -81,6 +84,7 @@ export default {
   interactive,
   includeUI,
   languageOptions,
+  representationModeTypes,
   includePlaces,
   useEvents,
   containerId,

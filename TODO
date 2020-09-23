@@ -5,12 +5,21 @@ DONE
 - HMapRectangle (Refact)
 - HMap (Refact)
 - HPlatform (Refact)
+- HMapRoute (Refact)
+    - HMapRoute render RouteLine
+    - HMapRoute render IsoLine
+- HMapGeoCode (Refact)
+- HMapLayer (Refact)
+- HMapMarker (Refact)
+    - Allow icon to be set to 'none'
 
 TODO
-- HMapRoute (Refact)
-- HMapMarker (Refact)
+- HMap
+    - Center on current location
+    - Centralize reset map
 - Event Handling
+- HMapRoute
+    - Change route on waypoints change
 
 MIGHT DO
-- HMapLayer
-- HMapGeoCode
+- HMapPlaces

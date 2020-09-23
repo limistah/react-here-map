@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import PolyLine from '../HMap/objects/PolyLine';
 import Polygon from '../HMap/objects/Polygon';
 import Marker from '../HMap/objects/Marker';
 import merge from 'lodash.merge';
+import _ from 'lodash';
 
 function Router(props) {
   const {
@@ -11,7 +12,7 @@ function Router(props) {
     lineOptions,
     isoLine,
     polygonOptions,
-    icon,
+    icons,
     markerOptions,
     renderDefaultLine,
     children,
@@ -21,105 +22,147 @@ function Router(props) {
     __options
   } = merge({ renderDefaultLine: true }, props);
 
-  // Route can only be initialized inside HMap
-  if (!H || !H.map || !map) {
-    throw new Error('HMap has to be initialized before adding Map Objects');
-  }
-
-  if (!routeParams) {
-    throw new Error('"routeParams" is not set');
-  }
-
-  if (
-    (!(routeParams.waypoints instanceof Array) ||
-      routeParams.waypoints.length < 2) &&
-    !isoLine
-  ) {
-    throw new Error(
-      '"waypoints" should be an array of atleast two objects with "lat" and "lng" specified'
-    );
-  }
-
-  if (
-    (!(routeParams.waypoints instanceof Array) ||
-      routeParams.waypoints.length !== 1) &&
-    isoLine
-  ) {
-    throw new Error(
-      'isoLine requires an array of one object with "lat" and "lng" specified'
-    );
-  }
-
-  const [_routeParams, setRouteParams] = useState({});
-  const [resultResponse, setResultResponse] = useState({});
+  const [currentRouteParams, setCurrentRouteParams] = useState(routeParams);
+  const [_routeParams, setRouteParams] = useState();
   const [route, setRoute] = useState({});
   const [routeShape, setRouteShape] = useState([]);
-  var [component, setComponent] = useState({});
-  var [center, setCenter] = useState({});
+  const [center, setCenter] = useState({});
 
-  if (routeParams !== _routeParams) {
-    console.log(routeParams, _routeParams);
-    return null;
+  const isEqual = _.isEqual(routeParams, currentRouteParams);
+
+  useEffect(() => {
+    handleErrors();
+    formatRouteParams();
+    setCurrentRouteParams(routeParams);
+    map.removeObjects(map.getObjects());
+  }, [!isEqual]);
+
+  function handleErrors() {
+    // Route can only be initialized inside HMap
+    if (!H || !H.map || !map) {
+      throw new Error('HMap has to be initialized before adding Map Objects');
+    }
+
+    if (!routeParams) {
+      throw new Error('"routeParams" is not set');
+    }
+
+    if (isoLine && (!routeParams.waypoints.lat || !routeParams.waypoints.lng)) {
+      throw new Error(
+        'isoLine requires an waypoints object with "lat" and "lng" specified'
+      );
+    }
+
+    if (
+      !isoLine &&
+      (!(routeParams.waypoints instanceof Array) ||
+        routeParams.waypoints.length < 2)
+    ) {
+      throw new Error(
+        '"waypoints" should be an array of atleast two objects with "lat" and "lng" specified'
+      );
+    }
   }
 
-  const formatWaypoints = () => {
-    const waypoints = routeParams.waypoints;
-    delete routeParams.waypoints;
-    var formattedWaypoints = {};
+  function formatRouteParams() {
+    var formattedWaypoints = Object.assign({}, currentRouteParams);
+    const waypoints = formattedWaypoints.waypoints;
+    delete formattedWaypoints.waypoints;
 
-    waypoints.forEach((waypoint, index) => {
-      var key = 'waypoint' + index;
-      var value = `geo!${waypoint.lat},${waypoint.lng}`;
+    if (!isoLine) {
+      waypoints.forEach((waypoint, index) => {
+        const key = 'waypoint' + index;
+        const value = `geo!${waypoint.lat},${waypoint.lng}`;
+        formattedWaypoints[key] = value;
+      });
+    } else {
+      const key = 'start';
+      const value = `geo!${waypoints.lat},${waypoints.lng}`;
       formattedWaypoints[key] = value;
-    });
+    }
 
-    setRouteParams(Object.assign(routeParams, formattedWaypoints));
-  };
+    setRouteParams(formattedWaypoints);
+  }
 
-  // Define a callback function to process the routing response:
-  const onResult = function (result) {
-    setResultResponse(result.response);
+  useEffect(() => {
+    const router = platform.getRoutingService();
+    if (_routeParams) {
+      if (isoLine) {
+        router.calculateIsoline(_routeParams, onResult, onError);
+      } else {
+        router.calculateRoute(_routeParams, onResult, onError);
+      }
+    }
+  }, [_routeParams]);
+
+  function onResult(result) {
+    const resultResponse = result.response;
     let _routeShape = [];
     if (isoLine && resultResponse.isoline) {
-      component = resultResponse.isoline[0].component[0];
-      _routeShape = component.shape;
-
-      const _center = new H.geo.Point(
-        resultResponse.center.latitude,
-        resultResponse.center.longitude
-      );
-      setCenter(_center);
-      setComponent(component);
+      _routeShape = handleIsoLine(resultResponse);
     } else if (!isoLine && resultResponse.route) {
-      // Pick the first route from the response:
-      setRoute(resultResponse.route[0]);
-      // Pick the route's shape:
-      _routeShape = route.shape;
-      _routeShape = _routeShape.map((point) => {
-        const coords = point.split(',');
-        return { lat: coords[0], lng: coords[1] };
-      });
+      _routeShape = handleRouteLine(resultResponse);
     }
-    // Update local state
     setRouteShape(_routeShape);
-  };
-
-  const onError = function (error) {
-    throw new Error(error);
-  };
-
-  // Get an instance of the routing service:
-  const router = platform.getRoutingService();
-
-  formatWaypoints();
-
-  if (isoLine) {
-    router.calculateIsoline(_routeParams, onResult, onError);
-  } else {
-    router.calculateRoute(_routeParams, onResult, onError);
   }
 
-  const renderPolygon = () => {
+  function onError(error) {
+    throw new Error(error);
+  }
+
+  function handleIsoLine(resultResponse) {
+    const _center = new H.geo.Point(
+      resultResponse.center.latitude,
+      resultResponse.center.longitude
+    );
+    setCenter(_center);
+
+    return formatRouteShape(resultResponse.isoline[0].component[0].shape);
+  }
+
+  function handleRouteLine(resultResponse) {
+    setRoute(resultResponse.route[0]);
+
+    return formatRouteShape(resultResponse.route[0].shape);
+  }
+
+  function formatRouteShape(shape) {
+    var formattedRouteShape = shape.map((point) => {
+      const coords = point.split(',');
+      return { lat: coords[0], lng: coords[1] };
+    });
+
+    return formattedRouteShape;
+  }
+
+  return (route.waypoint || center) && routeShape.length
+    ? renderResult()
+    : null;
+
+  function renderResult() {
+    return renderDefaultLine ? renderDefault() : renderChildren();
+  }
+
+  function renderDefault() {
+    return isoLine ? renderPolygon() : renderPolyLine();
+  }
+
+  // Renders the child for additional manipulations
+  function renderChildren() {
+    const params = {
+      map,
+      platform,
+      ui,
+      route,
+      routeShape,
+      center,
+      component
+    };
+    return React.cloneElement(children, params);
+  }
+
+  function renderPolygon() {
+    let _icons = formatIcons();
     return (
       <React.Fragment>
         <Polygon
@@ -134,19 +177,20 @@ function Router(props) {
           coords={center}
           map={map}
           platform={platform}
-          icon={icon}
+          icon={_icons.waypointIcon}
           options={markerOptions}
           setViewBounds={false}
           __options={__options}
         />
       </React.Fragment>
     );
-  };
+  }
 
-  // Renders PolyLine and Markers
-  const renderPolyLine = () => {
+  function renderPolyLine() {
+    let _icons = formatIcons();
     const startPoint = route.waypoint[0].mappedPosition;
     const endPoint = route.waypoint[route.waypoint.length - 1].mappedPosition;
+    const middlePoints = route.waypoint.slice(1, -1);
 
     const startMarker = { lat: startPoint.latitude, lng: startPoint.longitude };
     const endMarker = { lat: endPoint.latitude, lng: endPoint.longitude };
@@ -160,55 +204,75 @@ function Router(props) {
           setViewBounds={true}
           __options={__options}
         />
-        <Marker
-          coords={startMarker}
-          map={map}
-          platform={platform}
-          icon={icon}
-          options={markerOptions}
-          setViewBounds={false}
-          __options={__options}
-        />
-        <Marker
-          coords={endMarker}
-          map={map}
-          platform={platform}
-          icon={icon}
-          options={markerOptions}
-          setViewBounds={false}
-          __options={__options}
-        />
+        {_icons.startIcon !== 'none' && (
+          <Marker
+            coords={startMarker}
+            map={map}
+            platform={platform}
+            icon={_icons.startIcon}
+            options={markerOptions}
+            setViewBounds={false}
+            __options={__options}
+          />
+        )}
+        {_icons.endIcon !== 'none' && (
+          <Marker
+            coords={endMarker}
+            map={map}
+            platform={platform}
+            icon={_icons.endIcon}
+            options={markerOptions}
+            setViewBounds={false}
+            __options={__options}
+          />
+        )}
+        {middlePoints.length &&
+          _icons.waypointIcon !== 'none' &&
+          middlePoints.map((waypoint, index) => {
+            return (
+              <React.Fragment key={index}>
+                <Marker
+                  coords={{
+                    lat: waypoint.mappedPosition.latitude,
+                    lng: waypoint.mappedPosition.longitude
+                  }}
+                  map={map}
+                  platform={platform}
+                  icon={_icons.waypointIcon}
+                  options={markerOptions}
+                  setViewBounds={false}
+                  __options={__options}
+                />
+              </React.Fragment>
+            );
+          })}
       </React.Fragment>
     );
-  };
+  }
 
-  const renderDefault = () => (isoLine ? renderPolygon() : renderPolyLine());
-
-  // Renders the child for additional manipulations
-  const renderChildren = () => {
-    const params = {
-      map,
-      platform,
-      ui,
-      route,
-      routeShape,
-      center,
-      component
+  function formatIcons() {
+    let _icons = {
+      startIcon: '',
+      endIcon: '',
+      waypointIcon: ''
     };
-    return React.cloneElement(children, params);
-  };
-
-  const renderResult = () => {
-    return renderDefaultLine ? renderDefault() : renderChildren();
-  };
-
-  return (route.waypoint || component.shape) && routeShape.length
-    ? renderResult()
-    : null;
+    if (icons.startIcon || icons.endIcon || icons.waypointIcon) {
+      _icons.startIcon = icons.startIcon;
+      _icons.endIcon = icons.endIcon;
+      _icons.waypointIcon = icons.waypointIcon;
+      return _icons;
+    } else if (typeof icons === 'string') {
+      _icons.startIcon = icons;
+      _icons.endIcon = icons;
+      _icons.waypointIcon = icons;
+      return _icons;
+    }
+    return _icons;
+  }
 }
 
 Router.propTypes = {
-  routeParams: PropTypes.object,
+  routeParams: PropTypes.object.isRequired,
   lineOptions: PropTypes.object,
   isoLine: PropTypes.bool,
   polygonOptions: PropTypes.object,
@@ -223,15 +287,3 @@ Router.propTypes = {
 };
 
 export default Router;
-
-// routeParams, // Params for the routing
-// platform, // reference to the platform object
-// map, // reference to the map object
-// ui, // reference to the ui object
-// children, // holds the children
-// renderDefaultLine, // determines if renderDefaultLine should be used
-// isoLine, // calculate isoLine or default route
-// lineOptions, // options for the line if default display is true
-// polygonOptions, // options for the polygon if default display is true
-// markerOptions, // options for the marker if default display is true
-// icon, // icon for the start and end markers

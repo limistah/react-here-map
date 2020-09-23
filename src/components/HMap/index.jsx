@@ -30,15 +30,17 @@ class HMap extends React.Component {
     this.setState({ builder });
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (
-  //     this.props.children.props.routeParams !==
-  //     nextProps.children.props.routeParams
-  //   ) {
-  //     return true
-  //   }
-  //   return false
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    // HACK - Temporary recenter and zoom fix
+    if (this.props.mapOptions.center !== nextProps.mapOptions.center) {
+      this.state.builder.map.setCenter(nextProps.mapOptions.center);
+      return true;
+    } else if (this.props.mapOptions.zoom !== nextProps.mapOptions.zoom) {
+      this.state.builder.map.setZoom(nextProps.mapOptions.zoom);
+      return true;
+    }
+    return true;
+  }
 
   createLoadingComponent() {
     return <div>Loading</div>;
