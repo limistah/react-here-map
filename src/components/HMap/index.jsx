@@ -33,10 +33,10 @@ class HMap extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     // HACK - Temporary recenter and zoom fix
     if (this.props.mapOptions.center !== nextProps.mapOptions.center) {
-      this.state.builder.map.setCenter(nextProps.mapOptions.center);
+      this.state.builder.map.setCenter(nextProps.mapOptions.center, true);
       return true;
     } else if (this.props.mapOptions.zoom !== nextProps.mapOptions.zoom) {
-      this.state.builder.map.setZoom(nextProps.mapOptions.zoom);
+      this.state.builder.map.setZoom(nextProps.mapOptions.zoom, true);
       return true;
     }
     return true;

@@ -14,6 +14,7 @@ function Marker(props) {
     updateMarker,
     setViewBounds,
     objectEvents,
+    group,
     platform,
     map,
     ui,
@@ -78,7 +79,12 @@ function Marker(props) {
     if (!objectExists && !updateMarker) {
       // Add event listener to the object if intention of using the object is defined
       initMapObjectEvents(_marker, objectEvents, __options);
-      map.addObject(_marker);
+      if (group) {
+        group.addObject(_marker);
+        map.addObject(group);
+      } else {
+        map.addObject(_marker);
+      }
     }
     // Update Marker if it does exist
     else if (updateMarker) {

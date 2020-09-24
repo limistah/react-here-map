@@ -9,6 +9,7 @@ function PolyLine(props) {
     options,
     setViewBounds,
     objectEvents,
+    group,
     platform,
     map,
     ui,
@@ -47,7 +48,12 @@ function PolyLine(props) {
     initMapObjectEvents(polyLine, objectEvents, __options);
 
     // Add the PolyLine to the map
-    map.addObject(polyLine);
+    if (group) {
+      group.addObject(polyLine);
+      map.addObject(group);
+    } else {
+      map.addObject(polyLine);
+    }
 
     if (setViewBounds) {
       // Zooms and center the map to the PolyLine

@@ -22,20 +22,26 @@ function Router(props) {
     __options
   } = merge({ renderDefaultLine: true }, props);
 
-  const [currentRouteParams, setCurrentRouteParams] = useState(routeParams);
+  const [currentRouteParams, setCurrentRouteParams] = useState();
   const [_routeParams, setRouteParams] = useState();
-  const [route, setRoute] = useState({});
+  const [currentGroup, setCurrentGroup] = useState();
+  const [currentGroupID, setCurrentGroupID] = useState('A');
+  const [route, setRoute] = useState();
   const [routeShape, setRouteShape] = useState([]);
-  const [center, setCenter] = useState({});
+  const [center, setCenter] = useState();
+  const [hasUpdated, setHasUpdated] = useState(false);
 
-  const isEqual = _.isEqual(routeParams, currentRouteParams);
+  const routeParamsAreEqual = _.isEqual(routeParams, currentRouteParams);
 
   useEffect(() => {
-    handleErrors();
-    formatRouteParams();
-    setCurrentRouteParams(routeParams);
-    map.removeObjects(map.getObjects());
-  }, [!isEqual]);
+    if (!routeParamsAreEqual) {
+      setHasUpdated(false);
+      changeGroup();
+      handleErrors();
+      formatRouteParams();
+      setCurrentRouteParams(routeParams);
+    }
+  }, [routeParams]);
 
   function handleErrors() {
     // Route can only be initialized inside HMap
@@ -49,7 +55,7 @@ function Router(props) {
 
     if (isoLine && (!routeParams.waypoints.lat || !routeParams.waypoints.lng)) {
       throw new Error(
-        'isoLine requires an waypoints object with "lat" and "lng" specified'
+        'isoLine - "waypoints" should be an object with "lat" and "lng" specified'
       );
     }
 
@@ -59,13 +65,13 @@ function Router(props) {
         routeParams.waypoints.length < 2)
     ) {
       throw new Error(
-        '"waypoints" should be an array of atleast two objects with "lat" and "lng" specified'
+        'routeLine - "waypoints" should be an array of atleast two objects with "lat" and "lng" specified'
       );
     }
   }
 
   function formatRouteParams() {
-    var formattedWaypoints = Object.assign({}, currentRouteParams);
+    var formattedWaypoints = Object.assign({}, routeParams);
     const waypoints = formattedWaypoints.waypoints;
     delete formattedWaypoints.waypoints;
 
@@ -86,7 +92,7 @@ function Router(props) {
 
   useEffect(() => {
     const router = platform.getRoutingService();
-    if (_routeParams) {
+    if (_routeParams && routeParamsAreEqual) {
       if (isoLine) {
         router.calculateIsoline(_routeParams, onResult, onError);
       } else {
@@ -94,6 +100,24 @@ function Router(props) {
       }
     }
   }, [_routeParams]);
+
+  function changeGroup() {
+    if (currentGroup) {
+      map.removeObject(currentGroup);
+    }
+    switch (currentGroupID) {
+      case 'A':
+        const groupB = new H.map.Group();
+        setCurrentGroup(groupB);
+        setCurrentGroupID('B');
+        break;
+      case 'B':
+        const groupA = new H.map.Group();
+        setCurrentGroup(groupA);
+        setCurrentGroupID('A');
+        break;
+    }
+  }
 
   function onResult(result) {
     const resultResponse = result.response;
@@ -104,6 +128,7 @@ function Router(props) {
       _routeShape = handleRouteLine(resultResponse);
     }
     setRouteShape(_routeShape);
+    setHasUpdated(true);
   }
 
   function onError(error) {
@@ -135,7 +160,10 @@ function Router(props) {
     return formattedRouteShape;
   }
 
-  return (route.waypoint || center) && routeShape.length
+  return (route || center) &&
+    routeShape.length &&
+    routeParamsAreEqual &&
+    hasUpdated
     ? renderResult()
     : null;
 
@@ -162,7 +190,7 @@ function Router(props) {
   }
 
   function renderPolygon() {
-    let _icons = formatIcons();
+    const _icons = formatIcons();
     return (
       <React.Fragment>
         <Polygon
@@ -187,7 +215,8 @@ function Router(props) {
   }
 
   function renderPolyLine() {
-    let _icons = formatIcons();
+    const _icons = formatIcons();
+
     const startPoint = route.waypoint[0].mappedPosition;
     const endPoint = route.waypoint[route.waypoint.length - 1].mappedPosition;
     const middlePoints = route.waypoint.slice(1, -1);
@@ -202,6 +231,7 @@ function Router(props) {
           map={map}
           options={lineOptions}
           setViewBounds={true}
+          group={currentGroup}
           __options={__options}
         />
         {_icons.startIcon !== 'none' && (
@@ -210,8 +240,9 @@ function Router(props) {
             map={map}
             platform={platform}
             icon={_icons.startIcon}
-            options={markerOptions}
+            options={merge(markerOptions, { zIndex: 1 })}
             setViewBounds={false}
+            group={currentGroup}
             __options={__options}
           />
         )}
@@ -221,8 +252,9 @@ function Router(props) {
             map={map}
             platform={platform}
             icon={_icons.endIcon}
-            options={markerOptions}
+            options={merge(markerOptions, { zIndex: 1 })}
             setViewBounds={false}
+            group={currentGroup}
             __options={__options}
           />
         )}
@@ -241,6 +273,7 @@ function Router(props) {
                   icon={_icons.waypointIcon}
                   options={markerOptions}
                   setViewBounds={false}
+                  group={currentGroup}
                   __options={__options}
                 />
               </React.Fragment>

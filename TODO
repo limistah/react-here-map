@@ -1,17 +1,39 @@
 DONE
-- HMapPolyLine (Refact)
-- HMapPolygon (Refact)
-- HMapCircle (Refact)
-- HMapRectangle (Refact)
-- HMap (Refact)
-- HPlatform (Refact)
-- HMapRoute (Refact)
+- Unified coords and points (only arrays or single objects with lat and lng values are allowed)
+- Added more Error handling
+- Added map localization
+- Clicking on map logs lat and lng (needs to change)
+- Map resizes on window resize
+
+- HMapPolyLine
+    - Refact
+- HMapPolygon
+    - Refact
+- HMapCircle 
+    - Refact
+    - radius is now in km (instead of m)
+- HMapRectangle
+    - Refact
+- HMap
+    - Refact
+    - Recenter/rezoom when center/zoom value changes
+- HPlatform
+    - Refact
+- HMapRoute 
+    - Refact
     - HMapRoute render RouteLine
     - HMapRoute render IsoLine
-- HMapGeoCode (Refact)
-- HMapLayer (Refact)
-- HMapMarker (Refact)
+    - Change RouteLine on waypoints change
+    - Remove old RouteLine on waypoints change
+    - zIndex of start and end marker defaults to 1 (instead of 0)
+- HMapGeoCode
+    - Refact
+- HMapLayer
+    - Refact
+- HMapMarker
+    - Refact
     - Allow icon to be set to 'none'
+    - Allow custom icon
 
 TODO
 - HMap
@@ -19,7 +41,10 @@ TODO
     - Centralize reset map
 - Event Handling
 - HMapRoute
-    - Change route on waypoints change
+    - Change IsoLine on waypoints change
+    - remove old IsoLine on waypoints change
+- Allow UI control (positioning, enable/disable)
 
 MIGHT DO
 - HMapPlaces
+- Version change to 3.1
