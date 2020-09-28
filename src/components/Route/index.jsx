@@ -183,8 +183,7 @@ function Router(props) {
       ui,
       route,
       routeShape,
-      center,
-      component
+      center
     };
     return React.cloneElement(children, params);
   }
@@ -289,7 +288,7 @@ function Router(props) {
       endIcon: '',
       waypointIcon: ''
     };
-    if (icons.startIcon || icons.endIcon || icons.waypointIcon) {
+    if (icons && (icons.startIcon || icons.endIcon || icons.waypointIcon)) {
       _icons.startIcon = icons.startIcon;
       _icons.endIcon = icons.endIcon;
       _icons.waypointIcon = icons.waypointIcon;

@@ -857,96 +857,53 @@ export default Map;
 ###### Using a custom renderer
 
 ```js
-import HPlatform, {
-  HMap,
-  HMapRoute,
-  HMapMarker,
-  HMapPolyLine
-} from 'react-here-map';
+import React from 'react';
+import { HPlatform, HMap, HMapRoute } from 'react-here-maps';
+import config from '../../config';
 
-// Create the parameters for the routing request:
-var routeParams = {
-  // The routing mode:
-  mode: 'fastest;car',
-  // The start point of the route:
-  waypoint0: 'geo!50.1120423728813,8.68340740740811',
-  // The end point of the route:
-  waypoint1: 'geo!52.5309916298853,13.3846220493377',
-  // To retrieve the shape of the route we choose the route
-  // representation mode 'display'
-  representation: 'display'
-};
-const routeLineOptions = {
-  style: { strokeColor: 'blue', lineWidth: 10 },
-  arrows: { fillColor: 'white', frequency: 2, width: 0.8, length: 0.7 }
-};
+function Map() {
+  const style = { height: '100%', width: '100%' };
+  const mapOptions = { center: { lat: 52.092876, lng: 5.10448 }, zoom: 7 };
 
-const icon =
-  '<svg width="24" height="24" ' +
-  'xmlns="http://www.w3.org/2000/svg">' +
-  '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
-  'height="22" /><text x="12" y="18" font-size="12pt" ' +
-  'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
-  'fill="white">H</text></svg>';
+  const waypoints = [
+    { lat: 52, lng: 5 },
+    { lat: 53, lng: 6 }
+  ];
 
-// Handles manipulation of the path between the two points
-const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
-  // Retrieve the mapped positions of the requested waypoints:
-  const startPoint = route.waypoint[0].mappedPosition;
-  const endPoint = route.waypoint[1].mappedPosition;
-
-  // Create a marker for the start point:
-  const startMarker = { lat: startPoint.latitude, lng: startPoint.longitude };
-  // Create a marker for the end point:
-  const endMarker = { lat: endPoint.latitude, lng: endPoint.longitude };
+  function Route({map, platform, ui, route, key, routeShape}: any) {
+    return (
+      <React.Fragment>
+        <HMapPolyLine points={routeShape}>
+      </React.Fragment>
+    )
+  }
 
   return (
-    <React.Fragment>
-      <HMapPolyLine points={routeShape} map={map} setViewBounds />
-      <HMapMarker
-        coords={startMarker}
-        map={map}
-        platform={platform}
-        icon={icon}
-        setViewBounds
-      />
-      <HMapMarker
-        coords={endMarker}
-        map={map}
-        platform={platform}
-        icon={icon}
-        setViewBounds
-      />
-    </React.Fragment>
-  );
-};
-
-<HPlatform
-  app_id='YOUR_APP_ID'
-  app_code='YOUR_APP_CODE'
-  apikey={'YOUR_API_KEY_FOR_V3.1'}
-  useCIT
-  useHTTPS
-  includeUI
-  includePlaces
->
-  <HMap
-    style={{
-      height: '400px',
-      width: '800px'
-    }}
-    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
-  >
-    <HMapRoute
-      routeParams={routeParams}
-      icon={icon}
-      defaultDisplay
-      lineOptions={routeLineOptions}
+    <HPlatform
+      app_id={config.HERE_APP_ID}
+      app_code={config.HERE_APP_CODE}
+      apikey={config.HERE_API_KEY}
+      interactive
+      useHTTPS
+      includeUI
     >
-      <RouteMarker />
-    </HMapRoute>
-  </HMap>
-</HPlatform>;
+      <HMap style={style} mapOptions={mapOptions}>
+        <HMapRoute
+          routeParams={{
+            waypoints,
+            mode: 'fastest;car;traffic:disabled',
+            representation: 'display'
+          }}
+          renderDefaultLine={false}
+        >
+          <Route />
+        </HMapRoute>
+      </HMap>
+    </HPlatform>
+  );
+}
+
+export default Map;
 ```
 
 #### Displaying route on the Map Using iso line
@@ -975,15 +932,7 @@ const icon =
   'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
   'fill="white">H</text></svg>';
 
-const RouteMarkerIso = ({
-  map,
-  platform,
-  ui,
-  route,
-  routeShape,
-  center,
-  component
-}) => {
+const RouteMarkerIso = ({ map, platform, ui, route, routeShape, center }) => {
   return (
     <React.Fragment>
       <Polygon
@@ -1155,28 +1104,35 @@ Individual layer holds different information
 ##### Usage
 
 ```js
-import HPlatform, { HMap, HMapLayer } from 'react-here-map';
+import React from 'react';
+import { HPlatform, HMap, HMapLayer } from 'react-here-maps';
 
-// Child of HMapGeoCode receives same params as above.
-<HPlatform
-  app_id='YOUR_APP_ID'
-  app_code='YOUR_APP_CODE'
-  apikey={'YOUR_API_KEY_FOR_V3.1'}
-  useCIT
-  useHTTPS
-  includeUI
-  includePlaces
->
-  <HMap
-    style={{
-      height: '400px',
-      width: '800px'
-    }}
-    mapOptions={{ center: { lat: 52.5321472, lng: 13.3935785 } }}
-  >
-    <HMapLayer mapLayerType='normal.trafficnight' />
-  </HMap>
-</HPlatform>;
+function Map() {
+  const style = { height: '100%', width: '100%' };
+  const mapOptions = { center: { lat: 52.092876, lng: 5.10448 }, zoom: 7 };
+
+  const points = [
+    { lat: 52, lng: 5 },
+    { lat: 53, lng: 6 }
+  ];
+
+  return (
+    <HPlatform
+      app_id='YOUR_APP_ID'
+      app_code='YOUR_APP_CODE'
+      apikey='YOUR_API_KEY'
+      interactive
+      useHTTPS
+      includeUI
+    >
+      <HMap style={style} mapOptions={mapOptions}>
+        <HMapLayer></HMapLayer>
+      </HMap>
+    </HPlatform>
+  );
+}
+
+export default Map;
 ```
 
 #### HMapPlaces
