@@ -1,10 +1,10 @@
 {
-  "name": "react-here-maps",
+  "name": "react-here-map",
   "version": "1.0.0",
   "description": "Library to use the HERE map JS SDK in React",
   "author": "RobinUit",
   "license": "MIT",
-  "repository": "RobinUit/react-here-maps",
+  "repository": "Coffee-IT-Development/react-here-map",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",
