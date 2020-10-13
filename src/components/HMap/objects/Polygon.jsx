@@ -8,12 +8,13 @@ function Polygon(props) {
     points,
     options,
     setViewBounds,
+    animated,
     objectEvents,
     platform,
     map,
     ui,
     __options
-  } = merge({ setViewBounds: true }, props);
+  } = merge({ setViewBounds: true, animated: true }, props);
 
   useEffect(() => {
     handleErrors();
@@ -51,7 +52,7 @@ function Polygon(props) {
 
     if (setViewBounds) {
       // Zooms and centers the map to the Polygon
-      map.setViewBounds(polygon.getBounds());
+      map.setViewBounds(polygon.getBounds(), animated);
     }
   }
 

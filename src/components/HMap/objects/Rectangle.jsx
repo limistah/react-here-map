@@ -8,12 +8,13 @@ function Rectangle(props) {
     points,
     options,
     setViewBounds,
+    animated,
     objectEvents,
     platform,
     map,
     ui,
     __options
-  } = merge({ setViewBounds: true }, props);
+  } = merge({ setViewBounds: true, animated: true }, props);
 
   useEffect(() => {
     handleErrors();
@@ -53,7 +54,7 @@ function Rectangle(props) {
 
     if (setViewBounds) {
       // Zooms and centers the map to the Rectangle
-      map.setViewBounds(rectangle.getBounds());
+      map.setViewBounds(rectangle.getBounds(), animated);
     }
   }
 

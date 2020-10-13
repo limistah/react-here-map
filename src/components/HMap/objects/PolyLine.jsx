@@ -8,13 +8,14 @@ function PolyLine(props) {
     points,
     options,
     setViewBounds,
+    animated,
     objectEvents,
     group,
     platform,
     map,
     ui,
     __options
-  } = merge({ setViewBounds: true }, props);
+  } = merge({ setViewBounds: true, animated: true }, props);
 
   useEffect(() => {
     handleErrors();
@@ -57,7 +58,7 @@ function PolyLine(props) {
 
     if (setViewBounds) {
       // Zooms and center the map to the PolyLine
-      map.setViewBounds(polyLine.getBounds());
+      map.setViewBounds(polyLine.getBounds(), animated);
     }
   }
 

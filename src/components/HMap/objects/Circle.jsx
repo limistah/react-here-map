@@ -9,12 +9,13 @@ function Circle(props) {
     radius,
     options,
     setViewBounds,
+    animated,
     objectEvents,
     platform,
     map,
     ui,
     __options
-  } = merge({ setViewBounds: true }, props);
+  } = merge({ setViewBounds: true, animated: true }, props);
 
   useEffect(() => {
     handleErrors();
@@ -50,7 +51,7 @@ function Circle(props) {
 
     if (setViewBounds) {
       // Zooms and centers the map to the Circle
-      map.setViewBounds(circle.getBounds());
+      map.setViewBounds(circle.getBounds(), animated);
     }
   }
 

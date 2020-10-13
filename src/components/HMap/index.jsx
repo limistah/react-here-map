@@ -5,6 +5,7 @@ import defaults from '../../libs/defaults';
 import setEventListeners from '../../libs/setEventListeners';
 import changeMapStyle from '../../libs/changeMapStyle';
 import merge from 'lodash.merge';
+import { recenterMap, rezoomMap } from '../../libs/helpers';
 
 class HMap extends React.Component {
   constructor() {
@@ -26,17 +27,25 @@ class HMap extends React.Component {
     delete _options.options;
     const builder = build(_props.platform, _options);
     setEventListeners(builder);
-    changeMapStyle(builder);
+    if (_options.includeUI) {
+      changeMapStyle(builder);
+    }
     this.setState({ builder });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     // HACK - Temporary recenter and zoom fix
-    if (this.props.mapOptions.center !== nextProps.mapOptions.center) {
-      this.state.builder.map.setCenter(nextProps.mapOptions.center, true);
+    if (
+      this.props.mapOptions &&
+      this.props.mapOptions.center !== nextProps.mapOptions.center
+    ) {
+      recenterMap(this.state.builder.map, true);
       return true;
-    } else if (this.props.mapOptions.zoom !== nextProps.mapOptions.zoom) {
-      this.state.builder.map.setZoom(nextProps.mapOptions.zoom, true);
+    } else if (
+      this.props.mapOptions &&
+      this.props.mapOptions.zoom !== nextProps.mapOptions.zoom
+    ) {
+      rezoomMap(this.state.builder.map, true);
       return true;
     }
     return true;

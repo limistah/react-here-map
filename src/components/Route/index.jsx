@@ -5,6 +5,7 @@ import Polygon from '../HMap/objects/Polygon';
 import Marker from '../HMap/objects/Marker';
 import merge from 'lodash.merge';
 import _ from 'lodash';
+import { resetMap } from '../../libs/helpers';
 
 function Router(props) {
   const {
@@ -15,13 +16,15 @@ function Router(props) {
     icons,
     markerOptions,
     renderDefaultLine,
+    animated,
     children,
     platform,
     map,
     ui,
     __options
-  } = merge({ renderDefaultLine: true }, props);
+  } = merge({ isoLine: false, renderDefaultLine: true, animated: true }, props);
 
+  const [error, setError] = useState();
   const [currentRouteParams, setCurrentRouteParams] = useState();
   const [_routeParams, setRouteParams] = useState();
   const [currentGroup, setCurrentGroup] = useState();
@@ -34,14 +37,33 @@ function Router(props) {
   const routeParamsAreEqual = _.isEqual(routeParams, currentRouteParams);
 
   useEffect(() => {
-    if (!routeParamsAreEqual) {
+    const errors = handleErrors();
+    setError(errors);
+    if (!routeParamsAreEqual && !errors) {
       setHasUpdated(false);
       changeGroup();
-      handleErrors();
       formatRouteParams();
       setCurrentRouteParams(routeParams);
     }
   }, [routeParams]);
+
+  function changeGroup() {
+    if (currentGroup) {
+      currentGroup.removeAll();
+    }
+    switch (currentGroupID) {
+      case 'A':
+        const groupB = new H.map.Group();
+        setCurrentGroup(groupB);
+        setCurrentGroupID('B');
+        break;
+      case 'B':
+        const groupA = new H.map.Group();
+        setCurrentGroup(groupA);
+        setCurrentGroupID('A');
+        break;
+    }
+  }
 
   function handleErrors() {
     // Route can only be initialized inside HMap
@@ -59,15 +81,19 @@ function Router(props) {
       );
     }
 
-    if (
-      !isoLine &&
-      (!(routeParams.waypoints instanceof Array) ||
-        routeParams.waypoints.length < 2)
-    ) {
-      throw new Error(
-        'routeLine - "waypoints" should be an array of atleast two objects with "lat" and "lng" specified'
-      );
+    if (!isoLine) {
+      if (!(routeParams.waypoints instanceof Array)) {
+        throw new Error('routeLine - "waypoints" should be an array');
+      } else if (routeParams.waypoints.length < 2) {
+        if (currentGroup) {
+          resetMap(map, currentGroup, true);
+          setCurrentGroup(null);
+        }
+        return true;
+      }
     }
+
+    return null;
   }
 
   function formatRouteParams() {
@@ -91,33 +117,17 @@ function Router(props) {
   }
 
   useEffect(() => {
-    const router = platform.getRoutingService();
-    if (_routeParams && routeParamsAreEqual) {
-      if (isoLine) {
-        router.calculateIsoline(_routeParams, onResult, onError);
-      } else {
-        router.calculateRoute(_routeParams, onResult, onError);
+    if (!error) {
+      const router = platform.getRoutingService();
+      if (_routeParams && routeParamsAreEqual) {
+        if (isoLine) {
+          router.calculateIsoline(_routeParams, onResult, onError);
+        } else {
+          router.calculateRoute(_routeParams, onResult, onError);
+        }
       }
     }
   }, [_routeParams]);
-
-  function changeGroup() {
-    if (currentGroup) {
-      map.removeObject(currentGroup);
-    }
-    switch (currentGroupID) {
-      case 'A':
-        const groupB = new H.map.Group();
-        setCurrentGroup(groupB);
-        setCurrentGroupID('B');
-        break;
-      case 'B':
-        const groupA = new H.map.Group();
-        setCurrentGroup(groupA);
-        setCurrentGroupID('A');
-        break;
-    }
-  }
 
   function onResult(result) {
     const resultResponse = result.response;
@@ -196,6 +206,7 @@ function Router(props) {
           points={routeShape}
           options={polygonOptions}
           setViewBounds={true}
+          animated={animated}
           map={map}
           platform={platform}
           __options={__options}
@@ -230,6 +241,7 @@ function Router(props) {
           map={map}
           options={lineOptions}
           setViewBounds={true}
+          animated={animated}
           group={currentGroup}
           __options={__options}
         />

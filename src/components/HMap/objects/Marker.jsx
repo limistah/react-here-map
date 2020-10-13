@@ -13,6 +13,7 @@ function Marker(props) {
     getMarker,
     updateMarker,
     setViewBounds,
+    animated,
     objectEvents,
     group,
     platform,
@@ -20,7 +21,13 @@ function Marker(props) {
     ui,
     __options
   } = merge(
-    { setViewBounds: true, updateMarker: false, marker: null, getMarker() {} },
+    {
+      setViewBounds: true,
+      animated: true,
+      updateMarker: false,
+      marker: null,
+      getMarker() {}
+    },
     props
   );
 
@@ -96,7 +103,7 @@ function Marker(props) {
 
     if (setViewBounds) {
       // Zooms and centers the map to the Marker
-      map.setCenter(coords);
+      map.setCenter(coords, animated);
     }
   }
 
