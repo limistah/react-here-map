@@ -1,6 +1,6 @@
 {
   "name": "@robinuit/react-here-maps-library",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Library to use the HERE map JS SDK in React",
   "author": "RobinUit",
   "license": "MIT",
