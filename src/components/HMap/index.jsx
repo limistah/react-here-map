@@ -57,9 +57,15 @@ class HMap extends React.Component {
 
   displayChildren() {
     const { children } = this.props;
-    const { map, platform, ui, options } = this.state.builder;
+    const { map, platform, ui, interaction, options } = this.state.builder;
     return React.Children.map(children, (child) =>
-      React.cloneElement(child, { map, platform, ui, __options: options })
+      React.cloneElement(child, {
+        map,
+        platform,
+        ui,
+        interaction,
+        __options: options
+      })
     );
   }
 

@@ -17,6 +17,7 @@ DONE
 - HMap
     - Refact
     - Recenter/rezoom when center/zoom value changes
+    - Centralize reset map
 - HPlatform
     - Refact
 - HMapRoute 
@@ -26,6 +27,10 @@ DONE
     - Change RouteLine on waypoints change
     - Remove old RouteLine on waypoints change
     - zIndex of start and end marker defaults to 1 (instead of 0)
+    - Add edit mode (toggle)
+    - Enable adding markers (currently added to end of list)
+    - Enable removing markers
+    - Enable moving markers
 - HMapGeoCode
     - Refact
 - HMapLayer
@@ -34,17 +39,21 @@ DONE
     - Refact
     - Allow icon to be set to 'none'
     - Allow custom icon
+- Allow UI control (enable/disable)
+
 
 TODO
 - HMap
     - Center on current location
-    - Centralize reset map
 - Event Handling
 - HMapRoute
-    - Change IsoLine on waypoints change
-    - remove old IsoLine on waypoints change
-- Allow UI control (positioning, enable/disable)
+
+- Allow UI control (positioning)
 
 MIGHT DO
 - HMapPlaces
+- HMapGeoCode
+- HMapRoute
+    - Change IsoLine on waypoints change
+    - remove old IsoLine on waypoints change
 - Version change to 3.1

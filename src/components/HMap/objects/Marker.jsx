@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import merge from 'lodash.merge';
 import initMapObjectEvents from '../../../libs/initMapObjectEvents';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function Marker(props) {
   const {
@@ -11,7 +11,9 @@ function Marker(props) {
     options,
     marker,
     getMarker,
+    updateWaypoints,
     updateMarker,
+    draggable,
     setViewBounds,
     animated,
     objectEvents,
@@ -22,11 +24,13 @@ function Marker(props) {
     __options
   } = merge(
     {
-      setViewBounds: true,
-      animated: true,
-      updateMarker: false,
       marker: null,
-      getMarker() {}
+      getMarker() {},
+      updateWaypoints() {},
+      updateMarker: false,
+      draggable: false,
+      setViewBounds: true,
+      animated: true
     },
     props
   );
@@ -37,6 +41,10 @@ function Marker(props) {
     handleErrors();
     createIcon();
     const _marker = createMarker();
+    if (draggable) {
+      _marker.draggable = draggable;
+      _options.volatility = draggable;
+    }
     const objectExists = checkIfObjectExists();
     addOrUpdateMarker(_marker, objectExists);
   }, []);

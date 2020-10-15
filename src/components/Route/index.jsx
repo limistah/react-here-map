@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import PolyLine from '../HMap/objects/PolyLine';
 import Polygon from '../HMap/objects/Polygon';
@@ -15,26 +15,46 @@ function Router(props) {
     polygonOptions,
     icons,
     markerOptions,
+    changeWaypoints,
+    edit,
     renderDefaultLine,
     animated,
     children,
+    interaction,
     platform,
     map,
     ui,
     __options
-  } = merge({ isoLine: false, renderDefaultLine: true, animated: true }, props);
+  } = merge(
+    {
+      isoLine: false,
+      changeWaypoints() {},
+      edit: false,
+      renderDefaultLine: true,
+      animated: true
+    },
+    props
+  );
 
   const [error, setError] = useState();
   const [currentRouteParams, setCurrentRouteParams] = useState();
+  const currentRouteParamsRef = useRef();
   const [_routeParams, setRouteParams] = useState();
   const [currentGroup, setCurrentGroup] = useState();
   const [currentGroupID, setCurrentGroupID] = useState('A');
   const [route, setRoute] = useState();
+  const routeRef = useRef();
   const [routeShape, setRouteShape] = useState([]);
   const [center, setCenter] = useState();
   const [hasUpdated, setHasUpdated] = useState(false);
+  const [initialMarkerCoords, setInitialMarkerCoords] = useState();
+  const initialMarkerCoordsRef = useRef();
 
   const routeParamsAreEqual = _.isEqual(routeParams, currentRouteParams);
+
+  useEffect(() => {
+    setMapEventListeners();
+  }, []);
 
   useEffect(() => {
     const errors = handleErrors();
@@ -43,9 +63,10 @@ function Router(props) {
       setHasUpdated(false);
       changeGroup();
       formatRouteParams();
+      currentRouteParamsRef.current = routeParams;
       setCurrentRouteParams(routeParams);
     }
-  }, [routeParams]);
+  }, [routeParams, edit]);
 
   function changeGroup() {
     if (currentGroup) {
@@ -157,6 +178,7 @@ function Router(props) {
 
   function handleRouteLine(resultResponse) {
     setRoute(resultResponse.route[0]);
+    routeRef.current = resultResponse.route[0];
 
     return formatRouteShape(resultResponse.route[0].shape);
   }
@@ -250,7 +272,8 @@ function Router(props) {
             coords={startMarker}
             map={map}
             platform={platform}
-            icon={_icons.startIcon}
+            icon={edit ? _icons.editIcon : _icons.startIcon}
+            draggable={edit}
             options={merge(markerOptions, { zIndex: 1 })}
             setViewBounds={false}
             group={currentGroup}
@@ -262,15 +285,15 @@ function Router(props) {
             coords={endMarker}
             map={map}
             platform={platform}
-            icon={_icons.endIcon}
+            icon={edit ? _icons.editIcon : _icons.endIcon}
+            draggable={edit}
             options={merge(markerOptions, { zIndex: 1 })}
             setViewBounds={false}
             group={currentGroup}
             __options={__options}
           />
         )}
-        {middlePoints.length &&
-          _icons.waypointIcon !== 'none' &&
+        {shouldShowAllWaypoints(middlePoints, _icons) &&
           middlePoints.map((waypoint, index) => {
             return (
               <React.Fragment key={index}>
@@ -281,7 +304,8 @@ function Router(props) {
                   }}
                   map={map}
                   platform={platform}
-                  icon={_icons.waypointIcon}
+                  icon={edit ? _icons.editIcon : _icons.waypointIcon}
+                  draggable={edit}
                   options={markerOptions}
                   setViewBounds={false}
                   group={currentGroup}
@@ -294,24 +318,156 @@ function Router(props) {
     );
   }
 
+  function shouldShowAllWaypoints(middlePoints, _icons) {
+    return middlePoints.length && (_icons.waypointIcon !== 'none' || edit);
+  }
+
   function formatIcons() {
     let _icons = {
       startIcon: '',
       endIcon: '',
-      waypointIcon: ''
+      waypointIcon: '',
+      editIcon: ''
     };
-    if (icons && (icons.startIcon || icons.endIcon || icons.waypointIcon)) {
+    if (
+      icons &&
+      (icons.startIcon || icons.endIcon || icons.waypointIcon || icons.editIcon)
+    ) {
       _icons.startIcon = icons.startIcon;
       _icons.endIcon = icons.endIcon;
       _icons.waypointIcon = icons.waypointIcon;
+      _icons.editIcon = icons.editIcon;
+
       return _icons;
     } else if (typeof icons === 'string') {
       _icons.startIcon = icons;
       _icons.endIcon = icons;
       _icons.waypointIcon = icons;
+      _icons.editIcon = icons;
+
       return _icons;
     }
     return _icons;
+  }
+
+  function setMapEventListeners() {
+    const MOUSE_BUTTONS = {
+      LEFT: 1,
+      MIDDLE: 2,
+      RIGHT: 3
+    };
+
+    map.addEventListener(
+      'tap',
+      (e) => {
+        if (
+          e.target instanceof H.map.Marker &&
+          e.originalEvent.which === MOUSE_BUTTONS.RIGHT
+        ) {
+          const parentGroup = e.target.getParentGroup();
+          if (parentGroup) {
+            parentGroup.removeObject(e.target);
+          }
+          var waypoints = routeRef.current.waypoint;
+          var foundWaypoint = waypoints.findIndex((waypoint) => {
+            return (
+              e.target.getGeometry().lat === waypoint.mappedPosition.latitude
+            );
+          });
+          var waypointsList = Object.assign(
+            [],
+            currentRouteParamsRef.current.waypoints
+          );
+          waypointsList.splice(foundWaypoint, 1);
+          changeWaypoints(waypointsList);
+        } else if (e.originalEvent.which === MOUSE_BUTTONS.LEFT) {
+          var coord = map.screenToGeo(
+            e.currentPointer.viewportX,
+            e.currentPointer.viewportY
+          );
+
+          var waypointsList = Object.assign(
+            [],
+            currentRouteParamsRef.current.waypoints
+          );
+          waypointsList.push({ lat: coord.lat, lng: coord.lng });
+          changeWaypoints(waypointsList);
+        }
+      },
+      false
+    );
+
+    // Disable the default draggability of the underlying map
+    // and calculate the offset between mouse and target's position
+    // when starting to drag a marker object:
+    map.addEventListener(
+      'dragstart',
+      (e) => {
+        if (e.target instanceof H.map.Marker) {
+          var coords = e.target.getGeometry();
+          var targetPosition = map.geoToScreen(coords);
+
+          e.target.offset = new H.math.Point(
+            e.currentPointer.viewportX - targetPosition.x,
+            e.currentPointer.viewportY - targetPosition.y
+          );
+
+          setInitialMarkerCoords({ lat: coords.lat, lng: coords.lng });
+          initialMarkerCoordsRef.current = { lat: coords.lat, lng: coords.lng };
+
+          interaction.disable();
+        }
+      },
+      false
+    );
+
+    // Re-enable the default draggability of the underlying map
+    // when dragging has completed
+    map.addEventListener(
+      'dragend',
+      (e) => {
+        if (e.target instanceof H.map.Marker) {
+          var coords = e.target.getGeometry();
+
+          var waypoints = routeRef.current.waypoint;
+          var foundWaypoint = waypoints.findIndex((waypoint) => {
+            return (
+              initialMarkerCoordsRef.current.lat ===
+              waypoint.mappedPosition.latitude
+            );
+          });
+
+          var waypointsList = Object.assign(
+            [],
+            currentRouteParamsRef.current.waypoints
+          );
+
+          waypointsList[foundWaypoint] = { lat: coords.lat, lng: coords.lng };
+
+          changeWaypoints(waypointsList);
+
+          interaction.enable();
+        }
+      },
+      false
+    );
+
+    // Listen to the drag event and move the position of the marker
+    // as necessary
+    map.addEventListener(
+      'drag',
+      (e) => {
+        if (e.target instanceof H.map.Marker) {
+          e.target.setGeometry(
+            map.screenToGeo(
+              e.currentPointer.viewportX - e.target.offset.x,
+              e.currentPointer.viewportY - e.target.offset.y
+            )
+          );
+        }
+      },
+      false
+    );
   }
 }
 
