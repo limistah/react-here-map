@@ -18,6 +18,8 @@ DONE
     - Refact
     - Recenter/rezoom when center/zoom value changes
     - Centralize reset map
+    - Center on current location (useLocation)
+    - Default size map (100% w x h)
 - HPlatform
     - Refact
 - HMapRoute 
@@ -44,10 +46,10 @@ DONE
 
 TODO
 - HMap
-    - Center on current location
+    - Convert component to function
+    - Show current location marker (animated)
 - Event Handling
 - HMapRoute
-
 - Allow UI control (positioning)
 
 MIGHT DO

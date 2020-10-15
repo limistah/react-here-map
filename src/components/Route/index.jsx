@@ -5,7 +5,7 @@ import Polygon from '../HMap/objects/Polygon';
 import Marker from '../HMap/objects/Marker';
 import merge from 'lodash.merge';
 import _ from 'lodash';
-import { resetMap } from '../../libs/helpers';
+import { removeObjectFromGroup, resetMap } from '../../libs/helpers';
 
 function Router(props) {
   const {
@@ -272,7 +272,7 @@ function Router(props) {
             coords={startMarker}
             map={map}
             platform={platform}
-            icon={edit ? _icons.editIcon : _icons.startIcon}
+            icon={_icons.startIcon}
             draggable={edit}
             options={merge(markerOptions, { zIndex: 1 })}
             setViewBounds={false}
@@ -285,7 +285,7 @@ function Router(props) {
             coords={endMarker}
             map={map}
             platform={platform}
-            icon={edit ? _icons.editIcon : _icons.endIcon}
+            icon={_icons.endIcon}
             draggable={edit}
             options={merge(markerOptions, { zIndex: 1 })}
             setViewBounds={false}
@@ -293,7 +293,7 @@ function Router(props) {
             __options={__options}
           />
         )}
-        {shouldShowAllWaypoints(middlePoints, _icons) &&
+        {shouldShowMiddlepoints(middlePoints, _icons) &&
           middlePoints.map((waypoint, index) => {
             return (
               <React.Fragment key={index}>
@@ -318,7 +318,7 @@ function Router(props) {
     );
   }
 
-  function shouldShowAllWaypoints(middlePoints, _icons) {
+  function shouldShowMiddlepoints(middlePoints, _icons) {
     return middlePoints.length && (_icons.waypointIcon !== 'none' || edit);
   }
 
@@ -364,14 +364,14 @@ function Router(props) {
           e.target instanceof H.map.Marker &&
           e.originalEvent.which === MOUSE_BUTTONS.RIGHT
         ) {
-          const parentGroup = e.target.getParentGroup();
-          if (parentGroup) {
-            parentGroup.removeObject(e.target);
-          }
+          var coords = e.target.getGeometry();
+
+          removeObjectFromGroup(e.target);
           var waypoints = routeRef.current.waypoint;
           var foundWaypoint = waypoints.findIndex((waypoint) => {
             return (
-              e.target.getGeometry().lat === waypoint.mappedPosition.latitude
+              coords.lat === waypoint.mappedPosition.latitude &&
+              coords.lng === waypoint.mappedPosition.longitude
             );
           });
           var waypointsList = Object.assign(
@@ -433,7 +433,9 @@ function Router(props) {
           var foundWaypoint = waypoints.findIndex((waypoint) => {
             return (
               initialMarkerCoordsRef.current.lat ===
-              waypoint.mappedPosition.latitude
+                waypoint.mappedPosition.latitude &&
+              initialMarkerCoordsRef.current.lng ===
+                waypoint.mappedPosition.longitude
             );
           });
 

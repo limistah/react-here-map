@@ -5,7 +5,7 @@ import defaults from '../../libs/defaults';
 import setEventListeners from '../../libs/setEventListeners';
 import changeMapStyle from '../../libs/changeMapStyle';
 import merge from 'lodash.merge';
-import { recenterMap, rezoomMap } from '../../libs/helpers';
+import { recenterMap, rezoomMap, setCurrentLocation } from '../../libs/helpers';
 
 class HMap extends React.Component {
   constructor() {
@@ -15,21 +15,28 @@ class HMap extends React.Component {
   }
 
   componentDidMount() {
-    const _props = this.props;
+    const props = this.props;
     const _options = merge(
       {
         container: this.container.current,
-        build: true
+        build: true,
+        style: { height: '100%', width: '100%' }
       },
-      _props.options,
-      _props
+      props.options,
+      props
     );
     delete _options.options;
-    const builder = build(_props.platform, _options);
+
+    const builder = build(props.platform, _options);
+
     setEventListeners(builder);
     if (_options.includeUI) {
       changeMapStyle(builder);
     }
+    if (_options.useLocation) {
+      setCurrentLocation(builder.map, true);
+    }
+
     this.setState({ builder });
   }
 
@@ -70,19 +77,20 @@ class HMap extends React.Component {
   }
 
   render() {
-    const { style, loadingEl } = this.props;
+    const { style, loading } = this.props;
     const { options } = this.state.builder;
 
-    const loading = loadingEl || this.createLoadingComponent();
+    const styleEl = style || { height: '100%', width: '100%' };
+    const loadingEl = loading || this.createLoadingComponent();
 
     return (
       <div
         id={defaults.containerId}
         className={defaults.defaultClassName}
-        style={style}
+        style={styleEl}
         ref={this.container}
       >
-        {typeof H === 'undefined' && !options && loading}
+        {typeof H === 'undefined' && !options && loadingEl}
         {typeof H === 'object' && options && this.displayChildren()}
       </div>
     );
