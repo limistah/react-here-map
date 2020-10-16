@@ -1,6 +1,6 @@
 import { removeObjectFromGroup } from './helpers';
 
-export default (map, interaction, callbacks) => {
+export default (map, interaction, callback) => {
   const MOUSE_BUTTONS = {
     LEFT: 1,
     MIDDLE: 2,
@@ -16,7 +16,7 @@ export default (map, interaction, callbacks) => {
           e.currentPointer.viewportY
         );
 
-        callbacks.addMarker?.({ lat: coords.lat, lng: coords.lng });
+        callback('add', { lat: coords.lat, lng: coords.lng });
       } else if (
         e.originalEvent.which === MOUSE_BUTTONS.RIGHT &&
         e.target instanceof H.map.Marker
@@ -24,7 +24,7 @@ export default (map, interaction, callbacks) => {
         var coords = e.target.getGeometry();
         removeObjectFromGroup(e.target);
 
-        callbacks.removeMarker?.({ lat: coords.lat, lng: coords.lng });
+        callback('remove', { lat: coords.lat, lng: coords.lng });
       } else if (e.originalEvent.which === MOUSE_BUTTONS.MIDDLE) {
         // Could allow some custom event (set by user)
       }
@@ -49,7 +49,7 @@ export default (map, interaction, callbacks) => {
 
         interaction.disable();
 
-        callbacks.dragstart?.({ lat: coords.lat, lng: coords.lng });
+        callback('dragstart', { lat: coords.lat, lng: coords.lng });
       }
     },
     false
@@ -65,7 +65,7 @@ export default (map, interaction, callbacks) => {
 
         interaction.enable();
 
-        callbacks.dragend?.({ lat: coords.lat, lng: coords.lng });
+        callback('dragend', { lat: coords.lat, lng: coords.lng });
       }
     },
     false

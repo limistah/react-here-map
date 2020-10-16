@@ -408,14 +408,24 @@ function Router(props) {
   }
 
   function setEventListeners() {
-    const callbacks = {
-      removeMarker: (coords) => removeMarker(coords),
-      addMarker: (coords) => addMarker(coords),
-      dragstart: (coords) => dragstart(coords),
-      dragend: (coords) => dragend(coords)
-    };
-
-    markerEvents(map, interaction, callbacks);
+    markerEvents(map, interaction, (type, coords) => {
+      switch (type) {
+        case 'remove':
+          removeMarker(coords);
+          break;
+        case 'add':
+          addMarker(coords);
+          break;
+        case 'dragstart':
+          dragstart(coords);
+          break;
+        case 'dragend':
+          dragend(coords);
+          break;
+        default:
+          break;
+      }
+    });
   }
 }
 
