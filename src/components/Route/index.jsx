@@ -5,7 +5,7 @@ import Polygon from '../HMap/objects/Polygon';
 import Marker from '../HMap/objects/Marker';
 import merge from 'lodash.merge';
 import _ from 'lodash';
-import { resetMap } from '../../libs/helpers';
+import { removeObjectFromGroup, resetMap } from '../../libs/helpers';
 import markerEvents from '../../libs/markerEvents';
 
 function Router(props) {
@@ -354,21 +354,24 @@ function Router(props) {
     return _icons;
   }
 
-  function removeMarker(coords) {
-    var waypoints = routeRef.current.waypoint;
-    var foundWaypoint = waypoints.findIndex((waypoint) => {
-      return (
-        coords.lat === waypoint.mappedPosition.latitude &&
-        coords.lng === waypoint.mappedPosition.longitude
+  function removeMarker(coords, e) {
+    if (e.target.getParentGroup().getObjects().length > 3) {
+      removeObjectFromGroup(e.target);
+      var waypoints = routeRef.current.waypoint;
+      var foundWaypoint = waypoints.findIndex((waypoint) => {
+        return (
+          coords.lat === waypoint.mappedPosition.latitude &&
+          coords.lng === waypoint.mappedPosition.longitude
+        );
+      });
+      var waypointsList = Object.assign(
+        [],
+        currentRouteParamsRef.current.waypoints
       );
-    });
-    var waypointsList = Object.assign(
-      [],
-      currentRouteParamsRef.current.waypoints
-    );
-    waypointsList.splice(foundWaypoint, 1);
+      waypointsList.splice(foundWaypoint, 1);
 
-    changeWaypoints(waypointsList);
+      changeWaypoints(waypointsList);
+    }
   }
 
   function addMarker(coords) {
@@ -408,10 +411,10 @@ function Router(props) {
   }
 
   function setEventListeners() {
-    markerEvents(map, interaction, (type, coords) => {
+    markerEvents(map, interaction, (type, coords, e) => {
       switch (type) {
         case 'remove':
-          removeMarker(coords);
+          removeMarker(coords, e);
           break;
         case 'add':
           addMarker(coords);

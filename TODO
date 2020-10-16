@@ -36,6 +36,7 @@ DONE
     - Enable moving markers
     - setToViewBounds disabled in edit mode
     - Allow different icons for start-, end- and middlepoints and edit mode
+    - Always leave atleast 2 markers on the map
 - HMapGeoCode
     - Refact
 - HMapLayer

@@ -1,5 +1,3 @@
-import { removeObjectFromGroup } from './helpers';
-
 export default (map, interaction, callback) => {
   const MOUSE_BUTTONS = {
     LEFT: 1,
@@ -16,15 +14,14 @@ export default (map, interaction, callback) => {
           e.currentPointer.viewportY
         );
 
-        callback('add', { lat: coords.lat, lng: coords.lng });
+        callback('add', { lat: coords.lat, lng: coords.lng }, e);
       } else if (
         e.originalEvent.which === MOUSE_BUTTONS.RIGHT &&
         e.target instanceof H.map.Marker
       ) {
         var coords = e.target.getGeometry();
-        removeObjectFromGroup(e.target);
 
-        callback('remove', { lat: coords.lat, lng: coords.lng });
+        callback('remove', { lat: coords.lat, lng: coords.lng }, e);
       } else if (e.originalEvent.which === MOUSE_BUTTONS.MIDDLE) {
         // Could allow some custom event (set by user)
       }
@@ -49,7 +46,7 @@ export default (map, interaction, callback) => {
 
         interaction.disable();
 
-        callback('dragstart', { lat: coords.lat, lng: coords.lng });
+        callback('dragstart', { lat: coords.lat, lng: coords.lng }, e);
       }
     },
     false
@@ -65,7 +62,7 @@ export default (map, interaction, callback) => {
 
         interaction.enable();
 
-        callback('dragend', { lat: coords.lat, lng: coords.lng });
+        callback('dragend', { lat: coords.lat, lng: coords.lng }, e);
       }
     },
     false
