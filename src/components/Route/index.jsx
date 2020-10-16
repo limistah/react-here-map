@@ -5,7 +5,8 @@ import Polygon from '../HMap/objects/Polygon';
 import Marker from '../HMap/objects/Marker';
 import merge from 'lodash.merge';
 import _ from 'lodash';
-import { removeObjectFromGroup, resetMap } from '../../libs/helpers';
+import { resetMap } from '../../libs/helpers';
+import markerEvents from '../../libs/markerEvents';
 
 function Router(props) {
   const {
@@ -18,6 +19,7 @@ function Router(props) {
     changeWaypoints,
     edit,
     renderDefaultLine,
+    setViewBounds,
     animated,
     children,
     interaction,
@@ -31,6 +33,7 @@ function Router(props) {
       changeWaypoints() {},
       edit: false,
       renderDefaultLine: true,
+      setViewBounds: true,
       animated: true
     },
     props
@@ -47,14 +50,15 @@ function Router(props) {
   const [routeShape, setRouteShape] = useState([]);
   const [center, setCenter] = useState();
   const [hasUpdated, setHasUpdated] = useState(false);
-  const [initialMarkerCoords, setInitialMarkerCoords] = useState();
   const initialMarkerCoordsRef = useRef();
 
   const routeParamsAreEqual = _.isEqual(routeParams, currentRouteParams);
 
   useEffect(() => {
-    setMapEventListeners();
-  }, []);
+    if (edit) {
+      setEventListeners();
+    }
+  }, [edit]);
 
   useEffect(() => {
     const errors = handleErrors();
@@ -262,7 +266,7 @@ function Router(props) {
           points={routeShape}
           map={map}
           options={lineOptions}
-          setViewBounds={true}
+          setViewBounds={edit ? false : setViewBounds}
           animated={animated}
           group={currentGroup}
           __options={__options}
@@ -350,126 +354,68 @@ function Router(props) {
     return _icons;
   }
 
-  function setMapEventListeners() {
-    const MOUSE_BUTTONS = {
-      LEFT: 1,
-      MIDDLE: 2,
-      RIGHT: 3
+  function removeMarker(coords) {
+    var waypoints = routeRef.current.waypoint;
+    var foundWaypoint = waypoints.findIndex((waypoint) => {
+      return (
+        coords.lat === waypoint.mappedPosition.latitude &&
+        coords.lng === waypoint.mappedPosition.longitude
+      );
+    });
+    var waypointsList = Object.assign(
+      [],
+      currentRouteParamsRef.current.waypoints
+    );
+    waypointsList.splice(foundWaypoint, 1);
+
+    changeWaypoints(waypointsList);
+  }
+
+  function addMarker(coords) {
+    if (currentRouteParamsRef.current) {
+      var waypointsList = Object.assign(
+        [],
+        currentRouteParamsRef.current.waypoints
+      );
+      waypointsList.push(coords);
+
+      changeWaypoints(waypointsList);
+    }
+  }
+
+  function dragstart(coords) {
+    initialMarkerCoordsRef.current = coords;
+  }
+
+  function dragend(coords) {
+    var waypoints = routeRef.current.waypoint;
+    var foundWaypoint = waypoints.findIndex((waypoint) => {
+      return (
+        initialMarkerCoordsRef.current.lat ===
+          waypoint.mappedPosition.latitude &&
+        initialMarkerCoordsRef.current.lng === waypoint.mappedPosition.longitude
+      );
+    });
+
+    var waypointsList = Object.assign(
+      [],
+      currentRouteParamsRef.current.waypoints
+    );
+
+    waypointsList[foundWaypoint] = coords;
+
+    changeWaypoints(waypointsList);
+  }
+
+  function setEventListeners() {
+    const callbacks = {
+      removeMarker: (coords) => removeMarker(coords),
+      addMarker: (coords) => addMarker(coords),
+      dragstart: (coords) => dragstart(coords),
+      dragend: (coords) => dragend(coords)
     };
 
-    map.addEventListener(
-      'tap',
-      (e) => {
-        if (
-          e.target instanceof H.map.Marker &&
-          e.originalEvent.which === MOUSE_BUTTONS.RIGHT
-        ) {
-          var coords = e.target.getGeometry();
-
-          removeObjectFromGroup(e.target);
-          var waypoints = routeRef.current.waypoint;
-          var foundWaypoint = waypoints.findIndex((waypoint) => {
-            return (
-              coords.lat === waypoint.mappedPosition.latitude &&
-              coords.lng === waypoint.mappedPosition.longitude
-            );
-          });
-          var waypointsList = Object.assign(
-            [],
-            currentRouteParamsRef.current.waypoints
-          );
-          waypointsList.splice(foundWaypoint, 1);
-          changeWaypoints(waypointsList);
-        } else if (e.originalEvent.which === MOUSE_BUTTONS.LEFT) {
-          var coord = map.screenToGeo(
-            e.currentPointer.viewportX,
-            e.currentPointer.viewportY
-          );
-
-          var waypointsList = Object.assign(
-            [],
-            currentRouteParamsRef.current.waypoints
-          );
-          waypointsList.push({ lat: coord.lat, lng: coord.lng });
-          changeWaypoints(waypointsList);
-        }
-      },
-      false
-    );
-
-    // Disable the default draggability of the underlying map
-    // and calculate the offset between mouse and target's position
-    // when starting to drag a marker object:
-    map.addEventListener(
-      'dragstart',
-      (e) => {
-        if (e.target instanceof H.map.Marker) {
-          var coords = e.target.getGeometry();
-          var targetPosition = map.geoToScreen(coords);
-
-          e.target.offset = new H.math.Point(
-            e.currentPointer.viewportX - targetPosition.x,
-            e.currentPointer.viewportY - targetPosition.y
-          );
-
-          setInitialMarkerCoords({ lat: coords.lat, lng: coords.lng });
-          initialMarkerCoordsRef.current = { lat: coords.lat, lng: coords.lng };
-
-          interaction.disable();
-        }
-      },
-      false
-    );
-
-    // Re-enable the default draggability of the underlying map
-    // when dragging has completed
-    map.addEventListener(
-      'dragend',
-      (e) => {
-        if (e.target instanceof H.map.Marker) {
-          var coords = e.target.getGeometry();
-
-          var waypoints = routeRef.current.waypoint;
-          var foundWaypoint = waypoints.findIndex((waypoint) => {
-            return (
-              initialMarkerCoordsRef.current.lat ===
-                waypoint.mappedPosition.latitude &&
-              initialMarkerCoordsRef.current.lng ===
-                waypoint.mappedPosition.longitude
-            );
-          });
-
-          var waypointsList = Object.assign(
-            [],
-            currentRouteParamsRef.current.waypoints
-          );
-
-          waypointsList[foundWaypoint] = { lat: coords.lat, lng: coords.lng };
-
-          changeWaypoints(waypointsList);
-
-          interaction.enable();
-        }
-      },
-      false
-    );
-
-    // Listen to the drag event and move the position of the marker
-    // as necessary
-    map.addEventListener(
-      'drag',
-      (e) => {
-        if (e.target instanceof H.map.Marker) {
-          e.target.setGeometry(
-            map.screenToGeo(
-              e.currentPointer.viewportX - e.target.offset.x,
-              e.currentPointer.viewportY - e.target.offset.y
-            )
-          );
-        }
-      },
-      false
-    );
+    markerEvents(map, interaction, callbacks);
   }
 }
 

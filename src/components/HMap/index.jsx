@@ -1,24 +1,20 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import build from '../../libs/mapBuilder';
 import defaults from '../../libs/defaults';
 import setEventListeners from '../../libs/setEventListeners';
 import changeMapStyle from '../../libs/changeMapStyle';
 import merge from 'lodash.merge';
-import { recenterMap, rezoomMap, setCurrentLocation } from '../../libs/helpers';
+import { centerMap, zoomMap, setCurrentLocation } from '../../libs/helpers';
 
-class HMap extends React.Component {
-  constructor() {
-    super();
-    this.container = React.createRef();
-    this.state = { builder: {} };
-  }
+function HMap(props) {
+  const container = useRef();
+  const [builder, setBuilder] = useState({});
 
-  componentDidMount() {
-    const props = this.props;
+  useEffect(() => {
     const _options = merge(
       {
-        container: this.container.current,
+        container: container.current,
         build: true,
         style: { height: '100%', width: '100%' }
       },
@@ -28,43 +24,45 @@ class HMap extends React.Component {
     delete _options.options;
 
     const builder = build(props.platform, _options);
+    setBuilder(builder);
 
-    setEventListeners(builder);
+    setEventListeners(builder.map);
     if (_options.includeUI) {
       changeMapStyle(builder);
     }
     if (_options.useLocation) {
       setCurrentLocation(builder.map, true);
     }
+  }, []);
 
-    this.setState({ builder });
-  }
+  useEffect(() => {
+    if (builder.map) {
+      const newCenter = props.mapOptions.center;
+      const currentCenter = builder.map.getCenter();
 
-  shouldComponentUpdate(nextProps, nextState) {
-    // HACK - Temporary recenter and zoom fix
-    if (
-      this.props.mapOptions &&
-      this.props.mapOptions.center !== nextProps.mapOptions.center
-    ) {
-      recenterMap(this.state.builder.map, true);
-      return true;
-    } else if (
-      this.props.mapOptions &&
-      this.props.mapOptions.zoom !== nextProps.mapOptions.zoom
-    ) {
-      rezoomMap(this.state.builder.map, true);
-      return true;
+      if (
+        newCenter.lat !== currentCenter.lat &&
+        newCenter.lng !== currentCenter.lng
+      ) {
+        centerMap(builder.map, true, newCenter);
+      }
+
+      const newZoom = props.mapOptions.zoom;
+      const currentZoom = builder.map.getZoom();
+
+      if (newZoom !== currentZoom) {
+        zoomMap(builder.map, true, newZoom);
+      }
     }
-    return true;
-  }
+  }, [props.mapOptions.center, props.mapOptions.zoom]);
 
-  createLoadingComponent() {
+  function createLoadingComponent() {
     return <div>Loading</div>;
   }
 
-  displayChildren() {
-    const { children } = this.props;
-    const { map, platform, ui, interaction, options } = this.state.builder;
+  function displayChildren() {
+    const { children } = props;
+    const { map, platform, ui, interaction, options } = builder;
     return React.Children.map(children, (child) =>
       React.cloneElement(child, {
         map,
@@ -76,25 +74,22 @@ class HMap extends React.Component {
     );
   }
 
-  render() {
-    const { style, loading } = this.props;
-    const { options } = this.state.builder;
+  const { style, loading } = props;
 
-    const styleEl = style || { height: '100%', width: '100%' };
-    const loadingEl = loading || this.createLoadingComponent();
+  const styleEl = style || { height: '100%', width: '100%' };
+  const loadingEl = loading || createLoadingComponent();
 
-    return (
-      <div
-        id={defaults.containerId}
-        className={defaults.defaultClassName}
-        style={styleEl}
-        ref={this.container}
-      >
-        {typeof H === 'undefined' && !options && loadingEl}
-        {typeof H === 'object' && options && this.displayChildren()}
-      </div>
-    );
-  }
+  return (
+    <div
+      id={defaults.containerId}
+      className={defaults.defaultClassName}
+      style={styleEl}
+      ref={container}
+    >
+      {typeof H === 'undefined' && !builder.options && loadingEl}
+      {typeof H === 'object' && builder.options && displayChildren()}
+    </div>
+  );
 }
 
 HMap.propTypes = {

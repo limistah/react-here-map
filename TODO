@@ -20,6 +20,7 @@ DONE
     - Centralize reset map
     - Center on current location (useLocation)
     - Default size map (100% w x h)
+    - Convert component to function
 - HPlatform
     - Refact
 - HMapRoute 
@@ -33,6 +34,8 @@ DONE
     - Enable adding markers (currently added to end of list)
     - Enable removing markers
     - Enable moving markers
+    - setToViewBounds disabled in edit mode
+    - Allow different icons for start-, end- and middlepoints and edit mode
 - HMapGeoCode
     - Refact
 - HMapLayer
@@ -41,14 +44,15 @@ DONE
     - Refact
     - Allow icon to be set to 'none'
     - Allow custom icon
+    - Globalized marker events (still needs to be added to marker)
 - Allow UI control (enable/disable)
 
 
 TODO
 - HMap
-    - Convert component to function
     - Show current location marker (animated)
 - Event Handling
+    - Marker (drag / add / remove)
 - HMapRoute
 - Allow UI control (positioning)
 

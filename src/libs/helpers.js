@@ -1,3 +1,11 @@
+export function centerMap(map, animate, center) {
+  map.setCenter(center, animate);
+}
+
+export function zoomMap(map, animate, zoom) {
+  map.setZoom(zoom, animate);
+}
+
 export function recenterMap(map, animate) {
   map.setCenter(map.l.center, animate);
 }
