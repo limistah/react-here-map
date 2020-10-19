@@ -74,7 +74,7 @@ function Router(props) {
 
   function changeGroup() {
     if (currentGroup) {
-      currentGroup.removeAll();
+      removeObjectFromGroup(currentGroup);
     }
     switch (currentGroupID) {
       case 'A':
@@ -111,7 +111,7 @@ function Router(props) {
         throw new Error('routeLine - "waypoints" should be an array');
       } else if (routeParams.waypoints.length < 2) {
         if (currentGroup) {
-          resetMap(map, currentGroup, true);
+          resetMap(map, true, currentGroup);
           setCurrentGroup(null);
         }
         return true;
