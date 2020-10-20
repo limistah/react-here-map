@@ -3,7 +3,7 @@ import merge from 'lodash.merge';
 import initMapObjectEvents from '../../../libs/initMapObjectEvents';
 import { useEffect } from 'react';
 
-function PolyLine(props) {
+function Polyline(props) {
   const {
     points,
     options,
@@ -19,11 +19,11 @@ function PolyLine(props) {
 
   useEffect(() => {
     handleErrors();
-    createPolyLine();
+    createPolyline();
   }, []);
 
   function handleErrors() {
-    // PolyLine can only be initialized inside HMap
+    // Polyline can only be initialized inside HMap
     if (!H || !H.map || !map) {
       throw new Error('HMap has to be initialized before adding Map Objects');
     }
@@ -35,7 +35,7 @@ function PolyLine(props) {
     }
   }
 
-  function createPolyLine() {
+  function createPolyline() {
     // Initialize a LineString and add all the points to it:
     var lineString = new H.geo.LineString();
     points.forEach((point) => {
@@ -43,29 +43,29 @@ function PolyLine(props) {
     });
 
     // Initialize a Polyline and add the Linestring and Polyline options to it
-    const polyLine = new H.map.Polyline(lineString, options);
+    const polyline = new H.map.Polyline(lineString, options);
 
     // Add event listener to the object if intention of using the object is defined
-    initMapObjectEvents(polyLine, objectEvents, __options);
+    initMapObjectEvents(polyline, objectEvents, __options);
 
-    // Add the PolyLine to the map
+    // Add the Polyline to the map
     if (group) {
-      group.addObject(polyLine);
+      group.addObject(polyline);
       map.addObject(group);
     } else {
-      map.addObject(polyLine);
+      map.addObject(polyline);
     }
 
     if (setViewBounds) {
-      // Zooms and center the map to the PolyLine
-      map.setViewBounds(polyLine.getBounds(), animated);
+      // Zooms and center the map to the Polyline
+      map.setViewBounds(polyline.getBounds(), animated);
     }
   }
 
   return null;
 }
 
-PolyLine.propTypes = {
+Polyline.propTypes = {
   points: PropTypes.array.isRequired,
   options: PropTypes.object,
   setViewBounds: PropTypes.bool,
@@ -76,4 +76,4 @@ PolyLine.propTypes = {
   __options: PropTypes.object
 };
 
-export default PolyLine;
+export default Polyline;
