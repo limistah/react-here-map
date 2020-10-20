@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import PolyLine from '../HMap/objects/PolyLine';
+import Polyline from '../HMap/objects/Polyline';
 import Polygon from '../HMap/objects/Polygon';
 import Marker from '../HMap/objects/Marker';
 import merge from 'lodash.merge';
@@ -74,7 +74,7 @@ function Router(props) {
 
   function changeGroup() {
     if (currentGroup) {
-      currentGroup.removeAll();
+      removeObjectFromGroup(currentGroup);
     }
     switch (currentGroupID) {
       case 'A':
@@ -111,7 +111,7 @@ function Router(props) {
         throw new Error('routeLine - "waypoints" should be an array');
       } else if (routeParams.waypoints.length < 2) {
         if (currentGroup) {
-          resetMap(map, currentGroup, true);
+          resetMap(map, true, currentGroup);
           setCurrentGroup(null);
         }
         return true;
@@ -208,7 +208,7 @@ function Router(props) {
   }
 
   function renderDefault() {
-    return isoLine ? renderPolygon() : renderPolyLine();
+    return isoLine ? renderPolygon() : renderPolyline();
   }
 
   // Renders the child for additional manipulations
@@ -250,7 +250,7 @@ function Router(props) {
     );
   }
 
-  function renderPolyLine() {
+  function renderPolyline() {
     const _icons = formatIcons();
 
     const startPoint = route.waypoint[0].mappedPosition;
@@ -262,7 +262,7 @@ function Router(props) {
 
     return (
       <React.Fragment>
-        <PolyLine
+        <Polyline
           points={routeShape}
           map={map}
           options={lineOptions}

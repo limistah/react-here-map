@@ -15,7 +15,7 @@ export function rezoomMap(map, animate) {
 }
 
 export function resetMap(map, animate, group) {
-  group.removeAll();
+  removeObjectFromGroup(group);
   recenterMap(map, animate);
   rezoomMap(map, animate);
 }
