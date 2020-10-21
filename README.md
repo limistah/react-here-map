@@ -1351,7 +1351,7 @@ Want to know what we are working on or care to add some new features yourself?
 **06/05/2020**
 
 - Includes support for v3.1 API key
-<br>
+  <br>
 
 ## **🔑 / Licence**
 
