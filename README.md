@@ -42,6 +42,8 @@ configuration and modifications.
 <img src="https://img.shields.io/badge/github%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
 </div>
 
+// _Add all main features from library_
+
 ## **🦺 / Requirements**
 
 ```bash
@@ -1304,8 +1306,8 @@ import { HPlatform, HMap, HMapPlaces } from 'react-here-map';
 
 <div align="center">
 
-| [<img src="https://avatars1.githubusercontent.com/u/30846935?s=400&u=6f7088c164a7859d76bfdea2ce520ed2e6c57460&v=4" width="150px;"/><br /><sub><b style="font-size:12pt">Aleem Isiaka</b></sub>](https://github.com/limistah) <br><img src="https://img.shields.io/badge/limistah%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/> | [<img src="https://avatars0.githubusercontent.com/u/29237894?s=500&v=4" width="150px;"/><br /><sub><b style="font-size:12pt">Robin Uitbeijerse</b></sub>](https://github.com/RobinUit)<br><img src="https://img.shields.io/badge/Robin__Uit%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/> |
-| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://avatars1.githubusercontent.com/u/30846935?s=400&u=6f7088c164a7859d76bfdea2ce520ed2e6c57460&v=4" width="150px;"/><br /><sub><b style="font-size:12pt">Aleem Isiaka</b></sub>](https://github.com/limistah) | [<img src="https://avatars0.githubusercontent.com/u/29237894?s=500&v=4" width="150px;"/><br /><sub><b style="font-size:12pt">Robin Uitbeijerse</b></sub>](https://github.com/RobinUit) |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 
 
 </div>
