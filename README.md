@@ -41,7 +41,6 @@ configuration and modifications.
 <img src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/>
 <img src="https://img.shields.io/badge/github%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
 </div>
-<br>
 
 ## **🦺 / Requirements**
 
@@ -61,8 +60,6 @@ Before you continue, ensure you meet the following requirements:
 
 > [Create an HERE Developer account](https://developer.here.com/sign-up?create=Freemium-Basic&keepState=true&step=account)
 
-<br>
-
 ## **📌 / Installation**
 
 Using NPM:
@@ -76,8 +73,6 @@ Using Yarn:
 ```bash
 yarn add react-here-map
 ```
-
-<br>
 
 ## **🕹️ / General Usage**
 
@@ -105,8 +100,6 @@ function Map() {
 export default Map;
 ```
 
-<br>
-
 ## **🗄️ / Folder structure**
 
 ```h
@@ -128,8 +121,6 @@ export default Map;
   ├── 📦 package.json
   └── 📦 🔑 package-lock.json
 ```
-
-<br>
 
 ## **📝 / Docs**
 
@@ -235,8 +226,6 @@ export default Map;
 | **includePlaces** | Add the module for working with places                                               | Boolean |     `false`      |
 | **useHTTPS**      | Load the library using HTTPS                                                         | Boolean |      `true`      |
 | ~~**useCIT**~~    | use the Customer Integration Testing (CIT) instead of the Production environment     | Boolean |     `false`      |
-
-<br>
 
 #### Language options
 
@@ -1315,12 +1304,11 @@ import { HPlatform, HMap, HMapPlaces } from 'react-here-map';
 
 <div align="center">
 
-| [<img src="https://avatars1.githubusercontent.com/u/30846935?s=400&u=6f7088c164a7859d76bfdea2ce520ed2e6c57460&v=4" width="150px;"/><br /><sub><b style="font-size:10pt">Aleem Isiaka</b></sub>](https://github.com/limistah) <br><br><img src="https://img.shields.io/badge/limistah%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/> | [<img src="https://avatars0.githubusercontent.com/u/29237894?s=500&v=4" width="150px;"/><br /><sub><b style="font-size:10pt">Robin Uitbeijerse</b></sub>](https://github.com/RobinUit)<br><br><img src="https://img.shields.io/badge/Robin__Uit%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/> |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://avatars1.githubusercontent.com/u/30846935?s=400&u=6f7088c164a7859d76bfdea2ce520ed2e6c57460&v=4" width="150px;"/><br /><sub><b style="font-size:12pt">Aleem Isiaka</b></sub>](https://github.com/limistah) <br><img src="https://img.shields.io/badge/limistah%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/> | [<img src="https://avatars0.githubusercontent.com/u/29237894?s=500&v=4" width="150px;"/><br /><sub><b style="font-size:12pt">Robin Uitbeijerse</b></sub>](https://github.com/RobinUit)<br><img src="https://img.shields.io/badge/Robin__Uit%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/> |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 
 
 </div>
-<br>
 
 ## **✔ / TODO**
 
@@ -1328,14 +1316,11 @@ Want to know what we are working on or care to add some new features yourself?
 
 > Check the [TODO](TODO.md)
 
-<br>
-
 ## **📅 / Changes**
 
 **06/05/2020**
 
 - Includes support for v3.1 API key
-  <br>
 
 ## **🔑 / Licence**
 
