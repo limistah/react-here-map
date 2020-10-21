@@ -35,8 +35,6 @@ configuration and modifications.
 
 ## **👀 / Overview**
 
----
-
 <div align="center">
 <img src="https://img.shields.io/badge/react%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
 <img src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
@@ -46,8 +44,6 @@ configuration and modifications.
 <br>
 
 ## **🦺 / Requirements**
-
----
 
 ```bash
 Before you continue, ensure you meet the following requirements:
@@ -69,8 +65,6 @@ Before you continue, ensure you meet the following requirements:
 
 ## **📌 / Installation**
 
----
-
 Using NPM:
 
 ```bash
@@ -86,8 +80,6 @@ yarn add react-here-map
 <br>
 
 ## **🕹️ / General Usage**
-
----
 
 ```js
 // Interactive map with UI, centered and zoomed on a defined location
@@ -140,8 +132,6 @@ export default Map;
 <br>
 
 ## **📝 / Docs**
-
----
 
 The default export instantiates the HERE Map platform, which
 is required before initialization of any other component:
@@ -1323,8 +1313,6 @@ import { HPlatform, HMap, HMapPlaces } from 'react-here-map';
 
 ## **🧑‍💻 / Authors**
 
----
-
 <div align="center">
 
 | [<img src="https://avatars1.githubusercontent.com/u/30846935?s=400&u=6f7088c164a7859d76bfdea2ce520ed2e6c57460&v=4" width="150px;"/><br /><sub><b style="font-size:10pt">Aleem Isiaka</b></sub>](https://github.com/limistah) <br><br><img src="https://img.shields.io/badge/limistah%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/> | [<img src="https://avatars0.githubusercontent.com/u/29237894?s=500&v=4" width="150px;"/><br /><sub><b style="font-size:10pt">Robin Uitbeijerse</b></sub>](https://github.com/RobinUit)<br><br><img src="https://img.shields.io/badge/Robin__Uit%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/> |
@@ -1336,8 +1324,6 @@ import { HPlatform, HMap, HMapPlaces } from 'react-here-map';
 
 ## **✔ / TODO**
 
----
-
 Want to know what we are working on or care to add some new features yourself?
 
 > Check the [TODO](TODO.md)
@@ -1346,16 +1332,12 @@ Want to know what we are working on or care to add some new features yourself?
 
 ## **📅 / Changes**
 
----
-
 **06/05/2020**
 
 - Includes support for v3.1 API key
   <br>
 
 ## **🔑 / Licence**
-
----
 
 This project has been created under the MIT License.
 
@@ -1375,4 +1357,4 @@ This project has been created under the MIT License.
 <br>
 </div>
 
-**[⬆️ Back to Top ⬆️](##--Overview)**
+**[⬆️ Back to Top ⬆️](#--Overview)**
