@@ -47,6 +47,7 @@ function Router(props) {
   const [currentGroupID, setCurrentGroupID] = useState('A');
   const [route, setRoute] = useState();
   const routeRef = useRef();
+  const editRef = useRef();
   const [routeShape, setRouteShape] = useState([]);
   const [center, setCenter] = useState();
   const [hasUpdated, setHasUpdated] = useState(false);
@@ -55,9 +56,11 @@ function Router(props) {
   const routeParamsAreEqual = _.isEqual(routeParams, currentRouteParams);
 
   useEffect(() => {
-    if (edit) {
-      setEventListeners();
-    }
+    setEventListeners();
+  }, []);
+
+  useEffect(() => {
+    editRef.current = edit;
   }, [edit]);
 
   useEffect(() => {
@@ -70,7 +73,7 @@ function Router(props) {
       currentRouteParamsRef.current = routeParams;
       setCurrentRouteParams(routeParams);
     }
-  }, [routeParams, edit]);
+  }, [routeParams]);
 
   function changeGroup() {
     if (currentGroup) {
@@ -111,7 +114,7 @@ function Router(props) {
         throw new Error('routeLine - "waypoints" should be an array');
       } else if (routeParams.waypoints.length < 2) {
         if (currentGroup) {
-          resetMap(map, true, currentGroup);
+          resetMap(map, currentGroup, true);
           setCurrentGroup(null);
         }
         return true;
@@ -354,21 +357,44 @@ function Router(props) {
     return _icons;
   }
 
+  function setEventListeners() {
+    markerEvents(map, interaction, (type, coords, e) => {
+      if (editRef.current) {
+        switch (type) {
+          case 'remove':
+            removeMarker(coords, e);
+            break;
+          case 'add':
+            addMarker(coords);
+            break;
+          case 'dragstart':
+            dragstart(coords);
+            break;
+          case 'dragend':
+            dragend(coords);
+            break;
+          default:
+            break;
+        }
+      }
+    });
+  }
+
   function removeMarker(coords, e) {
-    if (e.target.getParentGroup().getObjects().length > 3) {
+    if (
+      e.target.getParentGroup() &&
+      e.target.getParentGroup().getObjects().length > 3
+    ) {
       removeObjectFromGroup(e.target);
       var waypoints = routeRef.current.waypoint;
-      var foundWaypoint = waypoints.findIndex((waypoint) => {
-        return (
-          coords.lat === waypoint.mappedPosition.latitude &&
-          coords.lng === waypoint.mappedPosition.longitude
-        );
-      });
+      var waypointIndex = findWaypointIndex(coords, waypoints);
+
       var waypointsList = Object.assign(
         [],
         currentRouteParamsRef.current.waypoints
       );
-      waypointsList.splice(foundWaypoint, 1);
+
+      waypointsList.splice(waypointIndex, 1);
 
       changeWaypoints(waypointsList);
     }
@@ -391,43 +417,28 @@ function Router(props) {
   }
 
   function dragend(coords) {
+    var initialMarkerCoords = initialMarkerCoordsRef.current;
     var waypoints = routeRef.current.waypoint;
-    var foundWaypoint = waypoints.findIndex((waypoint) => {
-      return (
-        initialMarkerCoordsRef.current.lat ===
-          waypoint.mappedPosition.latitude &&
-        initialMarkerCoordsRef.current.lng === waypoint.mappedPosition.longitude
-      );
-    });
+    var waypointIndex = findWaypointIndex(initialMarkerCoords, waypoints);
 
     var waypointsList = Object.assign(
       [],
       currentRouteParamsRef.current.waypoints
     );
 
-    waypointsList[foundWaypoint] = coords;
+    waypointsList[waypointIndex] = coords;
 
     changeWaypoints(waypointsList);
   }
 
-  function setEventListeners() {
-    markerEvents(map, interaction, (type, coords, e) => {
-      switch (type) {
-        case 'remove':
-          removeMarker(coords, e);
-          break;
-        case 'add':
-          addMarker(coords);
-          break;
-        case 'dragstart':
-          dragstart(coords);
-          break;
-        case 'dragend':
-          dragend(coords);
-          break;
-        default:
-          break;
-      }
+  function findWaypointIndex(markerCoords, waypoints) {
+    return waypoints.findIndex((waypoint) => {
+      const waypointCoords = {
+        lat: waypoint.mappedPosition.latitude,
+        lng: waypoint.mappedPosition.longitude
+      };
+
+      return _.isEqual(markerCoords, waypointCoords);
     });
   }
 }

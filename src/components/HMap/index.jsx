@@ -44,14 +44,14 @@ function HMap(props) {
         newCenter.lat !== currentCenter.lat &&
         newCenter.lng !== currentCenter.lng
       ) {
-        centerMap(builder.map, true, newCenter);
+        centerMap(builder.map, newCenter, true);
       }
 
       const newZoom = props.mapOptions.zoom;
       const currentZoom = builder.map.getZoom();
 
       if (newZoom !== currentZoom) {
-        zoomMap(builder.map, true, newZoom);
+        zoomMap(builder.map, newZoom, true);
       }
     }
   }, [props.mapOptions.center, props.mapOptions.zoom]);

@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import merge from 'lodash.merge';
 import initMapObjectEvents from '../../../libs/initMapObjectEvents';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { centerMap } from '../../../libs/helpers';
 
 function Marker(props) {
   const {
@@ -111,7 +112,7 @@ function Marker(props) {
 
     if (setViewBounds) {
       // Zooms and centers the map to the Marker
-      map.setCenter(coords, animated);
+      centerMap(map, coords, animated);
     }
   }
 
