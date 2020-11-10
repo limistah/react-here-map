@@ -117,6 +117,7 @@ export default Map;
   ├── 🤷 .gitignore
   ├── 👗 .prettierrc
   ├── 👗 .travis.yml
+  ├── 📄 .index.d.ts
   ├── 🔑 LICENSE
   ├── 📚 README.md
   ├── ✔️ TODO.md

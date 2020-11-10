@@ -17,7 +17,7 @@ function Platform(props) {
 
   const { platform, options } = platformData;
 
-  return platform.A == 'api.here.com' &&
+  return platform.A === 'api.here.com' &&
     ((options.app_code && options.app_id) || options.apikey)
     ? React.Children.map(props.children, (child) => {
         return React.cloneElement(child, { platform, options });

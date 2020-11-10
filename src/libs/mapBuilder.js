@@ -2,6 +2,7 @@ import initMap from './initMap';
 import initInteraction from './initInteraction';
 import initDefaultUI from './initDefaultUI';
 import initInteractionStyles from './initInteractionStyles';
+import initPlatform from './initPlatform';
 
 /**
  * The whole library is bootstrapped after the initialization is done using the options
@@ -42,7 +43,7 @@ export default (platform, options) => {
 
   const _mapType = mapType || MAP_TYPE;
 
-  let ret = { options: { ...options, MAP_TYPE: _mapType }, platform };
+  const ret = { options: { ...options, MAP_TYPE: _mapType }, platform };
 
   if (container && build) {
     // Create a Map

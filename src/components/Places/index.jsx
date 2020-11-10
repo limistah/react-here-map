@@ -77,7 +77,7 @@ const Place = memo((props) => {
         coords: { latitude, longitude }
       } = position;
       const coords = { lat: latitude, lng: longitude };
-      let _params = params;
+      const _params = params;
       _params.at = `${latitude},${longitude};10000`;
       setUpdateMarker(!multiMarker);
       // Update the params
@@ -92,7 +92,7 @@ const Place = memo((props) => {
   // Handles when a result item is clicked
   const handleGetItem = (item) => {
     // Prevent for failure when calling 'undefined' as function
-    const _getItem = typeof getItem == 'function' ? getItem : () => {};
+    const _getItem = typeof getItem === 'function' ? getItem : () => {};
     setSearchResult([]);
     // Only non multi marker should update the current marker
     setUpdateMarker(!multiMarker);
@@ -138,7 +138,7 @@ const Place = memo((props) => {
           platform={platform}
           options={props.options}
           mapOptions={{ center: mapCenter, zoom: 7, ..._mapOptions }}
-          interactive={true}
+          interactive
         >
           <HMapMarker
             coords={mapCenter}

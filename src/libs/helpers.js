@@ -55,15 +55,15 @@ export function setCurrentLocation(map, animate) {
 
 function setLocation(map, animate) {
   navigator.geolocation.getCurrentPosition((location) => {
-    currentLocation = {
+    const currentLocation = {
       lat: location.coords.latitude,
       lng: location.coords.longitude
     };
-    currentCenter = { lat: map.l.center.lat, lng: map.l.center.lng };
+    const currentCenter = { lat: map.l.center.lat, lng: map.l.center.lng };
 
     // Center and zoom map on currentLocation when it is not already
     if (currentLocation !== currentCenter) {
-      centerMap(map, coords, animate);
+      centerMap(map, currentLocation, animate);
       zoomMap(map, 7, animate);
     }
   });

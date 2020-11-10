@@ -9,7 +9,7 @@ export default (map, interaction, callback) => {
     'tap',
     (e) => {
       if (e.originalEvent.which === MOUSE_BUTTONS.LEFT) {
-        var coords = map.screenToGeo(
+        const coords = map.screenToGeo(
           e.currentPointer.viewportX,
           e.currentPointer.viewportY
         );
@@ -19,7 +19,7 @@ export default (map, interaction, callback) => {
         e.originalEvent.which === MOUSE_BUTTONS.RIGHT &&
         e.target instanceof H.map.Marker
       ) {
-        var coords = e.target.getGeometry();
+        const coords = e.target.getGeometry();
 
         callback('remove', { lat: coords.lat, lng: coords.lng }, e);
       } else if (e.originalEvent.which === MOUSE_BUTTONS.MIDDLE) {

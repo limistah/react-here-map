@@ -43,7 +43,7 @@ export default (platform, options) => {
   } = options;
 
   const _mapType = mapType || MAP_TYPE;
-  let ret = { options: { ...options, MAP_TYPE: _mapType }, platform };
+  const ret = { options: { ...options, MAP_TYPE: _mapType }, platform };
   const buildMap = () => {
     if (container && build) {
       // Create a Map
@@ -70,11 +70,11 @@ export default (platform, options) => {
         ret.ui = initDefaultUI(ret.platform, ret.map, includeUI, language);
       }
     } else {
-      (ret.createMap = initMap),
-        (ret.createPlatform = initPlatform),
-        (ret.createInteraction = initInteraction),
-        (ret.createDefaultUI = initDefaultUI),
-        (ret.createInteractionStyles = initInteractionStyles);
+      ret.createMap = initMap;
+      ret.createPlatform = initPlatform;
+      ret.createInteraction = initInteraction;
+      ret.createDefaultUI = initDefaultUI;
+      ret.createInteractionStyles = initInteractionStyles;
     }
     return ret;
   };

@@ -84,6 +84,7 @@ type HMapRouteTyping = Pick<React.HTMLProps<HTMLElement>, any> & {
     mode: string;
     waypoints: LatLng[] | LatLng;
     representation: string;
+    routeAttributes: string;
   };
   isoLine?: boolean;
   lineOptions?: object;

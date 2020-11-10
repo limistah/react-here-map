@@ -2,7 +2,7 @@
  * @param {object} platform Platform object to use for initialization.
  */
 export default (platform, type) => {
-  if (!platform || platform.A != 'api.here.com') {
+  if (!platform || platform.A !== 'api.here.com') {
     throw new Error("Platform should be of Here Map's Platform");
   }
 

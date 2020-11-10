@@ -23,17 +23,17 @@ const mapTypes = {
   venues: _test
 };
 const languageOptions = {
-  EN: 'en-US', //English
-  GER: 'de-DE', //German
-  SPA: 'es-ES', //Spanish
-  FIN: 'fi-FI', //Finish
-  ITA: 'it-IT', //Italian
-  DUT: 'nl-NL', //Dutch
-  POL: 'pl-PL', //Polish
-  POR: 'pt-PT', //Portugese
-  RUS: 'ru-RU', //Russian
-  TUR: 'tr-TR', //Turkish
-  CHI: 'zh-CN' //Chinese
+  EN: 'en-US', // English
+  GER: 'de-DE', // German
+  SPA: 'es-ES', // Spanish
+  FIN: 'fi-FI', // Finish
+  ITA: 'it-IT', // Italian
+  DUT: 'nl-NL', // Dutch
+  POL: 'pl-PL', // Polish
+  POR: 'pt-PT', // Portugese
+  RUS: 'ru-RU', // Russian
+  TUR: 'tr-TR', // Turkish
+  CHI: 'zh-CN' // Chinese
 };
 const mapOptions = {
   zoom: 2,
@@ -72,7 +72,7 @@ const _mapEvents = [
 const containerId = 'HERE_MAP_CONTAINER';
 const defaultClassName = 'here-map-container';
 const noop = () => {};
-let mapEvents = {};
+const mapEvents = {};
 _mapEvents.map((name) => (mapEvents[name] = noop));
 
 export default {

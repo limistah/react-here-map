@@ -11,9 +11,7 @@ function Polyline(props) {
     animated,
     objectEvents,
     group,
-    platform,
     map,
-    ui,
     __options
   } = merge({ setViewBounds: true, animated: true }, props);
 

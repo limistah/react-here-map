@@ -11,9 +11,7 @@ function Circle(props) {
     setViewBounds,
     animated,
     objectEvents,
-    platform,
     map,
-    ui,
     __options
   } = merge({ setViewBounds: true, animated: true }, props);
 

@@ -28,7 +28,7 @@ const itemStyle = css({
 
 function PlaceItem(props) {
   const { item, itemClass, iconClass, getItem } = props;
-  const _getItem = typeof getItem == 'function' ? getItem : () => {};
+  const _getItem = typeof getItem === 'function' ? getItem : () => {};
   return (
     <div
       className={`${itemStyle} ${itemClass}`}

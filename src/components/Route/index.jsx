@@ -80,16 +80,18 @@ function Router(props) {
       removeObjectFromGroup(currentGroup);
     }
     switch (currentGroupID) {
-      case 'A':
+      case 'A': {
         const groupB = new H.map.Group();
         setCurrentGroup(groupB);
         setCurrentGroupID('B');
         break;
-      case 'B':
+      }
+      case 'B': {
         const groupA = new H.map.Group();
         setCurrentGroup(groupA);
         setCurrentGroupID('A');
         break;
+      }
     }
   }
 
@@ -234,7 +236,7 @@ function Router(props) {
         <Polygon
           points={routeShape}
           options={polygonOptions}
-          setViewBounds={true}
+          setViewBounds
           animated={animated}
           map={map}
           platform={platform}
@@ -330,7 +332,7 @@ function Router(props) {
   }
 
   function formatIcons() {
-    let _icons = {
+    const _icons = {
       startIcon: '',
       endIcon: '',
       waypointIcon: '',

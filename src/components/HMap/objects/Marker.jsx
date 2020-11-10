@@ -12,16 +12,13 @@ function Marker(props) {
     options,
     marker,
     getMarker,
-    updateWaypoints,
     updateMarker,
     draggable,
     setViewBounds,
     animated,
     objectEvents,
     group,
-    platform,
     map,
-    ui,
     __options
   } = merge(
     {
@@ -108,6 +105,7 @@ function Marker(props) {
     }
 
     // Send the Marker to the parent
+    // eslint-disable-next-line no-unused-expressions
     !marker ? getMarker(_marker) : null;
 
     if (setViewBounds) {

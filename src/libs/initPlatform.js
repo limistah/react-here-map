@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export default (options) => {
   const { app_id, app_code, apikey } = options;
   if ((!app_id || !app_code) && !apikey) {
