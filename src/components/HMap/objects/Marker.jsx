@@ -126,10 +126,10 @@ Marker.propTypes = {
   getMarker: PropTypes.func,
   updateMarker: PropTypes.func,
   setViewBounds: PropTypes.bool,
+  animated: PropTypes.bool,
   objectEvents: PropTypes.object,
-  platform: PropTypes.object,
+  group: PropTypes.object,
   map: PropTypes.object,
-  ui: PropTypes.object,
   __options: PropTypes.object
 };
 

@@ -7,6 +7,7 @@ import merge from 'lodash.merge';
 import _ from 'lodash';
 import { removeObjectFromGroup, resetMap } from '../../libs/helpers';
 import markerEvents from '../../libs/markerEvents';
+import Markers from '../HMap/objects/Markers';
 
 function Router(props) {
   const {
@@ -16,7 +17,8 @@ function Router(props) {
     polygonOptions,
     icons,
     markerOptions,
-    changeWaypoints,
+    returnResponse,
+    returnWaypoints,
     edit,
     renderDefaultLine,
     setViewBounds,
@@ -30,7 +32,8 @@ function Router(props) {
   } = merge(
     {
       isoLine: false,
-      changeWaypoints() {},
+      returnResponse() {},
+      returnWaypoints() {},
       edit: false,
       renderDefaultLine: true,
       setViewBounds: true,
@@ -39,19 +42,19 @@ function Router(props) {
     props
   );
 
+  const editRef = useRef();
+  const routeRef = useRef();
+  const currentRouteParamsRef = useRef();
+  const initialMarkerCoordsRef = useRef();
   const [error, setError] = useState();
   const [currentRouteParams, setCurrentRouteParams] = useState();
-  const currentRouteParamsRef = useRef();
   const [_routeParams, setRouteParams] = useState();
   const [currentGroup, setCurrentGroup] = useState();
   const [currentGroupID, setCurrentGroupID] = useState('A');
   const [route, setRoute] = useState();
-  const routeRef = useRef();
-  const editRef = useRef();
   const [routeShape, setRouteShape] = useState([]);
   const [center, setCenter] = useState();
   const [hasUpdated, setHasUpdated] = useState(false);
-  const initialMarkerCoordsRef = useRef();
 
   const routeParamsAreEqual = _.isEqual(routeParams, currentRouteParams);
 
@@ -161,6 +164,7 @@ function Router(props) {
 
   function onResult(result) {
     const resultResponse = result.response;
+    returnResponse(resultResponse.route[0]);
     let _routeShape = [];
     if (isoLine && resultResponse.isoline) {
       _routeShape = handleIsoLine(resultResponse);
@@ -264,6 +268,10 @@ function Router(props) {
 
     const startMarker = { lat: startPoint.latitude, lng: startPoint.longitude };
     const endMarker = { lat: endPoint.latitude, lng: endPoint.longitude };
+    const middleMarkers = middlePoints.map((waypoint) => ({
+      lat: waypoint.mappedPosition.latitude,
+      lng: waypoint.mappedPosition.longitude
+    }));
 
     return (
       <React.Fragment>
@@ -302,27 +310,19 @@ function Router(props) {
             __options={__options}
           />
         )}
-        {shouldShowMiddlepoints(middlePoints, _icons) &&
-          middlePoints.map((waypoint, index) => {
-            return (
-              <React.Fragment key={index}>
-                <Marker
-                  coords={{
-                    lat: waypoint.mappedPosition.latitude,
-                    lng: waypoint.mappedPosition.longitude
-                  }}
-                  map={map}
-                  platform={platform}
-                  icon={edit ? _icons.editIcon : _icons.waypointIcon}
-                  draggable={edit}
-                  options={markerOptions}
-                  setViewBounds={false}
-                  group={currentGroup}
-                  __options={__options}
-                />
-              </React.Fragment>
-            );
-          })}
+        {shouldShowMiddlepoints(middlePoints, _icons) && (
+          <Markers
+            points={middleMarkers}
+            map={map}
+            platform={platform}
+            icon={edit ? _icons.editIcon : _icons.waypointIcon}
+            draggable={edit}
+            options={markerOptions}
+            setViewBounds={false}
+            group={currentGroup}
+            __options={__options}
+          />
+        )}
       </React.Fragment>
     );
   }
@@ -338,24 +338,22 @@ function Router(props) {
       waypointIcon: '',
       editIcon: ''
     };
+
     if (
       icons &&
       (icons.startIcon || icons.endIcon || icons.waypointIcon || icons.editIcon)
     ) {
-      _icons.startIcon = icons.startIcon;
-      _icons.endIcon = icons.endIcon;
-      _icons.waypointIcon = icons.waypointIcon;
-      _icons.editIcon = icons.editIcon;
+      return icons;
+    }
 
-      return _icons;
-    } else if (typeof icons === 'string') {
+    if (typeof icons === 'string') {
       _icons.startIcon = icons;
       _icons.endIcon = icons;
       _icons.waypointIcon = icons;
       _icons.editIcon = icons;
-
       return _icons;
     }
+
     return _icons;
   }
 
@@ -398,7 +396,7 @@ function Router(props) {
 
       waypointsList.splice(waypointIndex, 1);
 
-      changeWaypoints(waypointsList);
+      returnWaypoints(waypointsList);
     }
   }
 
@@ -410,7 +408,7 @@ function Router(props) {
       );
       waypointsList.push(coords);
 
-      changeWaypoints(waypointsList);
+      returnWaypoints(waypointsList);
     }
   }
 
@@ -430,7 +428,7 @@ function Router(props) {
 
     waypointsList[waypointIndex] = coords;
 
-    changeWaypoints(waypointsList);
+    returnWaypoints(waypointsList);
   }
 
   function findWaypointIndex(markerCoords, waypoints) {

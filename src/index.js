@@ -1,6 +1,7 @@
 import Platform from './components/Platform';
 import Map from './components/HMap';
 import Marker from './components/HMap/objects/Marker';
+import Markers from './components/HMap/objects/Markers';
 import Polyline from './components/HMap/objects/Polyline';
 import Circle from './components/HMap/objects/Circle';
 import Rectangle from './components/HMap/objects/Rectangle';
@@ -13,6 +14,7 @@ import Layer from './components/Layer';
 export const HPlatform = Platform;
 export const HMap = Map;
 export const HMapMarker = Marker;
+export const HMapMarkers = Markers;
 export const HMapPolyline = Polyline;
 export const HMapCircle = Circle;
 export const HMapRectangle = Rectangle;
