@@ -8,7 +8,7 @@ function Marker(props) {
   const {
     coords,
     icon,
-    type,
+    DOM,
     options,
     marker,
     getMarker,
@@ -22,6 +22,7 @@ function Marker(props) {
     __options
   } = merge(
     {
+      DOM: false,
       marker: null,
       getMarker() {},
       updateWaypoints() {},
@@ -61,12 +62,11 @@ function Marker(props) {
   }
 
   function createIcon() {
-    if (icon && type === 'DOM') {
-      // Displays a DOM Icon
-      _options.icon = new H.map.DomIcon(icon);
-    } else if (icon) {
+    if (icon) {
+      // Displays a DOM icon
+      if (DOM) _options.icon = new H.map.DomIcon(icon);
       // Displays a static icon
-      _options.icon = new H.map.Icon(icon);
+      else _options.icon = new H.map.Icon(icon);
     }
   }
 
@@ -120,7 +120,7 @@ function Marker(props) {
 Marker.propTypes = {
   coords: PropTypes.object.isRequired,
   icon: PropTypes.any,
-  type: PropTypes.string,
+  DOM: PropTypes.bool,
   options: PropTypes.object,
   marker: PropTypes.object,
   getMarker: PropTypes.func,

@@ -36,7 +36,7 @@ function HMap(props) {
   }, []);
 
   useEffect(() => {
-    if (builder.map) {
+    if (builder.map && props.mapOptions) {
       const newCenter = props.mapOptions.center;
       const currentCenter = builder.map.getCenter();
 
@@ -54,7 +54,7 @@ function HMap(props) {
         zoomMap(builder.map, newZoom, true);
       }
     }
-  }, [props.mapOptions.center, props.mapOptions.zoom]);
+  }, [props.mapOptions]);
 
   function createLoadingComponent() {
     return <div>Loading</div>;

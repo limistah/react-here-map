@@ -1,30 +1,70 @@
-DONE
+## **TODO**
 
-- Unified coords and points (only arrays or single objects with lat and lng values are allowed)
-- Added more Error handling
-- Added map localization
-- Clicking on map logs lat and lng (needs to change)
-- Map resizes on window resize
+```
+1. Allow UI control (positioning, styling, disabling specific parts)
 
-- HMapPolyline
+HMap
+  - Show current location marker
+
+Event Handling
+  - Add markerEvents to marker component itself
+
+
+// Report issues to expand this list
+```
+
+## **MIGHT DO**
+
+```
+1. Implement full version 3.1 support
+
+HMapPlaces
   - Refact
-- HMapPolygon
+
+HMapGeoCode
   - Refact
-- HMapCircle
+
+HMapRoute
+  - Change IsoLine on waypoints change
+  - remove old IsoLine on waypoints change
+```
+
+## **DONE**
+
+```
+1. Unified coords and points to only allow arrays or single objects with lat and lng values (LatLng and LatLng[])
+2. Converted class based components to functional components
+3. Added more Error handling
+4. Added map localization
+5. Map resizes on window resize
+6. Allow UI control (enable/disable)
+7. Added typings
+
+HMapPolyline
+  - Refact
+
+HMapPolygon
+  - Refact
+
+HMapCircle
   - Refact
   - radius is now in km (instead of m)
-- HMapRectangle
+
+HMapRectangle
   - Refact
-- HMap
+
+HMap
   - Refact
   - Recenter/rezoom when center/zoom value changes
   - Centralize reset map
   - Center on current location (useLocation)
   - Default size map (100% w x h)
   - Convert component to function
-- HPlatform
+
+HPlatform
   - Refact
-- HMapRoute
+
+HMapRoute
   - Refact
   - HMapRoute render RouteLine
   - HMapRoute render IsoLine
@@ -38,31 +78,19 @@ DONE
   - setToViewBounds disabled in edit mode
   - Allow different icons for start-, end- and middlepoints and edit mode
   - Always leave atleast 2 markers on the map
-- HMapGeoCode
+
+HMapGeoCode
   - Refact
-- HMapLayer
+
+HMapLayer
   - Refact
-- HMapMarker
+
+HMapMarker
   - Refact
   - Allow icon to be set to 'none'
-  - Allow custom icon
+  - Allow custom icons
   - Globalized marker events (still needs to be added to marker)
-- Allow UI control (enable/disable)
 
-TODO
-
-- HMap
-  - Show current location marker (animated)
-- Event Handling
-  - Marker (drag / add / remove)
-- HMapRoute
-- Allow UI control (positioning)
-
-MIGHT DO
-
-- HMapPlaces
-- HMapGeoCode
-- HMapRoute
-  - Change IsoLine on waypoints change
-  - remove old IsoLine on waypoints change
-- Version change to 3.1
+HMapMarkers
+  - Remove all markers when LatLng[] changes
+```

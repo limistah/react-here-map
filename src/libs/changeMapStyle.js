@@ -1,5 +1,6 @@
 export default (builder) => {
-  // Set changes to UI or Map style or placement
-  var zoomUI = builder.ui.getControl('zoom');
+  const ui = builder.ui;
+
+  const zoomUI = ui.getControl('zoom');
   zoomUI.setAlignment('right-bottom');
 };

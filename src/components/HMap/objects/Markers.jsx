@@ -8,7 +8,7 @@ function Markers(props) {
   const {
     points,
     icon,
-    type,
+    DOM,
     options,
     setViewBounds,
     draggable,
@@ -19,6 +19,7 @@ function Markers(props) {
   } = merge(
     {
       points: [],
+      DOM: false,
       setViewBounds: true,
       draggable: false,
       animated: true
@@ -60,7 +61,7 @@ function Markers(props) {
               map={map}
               options={options}
               icon={icon}
-              type={type}
+              DOM={DOM}
               setViewBounds={false}
               draggable={draggable}
               animated={animated}
@@ -83,7 +84,7 @@ function Markers(props) {
 Markers.propTypes = {
   points: PropTypes.array.isRequired,
   icon: PropTypes.any,
-  type: PropTypes.string,
+  DOM: PropTypes.bool,
   options: PropTypes.object,
   setViewBounds: PropTypes.bool,
   draggable: PropTypes.bool,

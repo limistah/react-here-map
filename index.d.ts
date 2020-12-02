@@ -18,15 +18,6 @@ export declare interface LatLng {
   lng: number;
 }
 
-type HMapMarkersTyping = Pick<React.HTMLProps<HTMLElement>, any> & {
-  points: LatLng[];
-  icon?: string;
-  options?: object;
-  type?: string;
-  setViewBounds?: boolean;
-  animated?: boolean;
-};
-
 type HPlatformTyping = Pick<React.HTMLProps<HTMLElement>, any> & {
   version?: string;
   app_id: string;
@@ -54,7 +45,16 @@ type HMapMarkerTyping = Pick<React.HTMLProps<HTMLElement>, any> & {
   coords: LatLng;
   icon?: string;
   options?: object;
-  type?: string;
+  DOM?: string;
+  setViewBounds?: boolean;
+  animated?: boolean;
+};
+
+type HMapMarkersTyping = Pick<React.HTMLProps<HTMLElement>, any> & {
+  points: LatLng[];
+  icon?: string;
+  options?: object;
+  DOM?: boolean;
   setViewBounds?: boolean;
   animated?: boolean;
 };
@@ -68,8 +68,8 @@ type HMapPolylineTyping = Pick<React.HTMLProps<HTMLElement>, any> & {
 
 type HMapCircleTyping = Pick<React.HTMLProps<HTMLElement>, any> & {
   coords: LatLng;
+  radius: number;
   options?: object;
-  radius?: number;
   setViewBounds?: boolean;
   animated?: boolean;
 };

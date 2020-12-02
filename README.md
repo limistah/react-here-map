@@ -8,7 +8,7 @@
 [![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)<br><br>
 [![](https://img.shields.io/badge/🍔-Hamburger-yellow)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
-</div>
+## </div>
 
 React library for rendering and working with
 [HERE Maps](https://www.here.com/).
@@ -19,9 +19,11 @@ components.
 The components can be imported and easily rendered. It also comes with seamless
 configuration and modifications.
 
-// _add image_
-
 <div align="center">
+<img src="https://iili.io/K9jG94.md.png" alt="Demo image">
+
+<br><br>
+
 <h3> 
 <strong>Feel like giving some support?</strong>
 </h3>
@@ -30,19 +32,34 @@ configuration and modifications.
 ⬅️ Make pull requests ➡️
 ⭐ Star this project ⭐
 </pre>
+<img src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
+<img src="https://img.shields.io/badge/react%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
+<img src="https://img.shields.io/badge/typescript%20-%23007ACC.svg?&style=for-the-badge&logo=typescript&logoColor=white"/>
 </div>
 <br>
 
 ## **👀 / Overview**
 
-<div align="center">
-<img src="https://img.shields.io/badge/react%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
-<img src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
-<img src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/>
-<img src="https://img.shields.io/badge/github%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
-</div>
+Since the creation of this library, many features have been added. At this point in time the following features are present and usable:
 
-// _Add all main features from library_
+```
+1. Display an (interactive) map in your webapp
+2. Add (custom styled) markers, lines, circles, etc. to the map
+3. Calculate and show routes between different coordinates
+4. Calculate and show isochrone views by duration, distance or fuel consumption
+5. Use GeoCoding to find locations or reverse search coordinates
+```
+
+<br>
+
+## **🎹 / Demo**
+
+<div align="center">
+<pre>
+🚧 Work in Progress 🚧
+</pre>
+</div>
+<br>
 
 ## **🦺 / Requirements**
 
@@ -51,7 +68,8 @@ Before you continue, ensure you meet the following requirements:
 
 ✅ You have a basic understanding of React
 ✅ You are using React 16.8 or above (hooks)
-✅ You have created an HERE developer account
+✅ You created an HERE developer account
+✅ You located your HERE "app_id" and "app_code" or your "apiKey"
 ```
 
 #### **Can't check all boxes?**
@@ -61,6 +79,8 @@ Before you continue, ensure you meet the following requirements:
 > [Update your project](https://create-react-app.dev/docs/updating-to-new-releases/)
 
 > [Create an HERE Developer account](https://developer.here.com/sign-up?create=Freemium-Basic&keepState=true&step=account)
+
+<br>
 
 ## **📌 / Installation**
 
@@ -75,6 +95,8 @@ Using Yarn:
 ```bash
 yarn add react-here-map
 ```
+
+<br>
 
 ## **🕹️ / General Usage**
 
@@ -102,6 +124,8 @@ function Map() {
 export default Map;
 ```
 
+<br>
+
 ## **🗄️ / Folder structure**
 
 ```h
@@ -125,13 +149,15 @@ export default Map;
   └── 📦 🔑 package-lock.json
 ```
 
+<br>
+
 ## **📝 / Docs**
 
-The default export instantiates the HERE Map platform, which
-is required before initialization of any other component:
+Usage of the map requires atleast the HPlatform and HMap components. All other components are optional.
 
-- The `HPlatform` has to be a parent of the `HMap`.
-- The `HMap` has to be a parent of all other components.
+- The `HPlatform` has to be the parent of the `HMap`.
+- The `HMap` has to be the parent of all other components.
+- All other components have to be a direct child of the `HMap`
 
 ```js
 // Simplified representation
@@ -144,6 +170,7 @@ function Map() {
     <HPlatform>
       <HMap>
         <HMapMarker />
+        <HMapMarkers />
         <HMapPolyline />
         <HMapCircle />
         <HMapRectangle />
@@ -160,19 +187,17 @@ function Map() {
 export default Map;
 ```
 
-Interesting components are also exported and can be customized using supported
-props.
-
 ### **Components**
 
 1. **[HPlatform](#HPlatform)** - Platform initializer
 1. **[HMap](#HMap)** - Draws the map
 1. **[HMapMarker](#HMapMarker)** - Draws a marker on the map.
+1. **[HMapMarkers](#HMapMarker)** - Draws a list of markers on the map.
 1. **[HMapPolyline](#HMapPolyline)** - Draws a polyline on the map.
 1. **[HMapCircle](#HMapCircle)** - Draws a circle on the map.
 1. **[HMapRectangle](#HMapRectangle)** - Draws a rectangle on the map.
 1. **[HMapPolygon](#HMapPolygon)** - Draws a polygon on the map.
-1. **[HMapRoute](#HMapRoute)** - Defines a route to locate two points.
+1. **[HMapRoute](#HMapRoute)** - Calculate and draw a route between two or more coordinates.
 1. **[HMapPlaces](#HMapPlaces)** - Use places.
 1. **[HMapGeoCode](#HMapGeocode)** - Turns a physical address to a point on the
    map
@@ -266,11 +291,17 @@ All direct children of the `HPlatform` component receive:
 - **options** A reference to the options used to bootstrap the scripts:
   [See here](https://www.npmjs.com/package/@limistah/here-map-js)
 
----
-
 <br>
 
-#### HMap
+<div align="right">
+
+<strong><a href="#components"> ⬆️ Back to Top ⬆️</a></strong>
+
+</div>
+
+---
+
+#### **HMap**
 
 Displays the HERE Map
 
@@ -300,9 +331,9 @@ export default Map;
 
 | Prop name      | Description                                                                                                           |  Type  |               Default value               |
 | -------------- | --------------------------------------------------------------------------------------------------------------------- | :----: | :---------------------------------------: |
+| **style**      | Set style options for the map, like width and height                                                                  | object |    `{ width: '100%', height: '100%' }`    |
 | **mapEvents**  | [Options (Official Docs)](https://developer.here.com/documentation/maps/3.1.19.0/dev_guide/topics/map-events.html)    | object |                     -                     |
 | **mapOptions** | [Options (Official Docs)](https://developer.here.com/documentation/maps/3.1.19.0/dev_guide/topics/h-map-options.html) | object | `{ center: { lat: 0, lng: 0 }, zoom: 2 }` |
-| **style**      | Set style options for the map, like width and height                                                                  | object |    `{ width: '100%', height: '100%' }`    |
 
 <br>
 
@@ -326,13 +357,16 @@ All direct children of the `HMap` component receive:
 > received as first class directly from the containing parent and not from HMap,
 > but still holds the same object references
 
----
-
 <br>
+<div align="right">
 
-#### HMapMarker
+<strong><a href="#components"> ⬆️ Back to Top ⬆️</a></strong>
 
-Puts a marker on the map
+</div>
+
+#### **HMapMarker**
+
+Puts a marker on the map at the provided coordinates. The coordinates must consist of an object with a `lat` and `lng` value.
 
 ```js
 import React from 'react';
@@ -371,13 +405,72 @@ export default Map;
 | ----------------- | ------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------: | :------------: |
 | **coords**        | Object containing specified `lat` (latitude) and `lng` (longitude) values                                           |                                 object                                  |   _Required_   |
 | **icon**          | Icon for the marker                                                                                                 | bitmap <br>(An image URL, an SVG (string), an bitmap image or a canvas) | (default icon) |
-| **options**       | [Officially documented Options](https://developer.here.com/documentation/maps/topics_api/h-map-marker-options.html) |                                 object                                  |       -        |
-| **type**          | One of `undefined` \| `DOM`                                                                                         |                                 string                                  |  `undefined`   |
+| **DOM**           | Display a marker that is capable of receiving DOM events                                                            |                                 boolean                                 |    `false`     |
 | **setViewBounds** | Centers the line on the map                                                                                         |                                 object                                  |     `true`     |
-
----
+| **options**       | [Officially documented Options](https://developer.here.com/documentation/maps/topics_api/h-map-marker-options.html) |                                 object                                  |       -        |
 
 <br>
+<div align="right">
+
+<strong><a href="#components"> ⬆️ Back to Top ⬆️</a></strong>
+
+</div>
+
+#### HMapMarkers
+
+Puts markers on the map at the provided coordinates. The coordinates must consist of an array containing object with a `lat` and `lng` value.
+
+```js
+import React from 'react';
+import { HPlatform, HMap, HMapMarkers } from 'react-here-map';
+
+function Map() {
+  const points = [
+    { lat: 52, lng: 5 },
+    { lat: 51, lng: 4 },
+    { lat: 50, lng: 3 }
+  ];
+
+  const icon =
+    '<svg width="24" height="24" ' +
+    'xmlns="http://www.w3.org/2000/svg">' +
+    '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
+    'height="22" /><text x="12" y="18" font-size="12pt" ' +
+    'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
+    'fill="white">H</text></svg>';
+
+  return (
+    <HPlatform
+      app_id='YOUR_APP_ID'
+      app_code='YOUR_APP_CODE'
+      apikey='YOUR_API_KEY'
+      interactive
+      includeUI
+    >
+      <HMap>
+        <HMapMarkers points={points} icon={icon} />
+      </HMap>
+    </HPlatform>
+  );
+}
+
+export default Map;
+```
+
+| Prop name         | Description                                                                                                         |                        Type                         | Default value  |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------: | :------------: |
+| **points**        | Array containing objects with specified `lat` (latitude) and `lng` (longitude) values                               |                        array                        |   _Required_   |
+| **icon**          | Icon for the markers                                                                                                | bitmap <br>(image URL, SVG, bitmap image or canvas) | (default icon) |
+| **DOM**           | Display markers that are capable of receiving DOM events                                                            |                       boolean                       |    `false`     |
+| **setViewBounds** | Centers the markers on the map                                                                                      |                       object                        |     `true`     |
+| **options**       | [Officially documented Options](https://developer.here.com/documentation/maps/topics_api/h-map-marker-options.html) |                       object                        |       -        |
+
+<br>
+<div align="right">
+
+<strong><a href="#components"> ⬆️ Back to Top ⬆️</a></strong>
+
+</div>
 
 #### HMapPolyline
 
@@ -420,9 +513,12 @@ export default Map;
 | **options**       | [Options (Official Docs)](https://developer.here.com/documentation/maps/3.1.19.0/api_reference/H.map.Polyline.html) | object |       -       |
 | **setViewBounds** | Centers the Polyline on the map                                                                                     | object |    `true`     |
 
----
-
 <br>
+<div align="right">
+
+<strong><a href="#components"> ⬆️ Back to Top ⬆️</a></strong>
+
+</div>
 
 #### HMapPolygon
 
@@ -476,6 +572,13 @@ export default Map;
 | **options**       | [Options (Official Docs)](https://developer.here.com/documentation/maps/3.1.19.0/api_reference/H.map.Polygon.html) | object |       -       |
 | **setViewBounds** | Centers the Polygon on the map                                                                                     | object |    `true`     |
 
+<br>
+<div align="right">
+
+<strong><a href="#components"> ⬆️ Back to Top ⬆️</a></strong>
+
+</div>
+
 #### HMapCircle
 
 Puts a circle on the map
@@ -520,6 +623,12 @@ function Map() {
 
 export default Map;
 ```
+
+<div align="right">
+
+<strong><a href="#components"> ⬆️ Back to Top ⬆️</a></strong>
+
+</div>
 
 #### HMapRectangle
 
@@ -566,6 +675,12 @@ function Map() {
 
 export default Map;
 ```
+
+<div align="right">
+
+<strong><a href="#components"> ⬆️ Back to Top ⬆️</a></strong>
+
+</div>
 
 ### Event Handling
 
@@ -730,6 +845,12 @@ const markerIcon =
   </HMap>
 </HPlatform>;
 ```
+
+<div align="right">
+
+<strong><a href="#components"> ⬆️ Back to Top ⬆️</a></strong>
+
+</div>
 
 #### HMapGeoCode
 
@@ -898,6 +1019,12 @@ const landmarkSearchParameters = {
 </HPlatform>;
 ```
 
+<div align="right">
+
+<strong><a href="#components"> ⬆️ Back to Top ⬆️</a></strong>
+
+</div>
+
 #### HMapRoute
 
 > This uses React Hooks. Ensure that your react installation supports Hooks API
@@ -1016,9 +1143,9 @@ function Map() {
 export default Map;
 ```
 
-#### Displaying route on the Map Using iso line
+#### Displaying route on the Map using iso line
 
-###### Using the default renderer
+##### Using the default renderer
 
 ```js
 import { HPlatform, HMap, HMapPolygon, HMapRoute } from 'react-here-map';
@@ -1093,7 +1220,7 @@ const RouteMarkerIso = ({ map, platform, ui, route, routeShape, center }) => {
 </HPlatform>;
 ```
 
-###### Using a custom renderer
+##### Using a custom renderer
 
 ```js
 import { HPlatform, HMap, HMapPolygon, HMapRoute } from 'react-here-map';
@@ -1177,6 +1304,12 @@ const RouteMarkerIso = ({
 </HPlatform>;
 ```
 
+<div align="right">
+
+<strong><a href="#components"> ⬆️ Back to Top ⬆️</a></strong>
+
+</div>
+
 #### HMapLayer
 
 Adds a layer to the map.
@@ -1245,6 +1378,12 @@ function Map() {
 export default Map;
 ```
 
+<div align="right">
+
+<strong><a href="#components"> ⬆️ Back to Top ⬆️</a></strong>
+
+</div>
+
 #### HMapPlaces
 
 Search for places on the map
@@ -1301,7 +1440,11 @@ import { HPlatform, HMap, HMapPlaces } from 'react-here-map';
 </HPlatform>;
 ```
 
-<br>
+<div align="right">
+
+<strong><a href="#components"> ⬆️ Back to Top ⬆️</a></strong>
+
+</div>
 
 ## **🧑‍💻 / Authors**
 
@@ -1313,17 +1456,23 @@ import { HPlatform, HMap, HMapPlaces } from 'react-here-map';
 
 </div>
 
-## **✔ / TODO**
-
-Want to know what we are working on or care to add some new features yourself?
-
-> Check the [TODO](TODO.md)
+<br>
 
 ## **📅 / Changes**
 
 **06/05/2020**
 
 - Includes support for v3.1 API key
+
+<br>
+
+## **✔ / TODO**
+
+Want to know what we are working on or care to add some new features yourself?
+
+> Check the [TODO](TODO.md)
+
+<br>
 
 ## **🔑 / Licence**
 
@@ -1342,7 +1491,12 @@ This project has been created under the MIT License.
 ⬅️ Make pull requests ➡️
 ⭐ Star this project ⭐
 </pre>
-<br>
-</div>
+<img src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
+<img src="https://img.shields.io/badge/react%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
+<img src="https://img.shields.io/badge/typescript%20-%23007ACC.svg?&style=for-the-badge&logo=typescript&logoColor=white"/>
 
-**[⬆️ Back to Top ⬆️](#--Overview)**
+<br><br>
+
+<strong><a href="#----"> ⬆️ Back to Top ⬆️</a></strong>
+
+</div>

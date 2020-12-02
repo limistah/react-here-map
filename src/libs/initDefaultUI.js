@@ -5,19 +5,10 @@ export default (platform, map, includeUI, language) => {
     throw new Error('"includeUI" must be set to true to initialize default UI');
   }
 
-  // Defaults UI to English when no language is specified, specified language doesn't exist or specified language doesn't have UI localization
-  if (!language || !defaults.languageOptions[language]) {
-    return H.ui.UI.createDefault(
-      map,
-      platform.createDefaultLayers(),
-      defaults.languageOptions.EN
-    );
-  }
-
-  // Create the UI component with the specified language
+  // Create the UI component with the specified language with English as fallback
   return H.ui.UI.createDefault(
     map,
     platform.createDefaultLayers(),
-    defaults.languageOptions[language]
+    defaults.languageOptions[language] || defaults.languageOptions.EN
   );
 };
