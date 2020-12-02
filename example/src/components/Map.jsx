@@ -10,6 +10,7 @@ function Map() {
         app_code='MDivMVFtNkpim-dWuetlWw'
         interactive
         includeUI
+        useHTTPS
       >
         <HMap />
       </HPlatform>

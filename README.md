@@ -56,6 +56,7 @@ Since the creation of this library, many features have been added. At this point
 
 <div align="center">
 <pre>
+<a href="https://coffee-it-development.github.io/react-here-map/">Demo</a>
 🚧 Work in Progress 🚧
 </pre>
 </div>
