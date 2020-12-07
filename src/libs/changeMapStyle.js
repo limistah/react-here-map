@@ -1,6 +1,4 @@
-export default (builder) => {
-  const ui = builder.ui;
-
+export default (ui) => {
   const zoomUI = ui.getControl('zoom');
   zoomUI.setAlignment('right-bottom');
 };

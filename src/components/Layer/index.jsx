@@ -24,7 +24,7 @@ function Layer(props) {
   }
 
   function createLayer() {
-    validateMapType(mapTypes, mapLayerType);
+    validateMapType(mapLayerType, mapTypes);
 
     const defaultLayers = platform.createDefaultLayers();
 

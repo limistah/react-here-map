@@ -51,8 +51,8 @@ export default (platform, options) => {
       platform,
       container,
       mapOptions,
-      mapTypes,
       _mapType,
+      mapTypes,
       language
     );
     ret.interaction = initInteraction(
@@ -62,7 +62,7 @@ export default (platform, options) => {
       mapEvents
     );
     if (includeUI) {
-      ret.ui = initDefaultUI(platform, ret.map, includeUI, language);
+      ret.ui = initDefaultUI(platform, ret.map, language);
     }
     // Adds the grabbing to the document
     initInteractionStyles();

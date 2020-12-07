@@ -5,11 +5,11 @@ export default (
   platform,
   container,
   mapOptions,
-  mapTypes,
   mapType,
+  mapTypes,
   language
 ) => {
-  validateMapType(mapTypes, mapType);
+  validateMapType(mapType, mapTypes);
 
   // Create default layers and set specified language (no or unkown language will default to English)
   const defaultLayers = platform.createDefaultLayers({

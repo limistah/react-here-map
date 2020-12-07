@@ -46,13 +46,14 @@ configuration and modifications.
 
 Since the creation of this library, many features have been added. At this point in time the following features are present and usable:
 
-```
+<div>
+<pre>
 1. Display a (interactive) map in your webapp
 2. Add (custom styled) markers, lines, circles, etc. to the map
 3. Calculate and show routes between different coordinates
-4. Calculate and show isochrone views by duration, distance or fuel consumption
-5. Use GeoCoding to find locations or reverse search coordinates
-```
+4. Calculate and show <a href="https://en.wikipedia.org/wiki/Isochrone_map" target="_blank">isochrone</a> views by duration, distance or fuel consumption
+5. Use GeoCoding to find locations or reverse search coordinates</pre>
+</div>
 
 <br>
 
@@ -64,6 +65,7 @@ Since the creation of this library, many features have been added. At this point
 🚧 Work in Progress 🚧
 </pre>
 </div>
+
 <br>
 
 ## **🦺 / Requirements**
@@ -197,7 +199,7 @@ export default Map;
 1. **[HPlatform](#HPlatform)** - Platform initializer
 1. **[HMap](#HMap)** - Draws the map
 1. **[HMapMarker](#HMapMarker)** - Draws a marker on the map.
-1. **[HMapMarkers](#HMapMarker)** - Draws a list of markers on the map.
+1. **[HMapMarkers](#HMapMarkers)** - Draws a list of markers on the map.
 1. **[HMapPolyline](#HMapPolyline)** - Draws a polyline on the map.
 1. **[HMapCircle](#HMapCircle)** - Draws a circle on the map.
 1. **[HMapRectangle](#HMapRectangle)** - Draws a rectangle on the map.

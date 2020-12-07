@@ -1,3 +1,8 @@
+/**
+ * @param {object} map The map object to add the eventlisteners to.
+ * @param {object} interaction The interaction object to disable the interaction with the map.
+ * @param {} callback The callback function called when the event is triggered.
+ */
 export default (map, interaction, callback) => {
   const MOUSE_BUTTONS = {
     LEFT: 1,

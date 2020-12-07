@@ -5,7 +5,7 @@ import defaults from '../../libs/defaults';
 import setEventListeners from '../../libs/setEventListeners';
 import changeMapStyle from '../../libs/changeMapStyle';
 import merge from 'lodash.merge';
-import { centerMap, zoomMap, setCurrentLocation } from '../../libs/helpers';
+import { setCurrentLocation } from '../../libs/helpers';
 
 function HMap(props) {
   const container = useRef();
@@ -15,8 +15,7 @@ function HMap(props) {
     const _options = merge(
       {
         container: container.current,
-        build: true,
-        style: { height: '100%', width: '100%' }
+        build: true
       },
       props.options,
       props
@@ -25,36 +24,31 @@ function HMap(props) {
 
     const builder = build(props.platform, _options);
     setBuilder(builder);
-
     setEventListeners(builder.map);
-    if (_options.includeUI) {
-      changeMapStyle(builder);
-    }
-    if (_options.useLocation) {
-      setCurrentLocation(builder.map, true);
-    }
+    if (_options.includeUI) changeMapStyle(builder.ui);
+    if (_options.useLocation) setCurrentLocation(builder.map, true);
   }, []);
 
-  useEffect(() => {
-    if (builder.map && props.mapOptions) {
-      const newCenter = props.mapOptions.center;
-      const currentCenter = builder.map.getCenter();
+  // useEffect(() => {
+  //   if (builder.map && props.mapOptions) {
+  //     const newCenter = props.mapOptions.center;
+  //     const currentCenter = builder.map.getCenter();
 
-      if (
-        newCenter.lat !== currentCenter.lat &&
-        newCenter.lng !== currentCenter.lng
-      ) {
-        centerMap(builder.map, newCenter, true);
-      }
+  //     if (
+  //       newCenter.lat !== currentCenter.lat &&
+  //       newCenter.lng !== currentCenter.lng
+  //     ) {
+  //       centerMap(builder.map, newCenter, true);
+  //     }
 
-      const newZoom = props.mapOptions.zoom;
-      const currentZoom = builder.map.getZoom();
+  //     const newZoom = props.mapOptions.zoom;
+  //     const currentZoom = builder.map.getZoom();
 
-      if (newZoom !== currentZoom) {
-        zoomMap(builder.map, newZoom, true);
-      }
-    }
-  }, [props.mapOptions]);
+  //     if (newZoom !== currentZoom) {
+  //       zoomMap(builder.map, newZoom, true);
+  //     }
+  //   }
+  // }, [props.mapOptions]);
 
   function createLoadingComponent() {
     return <div>Loading</div>;

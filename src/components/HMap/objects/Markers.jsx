@@ -44,7 +44,7 @@ function Markers(props) {
     }
   }
 
-  if (points.length > 1) {
+  if (points.length) {
     return renderMarkers();
   } else {
     removeObjectFromGroup(markerGroup);
