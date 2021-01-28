@@ -8,6 +8,7 @@ function Marker(props) {
   const {
     coords,
     icon,
+    hoverIcon,
     DOM,
     options,
     marker,
@@ -40,6 +41,7 @@ function Marker(props) {
     handleErrors();
     createIcon();
     const _marker = createMarker();
+    if (hoverIcon) addEventListeners(_marker);
     if (draggable) {
       _marker.draggable = draggable;
       _options.volatility = draggable;
@@ -47,6 +49,24 @@ function Marker(props) {
     const objectExists = checkIfObjectExists();
     addOrUpdateMarker(_marker, objectExists);
   }, []);
+
+  function addEventListeners(_marker) {
+    _marker.addEventListener(
+      'pointerenter',
+      () => {
+        _marker.setIcon(new H.map.Icon(hoverIcon));
+      },
+      false
+    );
+
+    _marker.addEventListener(
+      'pointerleave',
+      () => {
+        _marker.setIcon(new H.map.Icon(icon));
+      },
+      false
+    );
+  }
 
   function handleErrors() {
     // Marker can only be initialized inside HMap

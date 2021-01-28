@@ -44,6 +44,7 @@ type HMapTyping = Pick<React.HTMLProps<HTMLElement>, any> & {
 type HMapMarkerTyping = Pick<React.HTMLProps<HTMLElement>, any> & {
   coords: LatLng;
   icon?: string;
+  hoverIcon?: string;
   options?: object;
   DOM?: string;
   setViewBounds?: boolean;
@@ -53,6 +54,7 @@ type HMapMarkerTyping = Pick<React.HTMLProps<HTMLElement>, any> & {
 type HMapMarkersTyping = Pick<React.HTMLProps<HTMLElement>, any> & {
   points: LatLng[];
   icon?: string;
+  hoverIcon?: string;
   options?: object;
   DOM?: boolean;
   setViewBounds?: boolean;
@@ -107,6 +109,7 @@ type HMapRouteTyping = Pick<React.HTMLProps<HTMLElement>, any> & {
         endIcon?: string;
         waypointIcon?: string;
         editIcon?: string;
+        hoverIcon?: string;
       };
   edit?: boolean;
   renderDefaultLine?: boolean;

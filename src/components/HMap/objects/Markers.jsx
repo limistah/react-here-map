@@ -8,6 +8,7 @@ function Markers(props) {
   const {
     points,
     icon,
+    hoverIcon,
     DOM,
     options,
     setViewBounds,
@@ -64,6 +65,7 @@ function Markers(props) {
               DOM={DOM}
               setViewBounds={false}
               draggable={draggable}
+              hoverIcon={hoverIcon}
               animated={animated}
               group={markerGroup}
               __options={__options}

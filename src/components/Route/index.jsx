@@ -316,6 +316,7 @@ function Router(props) {
             map={map}
             platform={platform}
             icon={edit ? _icons.editIcon : _icons.waypointIcon}
+            hoverIcon={_icons.hoverIcon}
             draggable={edit}
             options={markerOptions}
             setViewBounds={false}
@@ -336,12 +337,17 @@ function Router(props) {
       startIcon: '',
       endIcon: '',
       waypointIcon: '',
-      editIcon: ''
+      editIcon: '',
+      hoverIcon: ''
     };
 
     if (
       icons &&
-      (icons.startIcon || icons.endIcon || icons.waypointIcon || icons.editIcon)
+      (icons.startIcon ||
+        icons.endIcon ||
+        icons.waypointIcon ||
+        icons.editIcon ||
+        icons.hoverIcon)
     ) {
       return icons;
     }
@@ -351,6 +357,7 @@ function Router(props) {
       _icons.endIcon = icons;
       _icons.waypointIcon = icons;
       _icons.editIcon = icons;
+      _icons.hoverIcon = icons;
       return _icons;
     }
 
