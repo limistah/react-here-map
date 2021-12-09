@@ -35,6 +35,11 @@ class HMap extends React.Component {
       React.cloneElement(child, { map, platform, ui, __options: options })
     );
   }
+  cleanMapObjects(){
+    const { map} = this.state.builder;
+    map.removeObjects(map.getObjects ());
+  }
+
   render() {
     const { style, loadingEl } = this.props;
     const { options } = this.state.builder;
