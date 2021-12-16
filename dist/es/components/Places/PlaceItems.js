@@ -17,10 +17,10 @@ var PlaceItems = function PlaceItems(props) {
       items = props.items,
       iconClass = props.iconClass,
       itemClass = props.itemClass;
-  return React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "".concat(_contClass, " ").concat(containerClass)
   }, items.map(function (item) {
-    return React.createElement(PlaceItem, {
+    return /*#__PURE__*/React.createElement(PlaceItem, {
       iconClass: iconClass,
       itemClass: itemClass,
       getItem: getItem,

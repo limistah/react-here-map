@@ -1,8 +1,12 @@
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -102,19 +106,19 @@ function Router(props) {
   if (isoLine) {// Call the Routing API to calculate an isoline:
     // router.calculateIsoline(routeParams, onResult, e => console.log(e.message));
   } else {// Call calculateRoute() with the routing parameters,
-      // the callback and an error callback function (called if a
-      // communication error occurs):
-      // router.calculateRoute(routeParams, onResult, e => console.log(e.message));
-    }
+    // the callback and an error callback function (called if a
+    // communication error occurs):
+    // router.calculateRoute(routeParams, onResult, e => console.log(e.message));
+  }
 
   var renderPolygon = function renderPolygon() {
-    return React.createElement(React.Fragment, null, React.createElement(Polygon, {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Polygon, {
       points: routeShape,
       options: polygonOptions,
       setViewBounds: true,
       map: map,
       platform: platform
-    }), React.createElement(Marker, {
+    }), /*#__PURE__*/React.createElement(Marker, {
       coords: center,
       map: map,
       platform: platform,
@@ -139,19 +143,19 @@ function Router(props) {
       lat: endPoint.latitude,
       lng: endPoint.longitude
     };
-    return React.createElement(React.Fragment, null, React.createElement(PolyLine, {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PolyLine, {
       points: routeShape,
       map: map,
       options: lineOptions,
       setViewBounds: true
-    }), React.createElement(Marker, {
+    }), /*#__PURE__*/React.createElement(Marker, {
       coords: startMarker,
       map: map,
       platform: platform,
       icon: icon,
       options: markerOptions,
       setViewBounds: false
-    }), React.createElement(Marker, {
+    }), /*#__PURE__*/React.createElement(Marker, {
       coords: endMarker,
       map: map,
       platform: platform,
@@ -176,7 +180,7 @@ function Router(props) {
       center: center,
       component: component
     };
-    return React.cloneElement(children, params);
+    return /*#__PURE__*/React.cloneElement(children, params);
   };
 
   var renderResult = function renderResult() {

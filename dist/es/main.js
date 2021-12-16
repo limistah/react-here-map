@@ -91,7 +91,7 @@ var GeoMarker = function GeoMarker(_ref) {
       lng = _ref.lng,
       location = _ref.location,
       key = _ref.key;
-  return React.createElement(HMapMarker, {
+  return /*#__PURE__*/React.createElement(HMapMarker, {
     coords: {
       lat: lat,
       lng: lng
@@ -205,17 +205,17 @@ var RouteMarker = function RouteMarker(_ref4) {
     lat: endPoint.latitude,
     lng: endPoint.longitude
   };
-  return React.createElement(React.Fragment, null, React.createElement(HMapPolyLine, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(HMapPolyLine, {
     points: routeShape,
     map: map,
     setViewBounds: true
-  }), React.createElement(HMapMarker, {
+  }), /*#__PURE__*/React.createElement(HMapMarker, {
     coords: startMarker,
     map: map,
     platform: platform,
     icon: icon,
     setViewBounds: false
-  }), React.createElement(HMapMarker, {
+  }), /*#__PURE__*/React.createElement(HMapMarker, {
     coords: endMarker,
     map: map,
     platform: platform,
@@ -239,13 +239,13 @@ var RouteMarkerIso = function RouteMarkerIso(_ref5) {
       routeShape = _ref5.routeShape,
       center = _ref5.center,
       component = _ref5.component;
-  return React.createElement(React.Fragment, null, React.createElement(Polygon, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Polygon, {
     points: routeShape,
     options: polygonOptions,
     setViewBounds: true,
     map: map,
     platform: platform
-  }), React.createElement(Marker, {
+  }), /*#__PURE__*/React.createElement(Marker, {
     coords: center,
     map: map,
     platform: platform,
@@ -255,23 +255,23 @@ var RouteMarkerIso = function RouteMarkerIso(_ref5) {
   }));
 };
 
-ReactDOM.render(React.createElement(React.Fragment, null, React.createElement(HMapPlatform, {
+ReactDOM.render( /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(HMapPlatform, {
   app_id: "2Ts3vDUTLPW8kNUtyFRY",
   app_code: "MDivMVFtNkpim-dWuetlWw",
   useCIT: true,
   useHTTPS: true,
   includePlaces: true,
   interactive: true
-}, React.createElement(HMapPlaces, {
+}, /*#__PURE__*/React.createElement(HMapPlaces, {
   library: "search"
-})), React.createElement(HMapPlatform, {
+})), /*#__PURE__*/React.createElement(HMapPlatform, {
   app_id: "2Ts3vDUTLPW8kNUtyFRY",
   app_code: "MDivMVFtNkpim-dWuetlWw",
   useCIT: true,
   useHTTPS: true,
   includeUI: true,
   includePlaces: true
-}, React.createElement(HMap, {
+}, /*#__PURE__*/React.createElement(HMap, {
   style: {
     height: "400px",
     width: "800px"
@@ -283,13 +283,13 @@ ReactDOM.render(React.createElement(React.Fragment, null, React.createElement(HM
     },
     zoom: 10
   }
-}, React.createElement(HMapRoute, {
+}, /*#__PURE__*/React.createElement(HMapRoute, {
   routeParams: isoRoutingParams,
   icon: icon,
   defaultDisplay: false,
   isoLine: true,
   lineOptions: routeLineOptions
-}, React.createElement(RouteMarkerIso, null)), React.createElement(HMapLayer, {
+}, /*#__PURE__*/React.createElement(RouteMarkerIso, null)), /*#__PURE__*/React.createElement(HMapLayer, {
   mapLayerType: "normal.traffic"
 })))), document.getElementById("app"));
 module.hot.accept();

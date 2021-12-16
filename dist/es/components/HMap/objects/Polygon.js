@@ -49,7 +49,7 @@ function Polygon(props) {
   } // There is no need to render something useful here, HereMap does that magically
 
 
-  return React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     style: {
       display: "none"
     }

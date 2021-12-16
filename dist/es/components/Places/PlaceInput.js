@@ -26,7 +26,7 @@ function PlaceInput(_ref) {
       style = _ref.style,
       className = _ref.className;
   style = merge(_style, style);
-  return React.createElement("input", {
+  return /*#__PURE__*/React.createElement("input", {
     className: className,
     style: style,
     placeholder: "Enter a value",
