@@ -42,7 +42,7 @@
   },
   "homepage": "https://github.com/limistah/react-here-map#readme",
   "dependencies": {
-    "@limistah/here-map-js": "^3.1.0"
+    "@limistah/here-map-js": "^4.0.0"
   },
   "devDependencies": {},
   "repository": {
