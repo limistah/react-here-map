@@ -2,34 +2,37 @@
  * @type {string} Default version for the API
  */
 const VERSION = 'v3/3.0';
-export type MAP_TYPES =
-  | 'normal.map'
-  | 'normal.xbase'
-  | 'normal.xbasenight'
-  | 'normal.basen'
-  | 'normal.basenight'
-  | 'normal.mapnight'
-  | 'normal.traffic'
-  | 'normal.trafficnight'
-  | 'normal.transit'
-  | 'normal.panoram'
-  | 'normal.panoramnight'
-  | 'normal.labels'
-  | 'normal.metaInfo'
-  | 'satellite.xbase'
-  | 'satellite.base'
-  | 'satellite.map'
-  | 'satellite.traffic'
-  | 'satellite.panorama'
-  | 'satellite.labels'
-  | 'terrain.xbase'
-  | 'terrain.base'
-  | 'terrain.map'
-  | 'terrain.traffic'
-  | 'terrain.panorama'
-  | 'terrain.labels'
-  | 'incidents'
-  | 'venues';
+
+export const mapTypes = [
+  'normal.map',
+  'normal.xbase',
+  'normal.xbasenight',
+  'normal.basen',
+  'normal.basenight',
+  'normal.mapnight',
+  'normal.traffic',
+  'normal.trafficnight',
+  'normal.transit',
+  'normal.panoram',
+  'normal.panoramnight',
+  'normal.labels',
+  'normal.metaInfo',
+  'satellite.xbase',
+  'satellite.base',
+  'satellite.map',
+  'satellite.traffic',
+  'satellite.panorama',
+  'satellite.labels',
+  'terrain.xbase',
+  'terrain.base',
+  'terrain.map',
+  'terrain.traffic',
+  'terrain.panorama',
+  'terrain.labels',
+  'incidents',
+  'venues',
+] as const;
+export type MAP_TYPES = typeof mapTypes[number];
 
 const MAP_TYPE: MAP_TYPES = 'normal.map';
 

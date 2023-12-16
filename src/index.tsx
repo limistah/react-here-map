@@ -14,11 +14,6 @@ export const Thing: FC<Props> = ({ children }) => {
     {
       appId: '2Ts3vDUTLPW8kNUtyFRY',
       appKey: 'MDivMVFtNkpim-dWuetlWw',
-      useCIT: true,
-      useHTTPS: true,
-      interactive: true,
-      includeUI: true,
-      includePlaces: true,
     },
     <>{children || `the snozzberries taste like snozzberries`}</>
   );
