@@ -1,11 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { ILoadHMapOptions, loadHMap } from '../libs/loadHMap';
 import { initHPlatform } from '../libs/initPlatform';
 import { DefaultOptionsType } from '../libs/defaults';
 import { PlatformContext } from '../../contexts/platform';
 
-export interface IHPlatform extends ILoadHMapOptions {
+export interface IHPlatform {
   children: React.ReactNode | React.ReactNode[];
+  options: ILoadHMapOptions;
 }
 
 export interface IHPlatformState {
@@ -15,24 +16,34 @@ export interface IHPlatformState {
 }
 
 export const HPlatform = (props: IHPlatform) => {
-  const loadMapCB = useCallback(() => {
-    loadHMap(props).then((options: DefaultOptionsType) => {
-      const platform = initHPlatform(options);
-      setPlatformState((prevState: IHPlatformState) => ({
-        ...prevState,
-        platform,
+  // Reload the map resources if the options changes
+  useEffect(() => {
+    loadHMap(props.options).then((options: DefaultOptionsType) => {
+      setPlatformState({
+        ...platformState,
         options,
-      }));
+      });
     });
-  }, [props]);
+  }, [props.options]);
+
+  const initilizePlatform = () => {
+    const platform = initHPlatform(platformState.options);
+    setPlatformState((prevState: IHPlatformState) => ({
+      ...prevState,
+      platform,
+    }));
+  };
+
   const [platformState, setPlatformState] = useState<IHPlatformState>({
-    reInitMap: loadMapCB,
+    reInitMap: initilizePlatform,
     platform: {},
   });
 
   useEffect(() => {
-    loadMapCB();
-  }, [platformState.platform.A]);
+    // initialize the platform when the js files are loaded the options are updated
+    platformState.options && initilizePlatform();
+  }, [platformState.options]);
+
   const { platform, options } = platformState;
 
   return (
@@ -42,4 +53,12 @@ export const HPlatform = (props: IHPlatform) => {
         props.children}
     </PlatformContext.Provider>
   );
+};
+
+// Use this to create A Here Map Platform
+export const useHPlatform = (
+  platformOptions: ILoadHMapOptions,
+  children?: React.ReactNode | ReactNode[]
+) => {
+  return <HPlatform options={platformOptions}>{children}</HPlatform>;
 };

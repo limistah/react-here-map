@@ -1,7 +1,8 @@
 import { DefaultOptionsType } from './defaults';
 
-export const initHPlatform = (options: DefaultOptionsType) => {
-  const { app_id, app_code, apikey } = options;
+export const initHPlatform = (options?: DefaultOptionsType) => {
+  const { app_id, app_code, apikey } = options || {};
+  console.log({ options });
   if ((!app_id || !app_code) && !apikey) {
     throw new Error('Options must include appId and appCode OR an apiKey');
   }

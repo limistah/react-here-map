@@ -3,14 +3,21 @@ import { DefaultOptionsType, defaultOptions } from './defaults';
 import merge from 'lodash.merge';
 
 // Merges the option with the defaults to create a unison and make required values available
-const optionMerger = (options: ILoadHMapOptions) =>
-  merge(defaultOptions, options);
+const optionMerger = (options: ILoadHMapOptions) => {
+  const { appId, appKey, apiKey, ...opts } = options;
+  return merge(defaultOptions, { ...opts, app_id: appId, app_code: appKey });
+};
 
 export interface ILoadHMapOptions {
   version?: string; // Version of the api to load. Defaults to v3
   interactive?: boolean; // Adds interactive scripts
   includeUI?: boolean; // Should add the UI scripts
   includePlaces?: boolean; // Include the places script
+  useHTTPS?: boolean;
+  useCIT?: boolean;
+  appId?: string;
+  appKey?: string;
+  apiKey?: string;
 }
 
 export const loadHMap = async (
