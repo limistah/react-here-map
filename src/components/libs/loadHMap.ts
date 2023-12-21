@@ -4,8 +4,13 @@ import merge from 'lodash.merge';
 
 // Merges the option with the defaults to create a unison and make required values available
 const optionMerger = (options: ILoadHMapOptions) => {
-  const { appId, appKey, apiKey, ...opts } = options;
-  return merge(defaultOptions, { ...opts, app_id: appId, app_code: appKey });
+  const { appId, appCode, apiKey, ...opts } = options;
+  return merge(defaultOptions, {
+    ...opts,
+    app_id: appId,
+    app_code: appCode,
+    apikey: apiKey,
+  });
 };
 
 export interface ILoadHMapOptions {
@@ -16,7 +21,7 @@ export interface ILoadHMapOptions {
   useHTTPS?: boolean;
   useCIT?: boolean;
   appId?: string;
-  appKey?: string;
+  appCode?: string;
   apiKey?: string;
 }
 
@@ -25,7 +30,7 @@ export const loadHMap = async (
     includePlaces: false,
     includeUI: false,
     interactive: false,
-    version: 'v3/3.0',
+    version: 'v3/3.1',
   }
 ): Promise<DefaultOptionsType> => {
   const mergedOptions = optionMerger(options);
@@ -34,13 +39,13 @@ export const loadHMap = async (
     version,
     interactive,
     includeUI,
-    includePlaces,
+    // includePlaces,
   } = mergedOptions;
   // Returns async loading of the component
   // First load the core, to save us reference error if all of the libraries are loaded asynchronously due to race conditions
   return hereMapJS({
     includeUI,
-    includePlaces,
+    includePlaces: false,
     interactive,
     version: version || VERSION,
   }).then(() => mergedOptions);

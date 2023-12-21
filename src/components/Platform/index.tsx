@@ -5,7 +5,7 @@ import { DefaultOptionsType } from '../libs/defaults';
 import { PlatformContext } from '../../contexts/platform';
 
 export interface IHPlatform {
-  children: React.ReactNode | React.ReactNode[];
+  children?: React.ReactNode | React.ReactNode[];
   options: ILoadHMapOptions;
 }
 
@@ -45,10 +45,10 @@ export const HPlatform = (props: IHPlatform) => {
   }, [platformState.options]);
 
   const { platform, options } = platformState;
-
+  console.log({ ops: options, platform });
   return (
     <PlatformContext.Provider value={platformState}>
-      {platform?.A == 'api.here.com' &&
+      {platform?.a == options?.apikey &&
         (options?.app_code || options?.apikey) &&
         props.children}
     </PlatformContext.Provider>
@@ -57,8 +57,7 @@ export const HPlatform = (props: IHPlatform) => {
 
 // Use this to create A Here Map Platform
 export const useHPlatform = (
-  platformOptions: ILoadHMapOptions,
-  children?: React.ReactNode | ReactNode[]
-) => {
-  return <HPlatform options={platformOptions}>{children}</HPlatform>;
-};
+         platformOptions: ILoadHMapOptions,
+         children?: React.ReactNode | ReactNode[]
+       ) => <HPlatform options={platformOptions}>{children}</HPlatform>;
+

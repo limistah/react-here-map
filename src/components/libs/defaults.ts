@@ -1,40 +1,40 @@
 /**
  * @type {string} Default version for the API
  */
-const VERSION = 'v3/3.0';
+const VERSION = 'v3/3.1';
 
 export const mapTypes = [
-  'normal.map',
-  'normal.xbase',
-  'normal.xbasenight',
-  'normal.basen',
-  'normal.basenight',
-  'normal.mapnight',
-  'normal.traffic',
-  'normal.trafficnight',
-  'normal.transit',
-  'normal.panoram',
-  'normal.panoramnight',
-  'normal.labels',
-  'normal.metaInfo',
-  'satellite.xbase',
-  'satellite.base',
-  'satellite.map',
-  'satellite.traffic',
-  'satellite.panorama',
-  'satellite.labels',
-  'terrain.xbase',
-  'terrain.base',
-  'terrain.map',
-  'terrain.traffic',
-  'terrain.panorama',
-  'terrain.labels',
-  'incidents',
-  'venues',
+  'vector.normal.map',
+  'vector.normal.xbase',
+  'vector.normal.xbasenight',
+  'vector.normal.basen',
+  'vector.normal.basenight',
+  'vector.normal.mapnight',
+  'vector.normal.traffic',
+  'vector.normal.trafficnight',
+  'vector.normal.transit',
+  'vector.normal.panoram',
+  'vector.normal.panoramnight',
+  'vector.normal.labels',
+  'vector.normal.metaInfo',
+  'vector.satellite.xbase',
+  'vector.satellite.base',
+  'vector.satellite.map',
+  'vector.satellite.traffic',
+  'vector.satellite.panorama',
+  'vector.satellite.labels',
+  'vector.terrain.xbase',
+  'vector.terrain.base',
+  'vector.terrain.map',
+  'vector.terrain.traffic',
+  'vector.terrain.panorama',
+  'vector.terrain.labels',
+  'vector.incidents',
+  'vector.venues',
 ] as const;
 export type MAP_TYPES = typeof mapTypes[number];
 
-const MAP_TYPE: MAP_TYPES = 'normal.map';
+const MAP_TYPE: MAP_TYPES = 'vector.normal.map';
 
 const mapOptions = {
   zoom: 8,
@@ -48,7 +48,7 @@ const interactive = false;
 const includeUI = false;
 const containerId = 'HERE_MAP_CONTAINER';
 
-type mapEventTypes =
+export type mapEventTypes =
   | 'pointerdown'
   | 'pointerup'
   | 'pointermove'
@@ -68,7 +68,7 @@ const includePlaces = false;
 // Function that does really nothing, still it is a function, and has its right!
 const noop = () => {};
 
-const mapEvents: Record<mapEventTypes, typeof noop> = {
+export const mapEvents: Record<mapEventTypes, typeof noop> = {
   pointercancel: noop,
   drag: noop,
   dragend: noop,
@@ -88,6 +88,7 @@ export const defaultOptions = {
   VERSION,
   mapEvents,
   MAP_TYPE,
+  mapTypes,
   mapOptions,
   interactive,
   includeUI,

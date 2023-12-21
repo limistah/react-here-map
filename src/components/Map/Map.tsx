@@ -1,16 +1,34 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { defaultOptions } from '../libs/defaults';
+import { MAP_TYPES, defaultOptions } from '../libs/defaults';
 import { PlatformContext } from '../../contexts/platform';
 import { MapContext } from '../../contexts/map';
 import merge from 'lodash.merge';
+import { buildMap } from '../libs/buildMap';
 
 export interface IHMapProps {
-  loadingEl: React.ReactNode;
-  style: React.CSSProperties;
-  container: React.RefObject<HTMLDivElement>;
-  children: React.ReactNode | React.ReactNode[];
-  options: {};
+  loadingEl?: React.ReactNode;
+  style?: React.CSSProperties;
+  children?: React.ReactNode | React.ReactNode[];
+  options?: IHMapOptions;
+  uiLang?: string;
+  ref?: React.RefObject<HTMLDivElement> | null;
+  build?: boolean;
+  interactive?: boolean;
+  useEvents?: boolean;
 }
+
+export type IHMapPropsRequired = Omit<
+  IHMapProps,
+  'loadingEl' | 'style' | 'children' | 'options' | 'ref'
+>;
+
+export interface IHMapOptions {
+  center: { lat: number; lng: number };
+  mapType?: MAP_TYPES;
+}
+
+export type IHMapOptionsMerged = IHMapPropsRequired &
+  IHMapOptions & { container: React.RefObject<HTMLDivElement> | null };
 
 export interface IHMapState {}
 
@@ -18,24 +36,30 @@ export const HMap = (props: IHMapProps) => {
   // const Platform = useHPlatform()
   const platformState = useContext(PlatformContext);
 
-  const containerRef = props.container || useRef<HTMLDivElement>();
-
   const [mapState, setMapState] = useState<IHMapState>({});
 
+  const containerRef = props.ref || useRef<HTMLDivElement>(null);
   useEffect(() => {
     const mergedOptions = merge(
       {
-        container,
+        container: containerRef,
         build: true,
+      },
+      platformState.options,
+      {
+        interactive: props.interactive,
+        useEvents: props.useEvents,
       },
       props.options
     );
+
+
     const buildResult = buildMap(platformState.platform, mergedOptions);
 
     setMapState(buildResult);
-  }, [props]);
+  }, []);
 
-  const { style, loadingEl, container, children } = props;
+  const { style, loadingEl, children } = props;
   // const { options } = this.state.builder;
 
   const options = {};

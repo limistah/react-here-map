@@ -48,6 +48,9 @@
       "limit": "10 KB"
     }
   ],
+  "resolutions": {
+    "jackspeak": "2.1.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.23.6",
     "@babel/preset-env": "^7.23.6",
@@ -73,7 +76,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@limistah/here-map-js": "^3.1.0",
+    "@limistah/here-map-js": "^4.1.2",
     "dot-prop": "^8.0.2",
     "lodash.merge": "^4.6.2"
   }
