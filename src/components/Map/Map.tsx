@@ -53,7 +53,6 @@ export const HMap = (props: IHMapProps) => {
       props.options
     );
 
-
     const buildResult = buildMap(platformState.platform, mergedOptions);
 
     setMapState(buildResult);
@@ -74,16 +73,19 @@ export const HMap = (props: IHMapProps) => {
   const h = window.H;
 
   return (
-    <MapContext.Provider value={mapState}>
-      <div
-        id={defaultOptions.containerId}
-        className={defaultOptions.defaultClassName}
-        style={style}
-        ref={containerRef}
-      >
-        {typeof h === 'undefined' && !options && loading}
-        {typeof h === 'object' && options && children}
-      </div>
-    </MapContext.Provider>
+    // only render map provider when there is a platform state
+    platformState.platform && (
+      <MapContext.Provider value={mapState}>
+        <div
+          id={defaultOptions.containerId}
+          className={defaultOptions.defaultClassName}
+          style={style}
+          ref={containerRef}
+        >
+          {typeof h === 'undefined' && !options && loading}
+          {typeof h === 'object' && options && children}
+        </div>
+      </MapContext.Provider>
+    )
   );
 };

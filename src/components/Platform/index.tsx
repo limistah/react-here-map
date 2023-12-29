@@ -11,7 +11,7 @@ export interface IHPlatform {
 
 export interface IHPlatformState {
   options?: DefaultOptionsType;
-  platform?: any;
+  platform: H.service.Platform | null;
   reInitMap?: () => void;
 }
 
@@ -36,7 +36,7 @@ export const HPlatform = (props: IHPlatform) => {
 
   const [platformState, setPlatformState] = useState<IHPlatformState>({
     reInitMap: initilizePlatform,
-    platform: {},
+    platform: null,
   });
 
   useEffect(() => {
@@ -45,10 +45,10 @@ export const HPlatform = (props: IHPlatform) => {
   }, [platformState.options]);
 
   const { platform, options } = platformState;
-  console.log({ ops: options, platform });
+
   return (
     <PlatformContext.Provider value={platformState}>
-      {platform?.a == options?.apikey &&
+      {typeof platform?.setBaseUrl == 'function' &&
         (options?.app_code || options?.apikey) &&
         props.children}
     </PlatformContext.Provider>

@@ -10,7 +10,8 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 // Please do not use types off of a default export module or else Storybook Docs will suffer.
 // see: https://github.com/storybookjs/storybook/issues/9556
 
-export const Thing: FC<Props> = () => {
+export const Thing: FC<Props> = props => {
+  console.log({ props });
   const renderHereComponents = useHPlatform(
     {
       appId: 'EF8K24SYpkpXUO9rkbfA',

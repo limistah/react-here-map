@@ -10,5 +10,5 @@ export const initHPlatform = (options?: DefaultOptionsType) => {
   if (typeof h === 'undefined' || !h.service) {
     throw new Error('Here Map JavaScript files are not loaded.');
   }
-  return new h.service.Platform({ apikey });
+  return new h.service.Platform({ apikey: String(apikey) });
 };

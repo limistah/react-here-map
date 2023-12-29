@@ -3277,6 +3277,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/heremaps@^3.1.14":
+  version "3.1.14"
+  resolved "https://registry.yarnpkg.com/@types/heremaps/-/heremaps-3.1.14.tgz#a3b26b038db05eff7344e6099ecc6a89813e9012"
+  integrity sha512-jB0VomahI9fJjde6Fwn+nwnDcBFgJNGd4SQSN4pNq0GPImNKJdzgEKO+Ea+uKcWi6iB/ZiWbcpMZqCs3Qu+0QQ==
+
 "@types/html-minifier-terser@^6.0.0":
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/@types/html-minifier-terser/-/html-minifier-terser-6.1.0.tgz#4fc33a00c1d0c16987b1a20cf92d20614c55ac35"

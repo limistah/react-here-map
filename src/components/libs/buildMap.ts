@@ -11,32 +11,27 @@ import {
 } from './defaults';
 import { IHMapOptions, IHMapOptionsMerged } from '../Map';
 import { validateMapType } from './validateMapType';
+import { initInteractionStyles } from './initInteractionStyles';
 
 const initMap = (
   container: React.RefObject<HTMLDivElement>,
   mapLayer: any,
   mapOptions: IHMapOptions
 ) => {
-  // @ts-ignore
-  const h = window.H;
-
   // Instantiate (and display) a map object:
   return (
-    container.current && new h.Map(container.current, mapLayer, mapOptions)
+    container.current && new H.Map(container.current, mapLayer, mapOptions)
   );
 };
 
 export const initInteraction = (
-  map: any,
+  map: H.Map,
   interactive: boolean,
   useEvents: boolean,
   events: typeof mapEvents
 ) => {
-  console.log(interactive, useEvents, map);
-  // @ts-ignore
-  const h = window.H;
   const behavior = interactive
-    ? new h.mapevents.Behavior(new h.mapevents.MapEvents(map))
+    ? new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
     : null;
   if (useEvents && interactive) {
     for (const type in events) {
@@ -61,10 +56,8 @@ export const initDefaultUI = (
     throw new Error('includeUI must be set to true to initialize default UI');
   }
 
-  // @ts-ignore
-  const h = window.H;
   // Create the default UI components
-  return h.ui.UI.createDefault(map, platform.createDefaultLayers(), uiLang);
+  return H.ui.UI.createDefault(map, platform.createDefaultLayers(), uiLang);
 };
 
 export const buildMap = (
@@ -76,10 +69,10 @@ export const buildMap = (
     useEvents,
     mapEvents,
     interactive,
-    // includeUI,
+    includeUI,
     mapType,
     mapOptions,
-    // uiLang,
+    uiLang,
     container,
     build,
   } = options;
@@ -111,18 +104,17 @@ export const buildMap = (
         useEvents,
         mapEvents
       );
-      // if (includeUI) {
-      //   retObject.ui = initDefaultUI(platform, retObject.map, includeUI, uiLang);
-      // }
+      if (includeUI) {
+        retObject.ui = initDefaultUI(
+          platform,
+          retObject.map,
+          includeUI,
+          uiLang
+        );
+      }
       // Adds the grabbing to the document
-      // initInteractionStyles();
+      initInteractionStyles();
     }
-  } else {
-    // ret.createMap = initMap;
-    // ret.createPlatform = initPlatform;
-    // ret.createInteraction = initInteraction;
-    // ret.createDefaultUI = initDefaultUI;
-    // ret.createInteractionStyles = initInteractionStyles;
   }
   return retObject;
 };
