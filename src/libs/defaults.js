@@ -2,26 +2,28 @@
  * @type {string} Default version for the API
  */
 const VERSION = "v3/3.0";
-const MAP_TYPE = "normal.map";
+const MAP_TYPE = "vector.normal.map";
 const _test = true;
 const mapTypes = {
-  normal: [
-    "xbase",
-    "xbasenight",
-    "base",
-    "basenight",
-    "map",
-    "mapnight",
-    "traffic",
-    "trafficnight",
-    "transit",
-    "panorama",
-    "panoramanight",
-    "labels",
-    "metaInfo"
-  ],
-  satellite: ["xbase", "base", "map", "traffic", "panorama", "labels"],
-  terrain: ["xbase", "base", "map", "traffic", "panorama", "labels"],
+  vector: {
+    normal: [
+      "xbase",
+      "xbasenight",
+      "base",
+      "basenight",
+      "map",
+      "mapnight",
+      "traffic",
+      "trafficnight",
+      "transit",
+      "panorama",
+      "panoramanight",
+      "labels",
+      "metaInfo"
+    ],
+    satellite: ["xbase", "base", "map", "traffic", "panorama", "labels"],
+    terrain: ["xbase", "base", "map", "traffic", "panorama", "labels"],
+  },
   incidents: _test,
   venues: _test
 };

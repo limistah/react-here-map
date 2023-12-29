@@ -2,7 +2,7 @@ import dotProp from "dot-prop";
 
 export default (mapTypes, mapType) => {
   const items = mapType.split(".");
-  const mainType = mapTypes[items[0]];
+  const mainType = mapTypes[items[1]];
   // Some of the types are array, and should have the second element in the split type to be an item in it
   const _test = Array.isArray(mainType) && mainType.includes(items[1]);
   const __test = mainType === true;
