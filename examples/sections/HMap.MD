@@ -1,15 +1,20 @@
+
 Displays a Map for the types passed as props or default `normal.map`
 
 Map types
 
-```js static
+---
+```js
 {
-  normal: ["map", "traffic", "panorama", "transit", "base", "xbase", "labels"],
-  satellite: ["xbase", "base", "map", "traffic", "panorama", "labels"],
-  terrain: ["xbase", "base", "map", "traffic", "panorama", "labels"],
-  incidents: true
+  vector: {
+    normal: ["map", "traffic", "panorama", "transit", "base", "xbase", "labels"],
+    satellite: ["xbase", "base", "map", "traffic", "panorama", "labels"],
+    terrain: ["xbase", "base", "map", "traffic", "panorama", "labels"],
+    incidents: true
+  }
 }
 ```
+---
 
 All direct children of `HMap` component receives:
 
@@ -38,12 +43,14 @@ but still holds same object's reference_
 - **mapOptions** PropTypes.object -
   [officially supported options](https://developer.here.com/documentation/maps/topics_api/h-map-options.html)
 
+---
 ```js
 import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
-
+const appId = 'EF8K24SYpkpXUO9rkbfA';
+const apiKey = 'TIAGlD6jic7l9Aa8Of8IFxo3EUemmcZlHm_agfAm6Ew';
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id={appId}
+  app_key={apiKey}
   useCIT
   useHTTPS
   includeUI
@@ -58,3 +65,4 @@ import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
   />
 </HPlatform>;
 ```
+---
