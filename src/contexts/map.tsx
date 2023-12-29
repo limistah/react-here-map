@@ -5,4 +5,4 @@ import { createContext } from 'react';
 import { IHMapState } from '../components/Map';
 
 // create a hook for the platform context
-export const MapContext = createContext<IHMapState>({});
+export const MapContext = createContext<IHMapState>({ map: null, ui: null });

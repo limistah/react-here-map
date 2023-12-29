@@ -3,7 +3,7 @@ import { MAP_TYPES, defaultOptions } from '../libs/defaults';
 import { PlatformContext } from '../../contexts/platform';
 import { MapContext } from '../../contexts/map';
 import merge from 'lodash.merge';
-import { buildMap } from '../libs/buildMap';
+import { IBuildMapResult, buildMap } from '../libs/buildMap';
 
 export interface IHMapProps {
   loadingEl?: React.ReactNode;
@@ -30,13 +30,18 @@ export interface IHMapOptions {
 export type IHMapOptionsMerged = IHMapPropsRequired &
   IHMapOptions & { container: React.RefObject<HTMLDivElement> | null };
 
-export interface IHMapState {}
+export interface IHMapState extends IBuildMapResult {}
 
 export const HMap = (props: IHMapProps) => {
   // const Platform = useHPlatform()
   const platformState = useContext(PlatformContext);
 
-  const [mapState, setMapState] = useState<IHMapState>({});
+  const [mapState, setMapState] = useState<IHMapState>({
+    map: null,
+    ui: null,
+    options: undefined,
+    interaction: null,
+  });
 
   const containerRef = props.ref || useRef<HTMLDivElement>(null);
   useEffect(() => {

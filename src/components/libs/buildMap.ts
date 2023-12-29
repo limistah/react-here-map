@@ -17,7 +17,7 @@ const initMap = (
   container: React.RefObject<HTMLDivElement>,
   mapLayer: any,
   mapOptions: IHMapOptions
-) => {
+): H.Map | null => {
   // Instantiate (and display) a map object:
   return (
     container.current && new H.Map(container.current, mapLayer, mapOptions)
@@ -25,15 +25,16 @@ const initMap = (
 };
 
 export const initInteraction = (
-  map: H.Map,
+  map: H.Map | null,
   interactive: boolean,
   useEvents: boolean,
   events: typeof mapEvents
-) => {
-  const behavior = interactive
-    ? new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
-    : null;
-  if (useEvents && interactive) {
+): H.mapevents.Behavior | null => {
+  const behavior =
+    interactive && map
+      ? new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
+      : null;
+  if (useEvents && interactive && map) {
     for (const type in events) {
       if (events.hasOwnProperty(type)) {
         const callback = events[type as mapEventTypes];
@@ -60,10 +61,17 @@ export const initDefaultUI = (
   return H.ui.UI.createDefault(map, platform.createDefaultLayers(), uiLang);
 };
 
+export interface IBuildMapResult {
+  map: H.Map | null;
+  interaction: H.mapevents.Behavior | null;
+  ui: H.ui.UI | null;
+  options?: IHMapOptionsMerged & DefaultOptionsType & { mapType: MAP_TYPES };
+}
+
 export const buildMap = (
   platform: any,
   options: IHMapOptionsMerged & DefaultOptionsType
-) => {
+): IBuildMapResult => {
   // Get values from the options
   const {
     useEvents,
@@ -77,16 +85,14 @@ export const buildMap = (
     build,
   } = options;
 
-  const retObject: {
-    map?: any;
-    interaction?: any;
-    ui?: any;
-    options: typeof options & { mapType: MAP_TYPES };
-  } = {
+  const retObject: IBuildMapResult = {
+    map: null,
+    interaction: null,
+    ui: null,
     options: { ...options, mapType: mapType || 'vector.normal.map' },
   };
 
-  if (container && build) {
+  if (container && build && retObject.options) {
     validateMapType(retObject.options.mapType);
     // Get all the default layers so we can set which to use based on the map type
     const defaultLayers = platform.createDefaultLayers();
@@ -96,7 +102,7 @@ export const buildMap = (
       retObject.options.mapType
     );
     // Create a Map
-    retObject.map = mapLayer && initMap(container, mapLayer, mapOptions);
+    retObject.map = mapLayer ? initMap(container, mapLayer, mapOptions) : null;
     while (interactive && !retObject.interaction) {
       retObject.interaction = initInteraction(
         retObject.map,
