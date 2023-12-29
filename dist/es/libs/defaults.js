@@ -24,16 +24,14 @@ var includeUI = false;
 var containerId = "HERE_MAP_CONTAINER";
 var _mapEvents = ["pointerdown", "pointerup", "pointermove", "pointerenter", "pointerleave", "pointercancel", "dragstart", "drag", "dragend", "tab", "dbltap"];
 var defaultClassName = "here-map-container";
-var includePlaces = false; // Function that does really nothing, still it is a function, and has its right!
+var includePlaces = false;
 
+// Function that does really nothing, still it is a function, and has its right!
 var noop = function noop() {};
-
 var mapEvents = {};
-
 _mapEvents.map(function (name) {
   return mapEvents[name] = noop;
 });
-
 export default {
   VERSION: VERSION,
   mapTypes: mapTypes,

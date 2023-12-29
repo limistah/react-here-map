@@ -23,26 +23,22 @@ var itemStyle = css({
     cursor: "pointer"
   }
 });
-
 function PlaceItem(props) {
   var item = props.item,
-      itemClass = props.itemClass,
-      iconClass = props.iconClass,
-      getItem = props.getItem;
-
+    itemClass = props.itemClass,
+    iconClass = props.iconClass,
+    getItem = props.getItem;
   var _getItem = typeof getItem == "function" ? getItem : function () {};
-
-  return React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "".concat(itemStyle, " ").concat(itemClass),
     onClick: function onClick(e) {
       return _getItem(item);
     }
-  }, React.createElement("img", {
+  }, /*#__PURE__*/React.createElement("img", {
     className: "".concat(iconStyle, " ").concat(iconClass),
     src: item.icon
   }), item.title);
 }
-
 PlaceItem.propTypes = {
   item: PropTypes.object.isRequired,
   itemClass: PropTypes.string,

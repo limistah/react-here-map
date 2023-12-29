@@ -1,3 +1,4 @@
+
 # react-here-map
 
 React components for rendering and working with
@@ -17,19 +18,24 @@ configuration and modifications.
 
 Using NPM:
 
+---
 ```bash
 npm i --save react-here-map
 ```
+---
 
 Using Yarn:
 
+---
 ```bash
 yarn add react-here-map
 ```
+---
 
 ## General Usage
 
-```js static
+---
+```js
 import React from "react";
 import ReactDOM from "react-dom";
 import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
@@ -47,7 +53,6 @@ const points = [
 ReactDOM.render(
   <HPlatform
     app_id="YOUR_APP_ID"
-    app_code="YOUR_APP_CODE"
     apikey={"YOUR_API_KEY_FOR_V3.1"}
     useCIT
     useHTTPS
@@ -67,6 +72,7 @@ ReactDOM.render(
   document.getElementById("app")
 );
 ```
+---
 
 ## Docs
 
@@ -112,12 +118,12 @@ props.
 A container for all of the components in this library. Generates a platform that
 are injected into all of its direct children.
 
-```js static
+---
+```js
 import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
 
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -127,6 +133,7 @@ import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
   {/*Children come in here*/}
 </HPlatform>;
 ```
+---
 
 All direct children of `HPlatform` component receives:
 
@@ -161,7 +168,8 @@ Displays a Map for the types passed as props or default `normal.map`
 
 Map types
 
-```js static
+---
+```js
 {
   normal: ["map", "traffic", "panorama", "transit", "base", "xbase", "labels"],
   satellite: ["xbase", "base", "map", "traffic", "panorama", "labels"],
@@ -169,6 +177,7 @@ Map types
   incidents: true
 }
 ```
+---
 
 All direct children of `HMap` component receives:
 
@@ -197,12 +206,12 @@ but still holds same object's reference_
 - **mapOptions** PropTypes.object -
   [officially supported options](https://developer.here.com/documentation/maps/topics_api/h-map-options.html)
 
+---
 ```js
 import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
 
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -218,6 +227,7 @@ import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
   />
 </HPlatform>;
 ```
+---
 
 #### HMapPolyLine
 
@@ -234,6 +244,7 @@ Draws a polyline on the map
 
 #### Usage
 
+---
 ```js
 import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
 const points = [
@@ -248,7 +259,6 @@ const points = [
 
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -266,6 +276,7 @@ const points = [
   </HMap>
 </HPlatform>;
 ```
+---
 
 #### HMapPolygon
 
@@ -280,6 +291,7 @@ Draws a polygon on the map
 
 #### Usage
 
+---
 ```js
 import HPlatform, { HMap, HMapPolygon } from "react-here-map";
 
@@ -294,7 +306,6 @@ const polygonOptions = {
 
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -316,6 +327,7 @@ const polygonOptions = {
   </HMap>
 </HPlatform>;
 ```
+---
 
 #### HMapMarker
 
@@ -335,6 +347,7 @@ Puts a marker on the map
 
 ### Usage
 
+---
 ```js
 import HPlatform, { HMap, HMapMarker } from "react-here-map";
 
@@ -350,7 +363,6 @@ const icon =
 
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -368,6 +380,7 @@ const icon =
   </HMap>
 </HPlatform>;
 ```
+---
 
 #### HMapCircle
 
@@ -386,6 +399,7 @@ Puts a circle on the map
 
 ##### Usage
 
+---
 ```js
 import HPlatform, { HMap, HMapCircle } from "react-here-map";
 
@@ -400,7 +414,6 @@ const circleOptions = {
 };
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -418,6 +431,7 @@ const circleOptions = {
   </HMap>
 </HPlatform>;
 ```
+---
 
 #### HMapRectangle
 
@@ -434,6 +448,7 @@ Puts a rectangle on the map
 
 ##### Usage
 
+---
 ```js
 import HPlatform, { HMap, HMapRectangle } from "react-here-map";
 
@@ -447,7 +462,6 @@ const rectangleOptions = {
 };
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -465,6 +479,7 @@ const rectangleOptions = {
   </HMap>
 </HPlatform>;
 ```
+---
 
 ### Event Handling
 
@@ -479,12 +494,12 @@ working code for a `pointerup` event:
 To use an event, you have to pass interactive to the `HPlatform` and pass in
 `useEvents` and `mapEvents` props to the `HMap` like this:
 
+---
 ```js
 import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
 
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -503,6 +518,7 @@ import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
   />
 </HPlatform>;
 ```
+---
 
 #### Map Object event handling
 
@@ -516,6 +532,7 @@ sibling objects of the same `HMap` parent.
 
 ##### Usage
 
+---
 ```js
 import HPlatform, {
   HMap,
@@ -570,7 +587,6 @@ const markerIcon =
 
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -629,6 +645,7 @@ const markerIcon =
   </HMap>
 </HPlatform>;
 ```
+---
 
 #### HMapGeoCode
 
@@ -655,6 +672,7 @@ const markerIcon =
 
 Converts an address to a position on the map
 
+---
 ```js
 import HPlatform, { HMap, HMapGeoCode, HMapMarker } from "react-here-map";
 
@@ -683,7 +701,6 @@ const GeoMarker = ({ map, platform, ui, lat, lng, key }) => (
 // Child of HMapGeoCode receives same params as above.
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -703,11 +720,13 @@ const GeoMarker = ({ map, platform, ui, lat, lng, key }) => (
   </HMap>
 </HPlatform>;
 ```
+---
 
 ##### Position to address(es)
 
 Converts a position to address(es) on the map
 
+---
 ```js
 import HPlatform, { HMap, HMapGeoCode } from "react-here-map";
 // Create the parameters for the reverse geocoding request:
@@ -730,7 +749,6 @@ const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
 // Child of HMapGeoCode receives same params as above.
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -750,11 +768,13 @@ const ReverseGeoMarker = ({ map, platform, ui, lat, lng, location, key }) => {
   </HMap>
 </HPlatform>;
 ```
+---
 
 ###### Landmark Point
 
 Locate landmark positions on the map
 
+---
 ```js
 import HPlatform, { HMap, HMapGeoCode } from "react-here-map";
 
@@ -779,7 +799,6 @@ const landmarkSearchParameters = {
 // Child of HMapGeoCode receives same params as above.
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -799,6 +818,7 @@ const landmarkSearchParameters = {
   </HMap>
 </HPlatform>;
 ```
+---
 
 #### HMapRoute
 
@@ -827,6 +847,7 @@ Shows path to between two points based on params
 
 ###### Using the default renderer
 
+---
 ```js
 import HPlatform, {
   HMap,
@@ -894,7 +915,6 @@ const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
 
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -917,9 +937,11 @@ const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
   </HMap>
 </HPlatform>;
 ```
+---
 
 ###### Using a custom renderer
 
+---
 ```js
 import HPlatform, {
   HMap,
@@ -987,7 +1009,6 @@ const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
 
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -1012,11 +1033,13 @@ const RouteMarker = ({ map, platform, ui, route, key, routeShape }) => {
   </HMap>
 </HPlatform>;
 ```
+---
 
 #### Displaying route on the Map Using iso line
 
 ###### Using the default renderer
 
+---
 ```js
 import HPlatform, { HMap, HMapPolygon, HMapRoute } from "react-here-map";
 // Create the parameters for the reverse geocoding request:
@@ -1071,7 +1094,6 @@ const RouteMarkerIso = ({
 
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -1097,9 +1119,11 @@ const RouteMarkerIso = ({
   </HMap>
 </HPlatform>;
 ```
+---
 
 ###### Using a custom renderer
 
+---
 ```js
 import HPlatform, { HMap, HMapPolygon, HMapRoute } from "react-here-map";
 // Create the parameters for the reverse geocoding request:
@@ -1153,7 +1177,6 @@ const RouteMarkerIso = ({
 
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -1181,6 +1204,7 @@ const RouteMarkerIso = ({
   </HMap>
 </HPlatform>;
 ```
+---
 
 #### HMapLayer
 
@@ -1193,7 +1217,8 @@ Individual layer holds different information
 **mapLayerType**: PropTypes.string.isRequired In a dot prop form e.g
 `mapLayerType="incidents", mapLayerType="normal.traffic"`
 
-```js static
+---
+```js
 {
   normal: [
     "xbase",
@@ -1215,16 +1240,17 @@ Individual layer holds different information
   incidents: true
 }
 ```
+---
 
 ##### Usage
 
+---
 ```js
 import HPlatform, { HMap, HMapLayer } from "react-here-map";
 
 // Child of HMapGeoCode receives same params as above.
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -1242,6 +1268,7 @@ import HPlatform, { HMap, HMapLayer } from "react-here-map";
   </HMap>
 </HPlatform>;
 ```
+---
 
 #### HMapPlaces
 
@@ -1283,12 +1310,12 @@ Search for places on the map
 
 ### Usage
 
+---
 ```js
 import HPlatform, { HMap, HMapPlaces } from "react-here-map";
 
 <HPlatform
   app_id="YOUR_APP_ID"
-  app_code="YOUR_APP_CODE"
   apikey={"YOUR_API_KEY_FOR_V3.1"}
   useCIT
   useHTTPS
@@ -1298,6 +1325,7 @@ import HPlatform, { HMap, HMapPlaces } from "react-here-map";
   <HMapPlaces library="search" />
 </HPlatform>;
 ```
+---
 
 ## CHANGES
 

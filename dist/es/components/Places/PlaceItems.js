@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import PlaceItem from "./PlaceItem";
 import { css } from "glamor";
-
 var _contClass = css({
   bottom: "-52px",
   left: "15px",
@@ -10,17 +9,16 @@ var _contClass = css({
   borderRadius: "5px",
   background: "#00afaa"
 });
-
 var PlaceItems = function PlaceItems(props) {
   var containerClass = props.containerClass,
-      getItem = props.getItem,
-      items = props.items,
-      iconClass = props.iconClass,
-      itemClass = props.itemClass;
-  return React.createElement("div", {
+    getItem = props.getItem,
+    items = props.items,
+    iconClass = props.iconClass,
+    itemClass = props.itemClass;
+  return /*#__PURE__*/React.createElement("div", {
     className: "".concat(_contClass, " ").concat(containerClass)
   }, items.map(function (item) {
-    return React.createElement(PlaceItem, {
+    return /*#__PURE__*/React.createElement(PlaceItem, {
       iconClass: iconClass,
       itemClass: itemClass,
       getItem: getItem,
@@ -29,7 +27,6 @@ var PlaceItems = function PlaceItems(props) {
     });
   }));
 };
-
 PlaceItems.propTypes = {
   items: PropTypes.array.isRequired,
   itemClass: PropTypes.string,

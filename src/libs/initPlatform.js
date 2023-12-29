@@ -1,7 +1,7 @@
 export default (options) => {
-  const { app_id, app_code, apikey } = options;
-  if ((!app_id || !app_code) && !apikey) {
-    throw new Error("Options must include appId and appCode OR an apiKey");
+  const { app_id, apikey } = options;
+  if (!apikey || !app_id) {
+    throw new Error("Options must include app_id and apiKey");
   }
   if (typeof H === "undefined" || !H.service) {
     throw new Error("Here Map JavaScripts is not loaded.");

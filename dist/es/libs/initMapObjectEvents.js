@@ -1,23 +1,21 @@
 var initMapObjectEvents = function initMapObjectEvents(mapObject, objectEvents, platformOptions) {
   var useEvents = platformOptions.useEvents,
-      interactive = platformOptions.interactive,
-      mapEvents = platformOptions.mapEvents;
-
+    interactive = platformOptions.interactive,
+    mapEvents = platformOptions.mapEvents;
   if (useEvents && interactive && objectEvents) {
-    for (var type in mapEvents) {
+    var _loop = function _loop() {
       if (mapEvents.hasOwnProperty(type)) {
-        (function () {
-          var objectEventCallback = objectEvents[type];
-
-          if (objectEventCallback && typeof objectEventCallback === "function") {
-            mapObject.addEventListener(type, function (evt) {
-              objectEventCallback.apply(null, arguments);
-            });
-          }
-        })();
+        var objectEventCallback = objectEvents[type];
+        if (objectEventCallback && typeof objectEventCallback === "function") {
+          mapObject.addEventListener(type, function (evt) {
+            objectEventCallback.apply(null, arguments);
+          });
+        }
       }
+    };
+    for (var type in mapEvents) {
+      _loop();
     }
   }
 };
-
 module.exports = initMapObjectEvents;

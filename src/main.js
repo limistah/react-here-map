@@ -217,8 +217,8 @@ const RouteMarkerIso = ({
 ReactDOM.render(
   <React.Fragment>
     <HMapPlatform
-      app_id="2Ts3vDUTLPW8kNUtyFRY"
-      app_code="MDivMVFtNkpim-dWuetlWw"
+      apikey={""}
+      api_code={""}
       useCIT={true}
       useHTTPS={true}
       includePlaces={true}
@@ -229,7 +229,7 @@ ReactDOM.render(
 
     <HMapPlatform
       app_id="2Ts3vDUTLPW8kNUtyFRY"
-      app_code="MDivMVFtNkpim-dWuetlWw"
+      apikey="MDivMVFtNkpim-dWuetlWw"
       useCIT={true}
       useHTTPS={true}
       includeUI={true}

@@ -1,3 +1,4 @@
+
 React components for rendering and working with
 [Here Maps](https://www.here.com/).
 
@@ -11,19 +12,24 @@ configuration and modifications.
 
 Using NPM:
 
+---
 ```bash
 npm i --save react-here-map
 ```
+---
 
 Using Yarn:
 
+---
 ```bash
 yarn add react-here-map
 ```
+---
 
 ## General Usage
 
-```js static
+---
+```js
 import React from "react";
 import ReactDOM from "react-dom";
 import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
@@ -41,7 +47,6 @@ const points = [
 ReactDOM.render(
   <HPlatform
     app_id="YOUR_APP_ID"
-    app_code="YOUR_APP_CODE"
     apikey={"YOUR_API_KEY_FOR_V3.1"}
     useCIT
     useHTTPS
@@ -61,3 +66,4 @@ ReactDOM.render(
   document.getElementById("app")
 );
 ```
+---

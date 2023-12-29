@@ -1,12 +1,15 @@
+
 A container for all of the components in this library. Generates a platform that
 are injected into all of its direct children.
 
-```js static
-import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
-
+---
+```js
+import HPlatform from "react-here-map";
+const appId = 'EF8K24SYpkpXUO9rkbfA';
+const apiKey = 'TIAGlD6jic7l9Aa8Of8IFxo3EUemmcZlHm_agfAm6Ew';
 <HPlatform
-  app_id="2Ts3vDUTLPW8kNUtyFRY"
-  app_code="MDivMVFtNkpim-dWuetlWw"
+  app_id={appId}
+  app_key={apiKey}
   useCIT
   useHTTPS
   includeUI
@@ -15,6 +18,7 @@ import HPlatform, { HMap, HMapPolyLine } from "react-here-map";
   {/*Children come in here*/}
 </HPlatform>;
 ```
+---
 
 All direct children of `HPlatform` component receives:
 
