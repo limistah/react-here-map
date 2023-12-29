@@ -50,7 +50,7 @@ const appId = 'EF8K24SYpkpXUO9rkbfA';
 const apiKey = 'TIAGlD6jic7l9Aa8Of8IFxo3EUemmcZlHm_agfAm6Ew';
 <HPlatform
   app_id={appId}
-  app_key={apiKey}
+  apikey={apiKey}
   useCIT
   useHTTPS
   includeUI
