@@ -22,9 +22,9 @@ export type IHMapPropsRequired = Omit<
   'loadingEl' | 'style' | 'children' | 'options' | 'ref'
 >;
 
-export interface IHMapOptions extends H.Map.Options {
+export type IHMapOptions = H.Map.Options & {
   mapType?: MAP_TYPES;
-}
+};
 
 export type IHMapOptionsMerged = IHMapPropsRequired & {
   container: React.RefObject<HTMLDivElement> | null;

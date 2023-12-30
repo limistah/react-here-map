@@ -11,6 +11,11 @@ const points = [
   { lat: 52.5166, lng: 13.3833 },
 ];
 
+function logEvent(evt) {
+  const evtLog = ['event "', evt.type, '" @ ' + evt.target.getData()].join('');
+  console.log(evtLog);
+}
+
 const meta: Meta = {
   title: 'HMapPolyline',
   component: HMap,
@@ -19,12 +24,19 @@ const meta: Meta = {
     points,
     setVisibility: true,
     options: { style: { lineWidth: 4 } },
+    events: {
+      pointerdown: logEvent,
+      pointerenter: logEvent,
+      pointerleave: logEvent,
+      pointermove: logEvent,
+    },
   },
 };
 
 export default meta;
 
 const Template: Story<IHMapPolylineProps> = args => {
+  console.log(args);
   const renderHMapComponents = useHPlatform(
     {
       appId,

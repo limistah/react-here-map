@@ -1,10 +1,13 @@
 import { useContext, useEffect } from 'react';
 import { MapContext } from '../../../../contexts/map';
+import { initMapObjectEvents } from '../../../libs/initMapObjectEvents';
+import { mapEvents } from '../../../libs/defaults';
 
 export interface IHMapPolylineProps {
   points: H.geo.IPoint[];
   options?: H.map.Polyline.Options;
   setViewBounds: boolean;
+  events: typeof mapEvents;
 }
 
 export const HMapPolyline = (props: IHMapPolylineProps) => {
@@ -19,7 +22,8 @@ export const HMapPolyline = (props: IHMapPolylineProps) => {
     );
   }
   useEffect(() => {
-    const { points, options } = props;
+    console.log(props);
+    const { points, options, events } = props;
     // Initialize a LineString and add all the points to it:
     const lineString = new H.geo.LineString();
     points.forEach(function(point) {
@@ -33,11 +37,12 @@ export const HMapPolyline = (props: IHMapPolylineProps) => {
     });
     mapContext.map?.setZoom(4);
     // Add event listener to the object if intention of using the object is defined
-    initMapObjectEvents(polyLine, objectEvents, __options);
+    const { useEvents, interactive } = mapContext.options || {};
+    initMapObjectEvents(polyLine, events, {
+      interactive: Boolean(interactive),
+      useEvents: Boolean(useEvents),
+    });
     mapContext.map?.addObject(polyLine);
-
-    // Add the polyLine to the map:
-    // console.log(polyLine.getBoundingBox());
   }, [props.points]);
 
   return null;
