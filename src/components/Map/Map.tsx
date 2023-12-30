@@ -22,17 +22,18 @@ export type IHMapPropsRequired = Omit<
   'loadingEl' | 'style' | 'children' | 'options' | 'ref'
 >;
 
-export interface IHMapOptions {
-  center: { lat: number; lng: number };
+export interface IHMapOptions extends H.Map.Options {
   mapType?: MAP_TYPES;
 }
 
-export type IHMapOptionsMerged = IHMapPropsRequired &
-  IHMapOptions & { container: React.RefObject<HTMLDivElement> | null };
+export type IHMapOptionsMerged = IHMapPropsRequired & {
+  container: React.RefObject<HTMLDivElement> | null;
+};
 
 export interface IHMapState extends IBuildMapResult {}
 
 export const HMap = (props: IHMapProps) => {
+  // props.options?.center
   // const Platform = useHPlatform()
   const platformState = useContext(PlatformContext);
 
@@ -52,10 +53,15 @@ export const HMap = (props: IHMapProps) => {
       },
       platformState.options,
       {
+        mapOptions: {
+          ...platformState.options?.mapOptions,
+          ...props.options,
+        },
+      },
+      {
         interactive: props.interactive,
         useEvents: props.useEvents,
-      },
-      props.options
+      }
     );
 
     const buildResult = buildMap(platformState.platform, mergedOptions);
@@ -74,9 +80,6 @@ export const HMap = (props: IHMapProps) => {
 
   const loading = loadingEl || <LoadingComponent />;
 
-  // @ts-ignore
-  const h = window.H;
-
   return (
     // only render map provider when there is a platform state
     platformState.platform && (
@@ -87,8 +90,8 @@ export const HMap = (props: IHMapProps) => {
           style={style}
           ref={containerRef}
         >
-          {typeof h === 'undefined' && !options && loading}
-          {typeof h === 'object' && options && children}
+          {typeof H === 'undefined' && !options && loading}
+          {typeof H === 'object' && mapState.map && options && children}
         </div>
       </MapContext.Provider>
     )

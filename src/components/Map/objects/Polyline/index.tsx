@@ -1,16 +1,16 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { MapContext } from '../../../../contexts/map';
 
 export interface IHMapPolylineProps {
   points: H.geo.IPoint[];
-  options: H.map.Polyline.Options;
-  setViewBounds: false;
+  options?: H.map.Polyline.Options;
+  setViewBounds: boolean;
 }
 
 export const HMapPolyline = (props: IHMapPolylineProps) => {
   const mapContext = useContext(MapContext);
   if (!mapContext.map) {
-    throw new Error('HMap has to be initialized before adding Map Objects');
+    throw new Error('HMapPolyline must be a child of HMap');
   }
 
   if (!Array.isArray(props.points)) {
@@ -19,7 +19,7 @@ export const HMapPolyline = (props: IHMapPolylineProps) => {
     );
   }
   useEffect(() => {
-    const { points, options, setViewBounds } = props;
+    const { points, options } = props;
     // Initialize a LineString and add all the points to it:
     const lineString = new H.geo.LineString();
     points.forEach(function(point) {
@@ -28,17 +28,16 @@ export const HMapPolyline = (props: IHMapPolylineProps) => {
 
     // Initialize a polyLine with the lineString:
     const polyLine = new H.map.Polyline(lineString, options);
-
+    mapContext?.map?.getViewModel().setLookAtData({
+      bounds: polyLine.getBoundingBox(),
+    });
+    mapContext.map?.setZoom(4);
     // Add event listener to the object if intention of using the object is defined
-    // initMapObjectEvents(polyLine, objectEvents, __options);
-
-    // Add the polyLine to the map:
+    initMapObjectEvents(polyLine, objectEvents, __options);
     mapContext.map?.addObject(polyLine);
 
-    if (polyLine) {
-      // Zoom the map to make sure the whole polyLine is visible:
-      polyLine.setVisibility(setViewBounds);
-    }
+    // Add the polyLine to the map:
+    // console.log(polyLine.getBoundingBox());
   }, [props.points]);
 
   return null;

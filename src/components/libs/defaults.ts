@@ -42,6 +42,7 @@ const mapOptions = {
     lat: 6.5243793,
     lng: 3.3792057,
   },
+  mapType: MAP_TYPE,
 };
 const useEvents = false;
 const interactive = false;

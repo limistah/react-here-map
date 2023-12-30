@@ -19,9 +19,11 @@ const initMap = (
   mapOptions: IHMapOptions
 ): H.Map | null => {
   // Instantiate (and display) a map object:
-  return (
-    container.current && new H.Map(container.current, mapLayer, mapOptions)
-  );
+  const map = container.current
+    ? new H.Map(container.current, mapLayer, mapOptions)
+    : null;
+  map?.setCenter(mapOptions.center as H.geo.Point);
+  return map;
 };
 
 export const initInteraction = (
@@ -78,7 +80,6 @@ export const buildMap = (
     mapEvents,
     interactive,
     includeUI,
-    mapType,
     mapOptions,
     uiLang,
     container,
@@ -89,7 +90,7 @@ export const buildMap = (
     map: null,
     interaction: null,
     ui: null,
-    options: { ...options, mapType: mapType || 'vector.normal.map' },
+    options: { ...options, mapType: mapOptions.mapType || 'vector.normal.map' },
   };
 
   if (container && build && retObject.options) {
