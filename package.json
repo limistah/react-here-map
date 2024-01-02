@@ -17,7 +17,6 @@
     "url": "https://github.com/limistah/react-here-map/issues"
   },
   "homepage": "https://github.com/limistah/react-here-map#readme",
-  
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
@@ -79,12 +78,14 @@
     "react-is": "^18.2.0",
     "size-limit": "^11.0.1",
     "storybook": "^7.6.5",
+    "storybook-addon-react-docgen": "^1.2.44",
     "tsdx": "^0.14.1",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
     "@limistah/here-map-js": "^4.1.2",
+    "@storybook/addon-docs": "^7.6.6",
     "dot-prop": "^8.0.2",
     "lodash.merge": "^4.6.2"
   }

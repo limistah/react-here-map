@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { HPlatform, IHPlatform } from '../src/';
 const appId = 'EF8K24SYpkpXUO9rkbfA';
 const apiKey = 'TIAGlD6jic7l9Aa8Of8IFxo3EUemmcZlHm_agfAm6Ew';
-const meta: Meta = {
+const meta: Meta<typeof HPlatform> = {
   title: 'HPlatform JSX',
   component: HPlatform,
   args: {

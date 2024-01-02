@@ -13,7 +13,7 @@ const optionMerger = (options: ILoadHMapOptions) => {
   });
 };
 
-export interface ILoadHMapOptions {
+export class ILoadHMapOptions {
   version?: string; // Version of the api to load. Defaults to v3
   interactive?: boolean; // Adds interactive scripts
   includeUI?: boolean; // Should add the UI scripts
