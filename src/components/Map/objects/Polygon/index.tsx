@@ -5,14 +5,14 @@ import { BaseMapObject } from '../BaseMapObject';
 import { IHMapState } from '../../Map';
 import React from 'react';
 
-export interface IHMapPolylineProps {
-  points: H.geo.IPoint[];
+export interface IHMapPolygonProps {
+  points: number[] | [string];
   options?: H.map.Polyline.Options;
   setViewBounds: boolean;
   events: typeof mapEvents;
 }
 
-export const HMapPolyline = (props: IHMapPolylineProps) => {
+export const HMapPolygon = (props: IHMapPolygonProps) => {
   if (!Array.isArray(props.points)) {
     throw new Error(
       'points should be an array of objects containing lat and lng properties'
@@ -21,25 +21,35 @@ export const HMapPolyline = (props: IHMapPolylineProps) => {
   const initFn = useCallback(
     (mapContext: IHMapState) => {
       const { points, options, events } = props;
-      // Initialize a LineString and add all the points to it:
-      const lineString = new H.geo.LineString();
-      points.forEach(function(point) {
-        lineString.pushPoint(point);
-      });
 
-      // Initialize a polyLine with the lineString:
-      const polyLine = new H.map.Polyline(lineString, options);
+      let lineString: H.geo.LineString;
+      const firstEl = points[0];
+      if (typeof firstEl === 'string' && firstEl.split(',').length === 2) {
+        lineString = new H.geo.LineString();
+        const p = points as string[];
+        p.forEach(function(coords: string) {
+          const c = coords.split(',').map(c => Number(c));
+          // c has to be lat, lng, alt
+          lineString.pushLatLngAlt.apply(lineString, [c[0], c[1], c[2]]);
+        });
+      } else {
+        lineString = new H.geo.LineString(points as number[]);
+      }
+
+      // Initialize a LineString and add all the points to it:
+      const polygon = new H.map.Polygon(lineString, options);
+
       mapContext?.map?.getViewModel().setLookAtData({
-        bounds: polyLine.getBoundingBox(),
+        bounds: polygon.getBoundingBox(),
       });
       mapContext.map?.setZoom(4);
       // Add event listener to the object if intention of using the object is defined
       const { useEvents, interactive } = mapContext.options || {};
-      initMapObjectEvents(polyLine, events, {
+      initMapObjectEvents(polygon, events, {
         interactive: Boolean(interactive),
         useEvents: Boolean(useEvents),
       });
-      mapContext.map?.addObject(polyLine);
+      mapContext.map?.addObject(polygon);
     },
     [props.points]
   );
