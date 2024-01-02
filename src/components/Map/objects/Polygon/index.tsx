@@ -37,22 +37,16 @@ export const HMapPolygon = (props: IHMapPolygonProps) => {
       }
 
       // Initialize a LineString and add all the points to it:
-      const polygon = new H.map.Polygon(lineString, options);
-
-      mapContext?.map?.getViewModel().setLookAtData({
-        bounds: polygon.getBoundingBox(),
-      });
-      mapContext.map?.setZoom(4);
-      // Add event listener to the object if intention of using the object is defined
-      const { useEvents, interactive } = mapContext.options || {};
-      initMapObjectEvents(polygon, events, {
-        interactive: Boolean(interactive),
-        useEvents: Boolean(useEvents),
-      });
-      mapContext.map?.addObject(polygon);
+      return new H.map.Polygon(lineString, options);
     },
     [props.points]
   );
 
-  return <BaseMapObject initializeDeps={props.points} initializeFn={initFn} />;
+  return (
+    <BaseMapObject
+      initializeDeps={props.points}
+      initializeFn={initFn}
+      events={props.events}
+    />
+  );
 };
