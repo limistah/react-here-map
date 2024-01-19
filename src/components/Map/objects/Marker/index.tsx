@@ -19,7 +19,7 @@ export const HMapMarker = (props: IHMapMarkerProps) => {
   }
   const initFn = useCallback(() => {
     const { coords, options, icon } = props;
-    const _options = { ...options };
+    const _options: H.map.Marker.Options | undefined = { ...options };
     if (icon) _options.icon = new H.map.Icon(icon);
     return new H.map.Marker(coords, _options);
   }, [props.coords]);

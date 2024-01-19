@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { MapContext } from '../../../contexts/map';
 import { IHMapState } from '../Map';
 import { initMapObjectEvents } from '../../libs/initMapObjectEvents';
