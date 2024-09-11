@@ -2,6 +2,7 @@ Adds a layer to the map.
 
 Individual layer holds different information
 
+
 ##### props
 
 **mapLayerType**: PropTypes.string.isRequired In a dot prop form e.g

@@ -55,6 +55,7 @@ import HPlatform, {
   HMapRectangle
 } from "react-here-map";
 
+
 const rectanglePoints = [51.5072, 0, 48.8567, 2.3508];
 const rectangleOptions = {
   style: {

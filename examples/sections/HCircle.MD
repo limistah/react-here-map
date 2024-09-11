@@ -13,6 +13,7 @@ Puts a circle on the map
 
 ### Usage
 
+
 ```js
 import HPlatform, { HMap, HMapCircle } from "react-here-map";
 
