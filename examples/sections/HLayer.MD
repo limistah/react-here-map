@@ -6,6 +6,7 @@ Individual layer holds different information
 ##### props
 
 **mapLayerType**: PropTypes.string.isRequired In a dot prop form e.g
+
 `mapLayerType="incidents", mapLayerType="normal.traffic"`
 
 ```js static

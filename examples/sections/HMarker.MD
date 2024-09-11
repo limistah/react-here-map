@@ -2,6 +2,7 @@ Puts a marker on the map
 
 ### Props
 
+
 - **coords**: PropTypes.object.isRequired Object with lat and lng for the marker
 - **icon**: PropTypes.any.isRequired Icon for the marker
 - **options** PropTypes.object

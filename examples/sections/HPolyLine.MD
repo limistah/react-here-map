@@ -1,5 +1,6 @@
 Draws a polyline on the map
 
+
 ### Props
 
 - **points**: PropTypes.array.isRequired - Array of objects containing lat and
