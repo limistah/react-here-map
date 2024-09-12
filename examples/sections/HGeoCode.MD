@@ -74,6 +74,7 @@ const GeoMarker = ({ map, platform, ui, lat, lng, key }) => (
 
 Converts a position to address(es) on the map
 
+
 ```js
 import HPlatform, { HMap, HMapGeoCode } from "react-here-map";
 // Create the parameters for the reverse geocoding request:

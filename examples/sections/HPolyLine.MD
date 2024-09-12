@@ -24,6 +24,7 @@ const points = [
   { lat: 52.5321472, lng: 13.3935785 }
 ];
 
+
 <HPlatform
   app_id="2Ts3vDUTLPW8kNUtyFRY"
   app_code="MDivMVFtNkpim-dWuetlWw"

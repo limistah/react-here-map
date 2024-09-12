@@ -44,4 +44,5 @@ const icon =
     <HMapMarker coords={coords} icon={icon} />
   </HMap>
 </HPlatform>;
+
 ```
