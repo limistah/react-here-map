@@ -55,6 +55,7 @@ import HPlatform, {
   HMapRectangle
 } from "react-here-map";
 
+
 const rectanglePoints = [51.5072, 0, 48.8567, 2.3508];
 const rectangleOptions = {
   style: {
@@ -63,7 +64,7 @@ const rectangleOptions = {
     lineWidth: 8
   }
 };
-const circleCoords = { lat: 52.3667, lng: 4.9 };
+const circleCoords = { lat: 52.3667, lng: 4.90 };
 const circleOptions = {
   style: {
     strokeColor: "rgba(55, 85, 170, 0.6)", // Color of the perimeter

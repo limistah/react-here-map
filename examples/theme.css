@@ -5,7 +5,7 @@
 }
 
 .container > p {
-  font-size: 1rem;
+  font-size: 1.50rem;
 }
 
 .container > em {
@@ -33,5 +33,5 @@
 }
 
 .dropzone.disabled {
-  opacity: 0.6;
+  opacity: 0.600;
 }

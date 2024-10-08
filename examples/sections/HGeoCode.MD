@@ -47,6 +47,7 @@ const GeoMarker = ({ map, platform, ui, lat, lng, key }) => (
   />
 );
 // Child of HMapGeoCode receives same params as above.
+
 <HPlatform
   app_id="2Ts3vDUTLPW8kNUtyFRY"
   app_code="MDivMVFtNkpim-dWuetlWw"
@@ -72,6 +73,7 @@ const GeoMarker = ({ map, platform, ui, lat, lng, key }) => (
 ##### Position to address(es)
 
 Converts a position to address(es) on the map
+
 
 ```js
 import HPlatform, { HMap, HMapGeoCode } from "react-here-map";

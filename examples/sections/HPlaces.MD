@@ -1,5 +1,7 @@
 Puts a marker on the map
 
+
+
 ### Props
 
 - **library**: PropTypes.string.isRequired One of the places library supported

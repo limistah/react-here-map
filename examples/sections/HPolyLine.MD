@@ -1,5 +1,6 @@
 Draws a polyline on the map
 
+
 ### Props
 
 - **points**: PropTypes.array.isRequired - Array of objects containing lat and
@@ -22,6 +23,7 @@ const points = [
   { lat: 52.5320399, lng: 13.3925807 },
   { lat: 52.5321472, lng: 13.3935785 }
 ];
+
 
 <HPlatform
   app_id="2Ts3vDUTLPW8kNUtyFRY"

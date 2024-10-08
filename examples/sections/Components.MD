@@ -18,3 +18,6 @@
    direct child of the map
 1. **[HMapLayer](#section-layer)** - Adds additional informational layer on the
    map. A direct child of the map
+
+   
+   
