@@ -1,5 +1,4 @@
 
-
 # react-here-map
 
 React components for rendering and working with
@@ -24,7 +23,6 @@ Using NPM:
 npm i --save react-here-map
 ```
 ---
-
 Using Yarn:
 
 ---
@@ -32,7 +30,6 @@ Using Yarn:
 yarn add react-here-map
 ```
 ---
-
 ## General Usage
 
 ---
@@ -103,7 +100,6 @@ ReactDOM.render(
 );
 ```
 ---
-
 ## CHANGES
 
 **06/05/2020**
@@ -112,7 +108,7 @@ ReactDOM.render(
 
 ## Contributions
 
-See the TODO.MD
+See the [./CONTRIBUTING.MD](CONTRIBUTING.MD)
 
 ## Licence
 
