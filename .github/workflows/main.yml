@@ -1,5 +1,9 @@
-name: CI
-on: [push]
+name: Deploy the changes
+on: 
+  push:
+    branches:
+      - 2_0
+
 jobs:
   build-and-deploy:
     name: Build, lint, and test on Node 14.x
@@ -17,12 +21,6 @@ jobs:
 
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
-
-      # - name: Lint
-      #   run: yarn lint
-
-      # - name: Test
-      #   run: yarn test --ci --coverage --maxWorkers=2
 
       - name: Build
         run: yarn build && yarn build-storybook

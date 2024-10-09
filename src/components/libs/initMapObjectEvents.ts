@@ -6,7 +6,6 @@ export const initMapObjectEvents = (
   platformOptions: Pick<DefaultOptionsType, 'useEvents' | 'interactive'>
 ) => {
   const { useEvents, interactive } = platformOptions;
-  console.log(objectEvents);
   if (useEvents && interactive && objectEvents) {
     for (const type in objectEvents) {
       if (objectEvents.hasOwnProperty(type)) {
