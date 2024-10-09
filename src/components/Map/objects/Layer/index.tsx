@@ -14,7 +14,7 @@ export const HMapLayer = (props: IHMapLayerProps) => {
   const mapContext = useContext(MapContext);
   const platformContext = useContext(PlatformContext);
   if (!mapContext.map) {
-    throw new Error('A map Object must be a child of HMap');
+    throw new Error('A map Object must be a child of <HMap />');
   }
   validateMapType(type);
 

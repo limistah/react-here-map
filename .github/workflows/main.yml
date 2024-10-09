@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - 2_0
+
 jobs:
   build-and-deploy:
     name: Build, lint, and test on Node 14.x
